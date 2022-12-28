@@ -1,21 +1,32 @@
 import './App.css'
 import Papa from 'papaparse';
+import {useEffect, useState} from "react";
+import ReunionFiles from "./ReunionFiles";
 
-const App =  async () => {
-    const data = Papa.parse('./thefiles.csv', {
-        header: true,
-        download: true,
-        dynamicTyping: true,
-        complete: ({ data }) => {
-            console.log(data)
-        }
-    })
+const App = () => {
+    const [loading,setLoading]=useState(true)
+    const [data,setData]=useState([])
+
+    useEffect(() => {
+        setLoading(true)
+
+        Papa.parse('./thefiles.csv', {
+            header: true,
+            download: true,
+            dynamicTyping: true,
+            complete: ({data}) => {
+                setLoading(false)
+                // @ts-ignore
+                setData(data)
+            }
+        })
+
+        setLoading(false)
+    },[])
 
     return (
-      <h1 className="text-3xl font-bold underline">
-          Hello world!
-      </h1>
-  )
+        <ReunionFiles data={data} loading={loading}/>
+   )
 }
 
 export default App
