@@ -10,7 +10,7 @@ const App = () => {
     const [loading,setLoading]=useState(true)
     const [data,setData]=useState([] as any)
     const [pageNumber,setPageNumber]=useState(0)
-    const [fileFilter,setFileFilter]=useState('')
+    const [fileFilter, setFileFilter]=useState('')
 
     useEffect(() => {
         setLoading(true)
@@ -30,11 +30,30 @@ const App = () => {
     },[])
 
     const search = (e:any) => {
-        setFileFilter(e.target.value)
+        setFileFilter(e.target.value.toLowerCase())
         setPageNumber(0)
     }
 
-    const files = filter(data, method('name.match', new RegExp(fileFilter, 'i')))
+    const isSubsequence = (str1:string|undefined, str2:string) => {
+        if(!str1)return true
+        if(!str2)return false
+
+        let i=0;
+        let j=0;
+        while(i<str1.length){
+            if(j===str2.length){
+                return false;
+            }
+            if(str1[i].toLowerCase()===str2[j].toLowerCase()){
+                i++;
+            }
+            j++;
+        };
+        return true;
+    };
+
+    const files = filter(data, (file)=>isSubsequence(fileFilter,file.name))
+
     const file = files[pageNumber] || files[0]
 
     return (
