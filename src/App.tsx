@@ -1,9 +1,10 @@
 import './App.css'
 import Papa from 'papaparse';
 import React, {useEffect, useState} from "react";
-import ReunionFile from "./ReunionFile";
 import filter from "lodash/filter";
 import method from "lodash/method";
+import ReunionFile from "./ReunionFile";
+import csv from './data/thefiles.csv?url'
 
 const App = () => {
     const [loading,setLoading]=useState(true)
@@ -14,7 +15,7 @@ const App = () => {
     useEffect(() => {
         setLoading(true)
 
-        Papa.parse('./thefiles.csv', {
+        Papa.parse(csv, {
             header: true,
             download: true,
             dynamicTyping: true,
