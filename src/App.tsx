@@ -1,5 +1,5 @@
 import './App.css'
-import Papa from 'papaparse'
+import { usePapaParse } from 'react-papaparse'
 import React, { useEffect, useState } from 'react'
 import filter from 'lodash/filter'
 import ReunionFile from './ReunionFile'
@@ -12,10 +12,12 @@ const App = () => {
   const [pageNumber, setPageNumber] = useState(0)
   const [fileFilter, setFileFilter] = useState('')
 
+  const { readRemoteFile } = usePapaParse()
+
   useEffect(() => {
     setLoading(true)
 
-    Papa.parse(csv, {
+    readRemoteFile(csv, {
       header: true,
       download: true,
       dynamicTyping: true,
@@ -28,7 +30,7 @@ const App = () => {
     setLoading(false)
   }, [])
 
-  const search = (e: any) => {
+  const search = (e: { target: { value: string } }) => {
     setFileFilter(e.target.value.toLowerCase())
     setPageNumber(0)
   }
@@ -36,7 +38,7 @@ const App = () => {
   const files = filter(data, ({ name }) => {
     if (!name) return false
     if (!fileFilter) return true
-    return fileFilter.split(' ').every((searchString) => name.toLowerCase().includes(searchString.toLowerCase()))
+    return fileFilter.split(' ').every((searchString) => name.toLowerCase().match(searchString.toLowerCase().trim()))
   })
 
   const file = files[pageNumber] || files[0]
