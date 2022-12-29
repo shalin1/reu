@@ -3,16 +3,19 @@ import range from 'lodash/range'
 
 interface Props {
   file: any
-  setFileFilter: (i: string) => void
+  search: (string: string) => void
 }
 
-const FileLinks: React.FC<Props> = ({ file, setFileFilter }) => (
+const FileLinks: React.FC<Props> = ({ file, search }) => (
   <div className="flex flex-col sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
     {range(1, 5).map((quadrant) => (
       <div className="flex flex-col border-x-[1px] border-black" key={quadrant}>
         <h3 className="bg-green-200 border-black border-y-2 border-x-[1px]">Quadrant {quadrant}</h3>
         {range(1, 9).map((linkNum) => {
-          const link = file[`q${quadrant}_link_${linkNum}`]
+          const str = `q${quadrant}_link_${linkNum}`
+          console.log(str)
+          console.log(file)
+          const link = file[str]
           const linkDescription = file[`q${quadrant}_link_${linkNum}_description`]
 
           return (
@@ -20,7 +23,7 @@ const FileLinks: React.FC<Props> = ({ file, setFileFilter }) => (
             <div
               className="flex h-16 hover:cursor-pointer relative"
               key={`q${quadrant}_link_${linkNum}`}
-              onClick={() => setFileFilter(link)}
+              onClick={() => search(link)}
             >
               <div className="w-[28px] flex items-center justify-center border-neutral-800 border-r-[1px] border-b-[1px] bg-[#c5f7c5]">
                 {linkNum}

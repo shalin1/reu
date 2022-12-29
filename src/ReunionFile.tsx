@@ -11,19 +11,18 @@ interface Props {
   loading: boolean
   pageNumber: number
   setPageNumber: (i: number) => void
-  setFileFilter: (i: string) => void
+  search: (str: string) => void
 }
 
-const ReunionFile: React.FC<Props> = ({ file, loading, pageNumber, setPageNumber, setFileFilter }) => {
-  if (loading) return <h1>Loading...</h1>
-  if (!file) return <h1>Try again...</h1>
+const ReunionFile: React.FC<Props> = ({ file, loading, pageNumber, setPageNumber, search }) => {
+  if (loading || !file) return <h1>Loading...</h1>
 
   return (
     <>
       <div className="flex justify-between">
         <h1 className="text-xl">{file?.name}</h1>
         <div className="flex">
-          <div onClick={() => setPageNumber(pageNumber - 1)} className={'mr-xl' + (pageNumber > 0 ? '' : 'hidden')}>
+          <div onClick={() => setPageNumber(pageNumber - 1)} className={'mr-xl' + (pageNumber === 0 && 'hidden')}>
             {'<'}
           </div>
           <span>
@@ -34,7 +33,7 @@ const ReunionFile: React.FC<Props> = ({ file, loading, pageNumber, setPageNumber
           </div>
         </div>
       </div>
-      <FileLinks file={file} setFileFilter={setFileFilter} />
+      <FileLinks file={file} search={search} />
       {file.description && <div className="border-solid border-2 border-grey-700">{file.description}</div>}
     </>
   )

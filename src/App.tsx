@@ -30,27 +30,32 @@ const App = () => {
     setLoading(false)
   }, [])
 
-  const search = (e: { target: { value: string } }) => {
-    setFileFilter(e.target.value.toLowerCase())
+  const search = (string: string) => {
+    setFileFilter(string.toLowerCase())
     setPageNumber(0)
   }
 
   const files = filter(data, ({ name }) => {
     if (!name) return false
     if (!fileFilter) return true
-    return fileFilter.split(' ').every((searchString) => name.toLowerCase().match(searchString.toLowerCase().trim()))
+    return fileFilter.split(' ').every((searchString) => name.toLowerCase().includes(searchString.toLowerCase().trim()))
   })
 
-  const file = files[pageNumber] || files[0]
+  const file = files[pageNumber]
 
   return (
     <>
-      <input className="border-2 border-solid border-black" type="text" value={fileFilter} onChange={search} />
+      <input
+        className="border-2 border-solid border-black"
+        type="text"
+        value={fileFilter}
+        onChange={(event) => search(event.target.value)}
+      />
       <ReunionFile
         file={file}
         loading={loading && file}
         pageNumber={pageNumber}
-        setFileFilter={setFileFilter}
+        search={search}
         setPageNumber={setPageNumber}
       />
     </>
