@@ -33,26 +33,11 @@ const App = () => {
     setPageNumber(0)
   }
 
-  const isSubsequence = (str1: string | undefined, str2: string) => {
-    if (!str1) return true
-    if (!str2) return false
-
-    let i = 0
-    let j = 0
-    while (i < str1.length) {
-      if (j === str2.length) {
-        return false
-      }
-      if (str1[i].toLowerCase() === str2[j].toLowerCase()) {
-        i++
-      }
-      j++
-    }
-
-    return true
-  }
-
-  const files = filter(data, (file) => isSubsequence(fileFilter, file.name))
+  const files = filter(data, ({ name }) => {
+    if (!name) return false
+    if (!fileFilter) return true
+    return fileFilter.split(' ').every((searchString) => name.toLowerCase().includes(searchString.toLowerCase()))
+  })
 
   const file = files[pageNumber] || files[0]
 
