@@ -1,6 +1,6 @@
 import './App.css'
 import Papa from 'papaparse';
-import React, {useEffect, useState} from "react";
+import React, {StrictMode, useEffect, useState} from "react";
 import filter from "lodash/filter";
 import method from "lodash/method";
 import ReunionFile from "./ReunionFile";
@@ -38,20 +38,16 @@ const App = () => {
     const file = files[pageNumber] || files[0]
 
     return (
-        <>
+        <StrictMode>
             <input className='border-2 border-solid border-black' type='text' value={fileFilter} onChange={search}/>
-            {file ? (
-                <ReunionFile
-                    file={file}
-                    loading={loading}
-                    pageNumber={pageNumber}
-                    setFileFilter={setFileFilter}
-                    setPageNumber={setPageNumber}
-                />
-            ) : (
-                <h1>Try again...</h1>
-            )}
-        </>
+            <ReunionFile
+                file={file}
+                loading={loading}
+                pageNumber={pageNumber}
+                setFileFilter={setFileFilter}
+                setPageNumber={setPageNumber}
+            />
+        </StrictMode>
    )
 }
 

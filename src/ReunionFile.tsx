@@ -2,7 +2,7 @@ import React from "react";
 import FileLinks from "./FileLinks";
 
 interface Props {
-    file: {
+    file?: {
         description: string
         name: string
         num_pages: number
@@ -16,6 +16,7 @@ interface Props {
 
 const ReunionFile:React.FC<Props> = ({file,loading,pageNumber,setPageNumber,setFileFilter}) => {
     if(loading) return<h1>Loading...</h1>
+    if(!file) return<h1>Try again...</h1>
 
     return (
         <>
