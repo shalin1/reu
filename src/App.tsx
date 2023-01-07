@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import filter from 'lodash/filter'
 import ReunionFile from './ReunionFile'
 // eslint-disable-next-line import/no-unresolved
-import csv from './data/thefiles.csv?url'
+import csv from './data/tsvfilestest.tsv?url'
 
 const App = () => {
   const [loading, setLoading] = useState(true)
@@ -19,6 +19,7 @@ const App = () => {
 
     readRemoteFile(csv, {
       header: true,
+      delimiter: '\t',
       download: true,
       dynamicTyping: true,
       complete: ({ data }) => {
@@ -27,6 +28,7 @@ const App = () => {
       },
     })
 
+    console.log({ data })
     setLoading(false)
   }, [])
 

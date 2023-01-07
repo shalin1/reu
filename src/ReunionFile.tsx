@@ -22,15 +22,15 @@ const ReunionFile: React.FC<Props> = ({ file, loading, pageNumber, setPageNumber
       <div className="flex justify-between">
         <h1 className="text-xl">{file?.name}</h1>
         <div className="flex">
-          <div onClick={() => setPageNumber(pageNumber - 1)} className={'mr-xl' + (pageNumber === 0 && 'hidden')}>
+          <button onClick={() => setPageNumber(pageNumber - 1)} className={'mr-xl' + (pageNumber === 0 && 'hidden')}>
             {'<'}
-          </div>
+          </button>
           <span>
             Page {file?.page} of {file?.num_pages}
           </span>
-          <div onClick={() => setPageNumber(pageNumber + 1)} className="mx-l">
+          <button onClick={() => setPageNumber(pageNumber + 1)} className="mx-l">
             {'>'}
-          </div>
+          </button>
         </div>
       </div>
       <FileLinks file={file} search={search} />
