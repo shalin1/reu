@@ -24,7 +24,9 @@ const ReunionFile: React.FC<Props> = ({ file, loading, numPages, pageNumber, set
     <>
       <Header file={file} numPages={numPages} setPageNumber={setPageNumber} pageNumber={pageNumber} />
       <FileLinks file={file} search={search} />
-      {file.description && <div className="border-solid border-2 border-grey-700">{file.description}</div>}
+      {file['Information'] && (
+        <div className="border-solid border-2 border-grey-700 p-1 px-2 text-left">{file['Information']}</div>
+      )}
     </>
   )
 }
