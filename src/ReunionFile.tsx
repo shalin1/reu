@@ -6,6 +6,7 @@ interface Props {
   file?: {
     description: string
     'File Code': string
+    Information: string
     'Set total': number
     'Set#': number
   }

@@ -43,7 +43,7 @@ const App = () => {
   }, [data, fileFilter])
 
   const search = (string: string) => {
-    setFileFilter(string.toLowerCase())
+    setFileFilter(string.toLowerCase().replace('*', ''))
     setPageNumber(0)
   }
 
