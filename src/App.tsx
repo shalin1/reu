@@ -23,13 +23,18 @@ const App = () => {
       download: true,
       dynamicTyping: true,
       complete: ({ data }) => {
-        setLoading(false)
+        const files = filter(data, ({ name }) => {
+          if (!name) return false
+          if (!fileFilter) return true
+          return fileFilter
+            .split(' ')
+            .every((searchString) => name.toLowerCase().includes(searchString.toLowerCase().trim()))
+        })
         setData(data)
+        console.log(data)
+        setLoading(false)
       },
     })
-
-    console.log({ data })
-    setLoading(false)
   }, [])
 
   const search = (string: string) => {
@@ -37,13 +42,7 @@ const App = () => {
     setPageNumber(0)
   }
 
-  const files = filter(data, ({ name }) => {
-    if (!name) return false
-    if (!fileFilter) return true
-    return fileFilter.split(' ').every((searchString) => name.toLowerCase().includes(searchString.toLowerCase().trim()))
-  })
-
-  const file = files[pageNumber]
+  const file = data[pageNumber]
 
   return (
     <>

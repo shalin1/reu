@@ -4,7 +4,7 @@ import FileLinks from './FileLinks'
 interface Props {
   file?: {
     description: string
-    name: string
+    'File Code': string
     num_pages: number
     page: number
   }
@@ -20,13 +20,13 @@ const ReunionFile: React.FC<Props> = ({ file, loading, pageNumber, setPageNumber
   return (
     <>
       <div className="flex justify-between">
-        <h1 className="text-xl">{file?.name}</h1>
+        <h1 className="text-xl">{file['File Code']}</h1>
         <div className="flex">
           <button onClick={() => setPageNumber(pageNumber - 1)} className={'mr-xl' + (pageNumber === 0 && 'hidden')}>
             {'<'}
           </button>
           <span>
-            Page {file?.page} of {file?.num_pages}
+            Page {file['Set#']} of {file['Set total']}
           </span>
           <button onClick={() => setPageNumber(pageNumber + 1)} className="mx-l">
             {'>'}
