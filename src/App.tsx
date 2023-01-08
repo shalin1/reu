@@ -63,6 +63,7 @@ const App = () => {
         pageNumber={pageNumber}
         search={search}
         setPageNumber={setPageNumber}
+        numPages={files.length}
       />
     </>
   )
