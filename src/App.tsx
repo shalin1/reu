@@ -9,6 +9,7 @@ import csv from './data/tsvfilestest.tsv?url'
 const App = () => {
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState([] as any)
+  const [files, setFiles] = useState([] as any)
   const [pageNumber, setPageNumber] = useState(0)
   const [fileFilter, setFileFilter] = useState('')
 
@@ -23,26 +24,30 @@ const App = () => {
       download: true,
       dynamicTyping: true,
       complete: ({ data }) => {
-        const files = filter(data, ({ name }) => {
-          if (!name) return false
-          if (!fileFilter) return true
-          return fileFilter
-            .split(' ')
-            .every((searchString) => name.toLowerCase().includes(searchString.toLowerCase().trim()))
-        })
         setData(data)
-        console.log(data)
         setLoading(false)
       },
     })
   }, [])
+
+  useEffect(() => {
+    const filteredFiles = filter(data, (file: any) => {
+      const name = file['File Code']
+      if (!name) return false
+      if (!fileFilter) return true
+      return fileFilter
+        .split(' ')
+        .every((searchString) => name.toLowerCase().includes(searchString.toLowerCase().trim()))
+    })
+    setFiles(filteredFiles)
+  }, [data, fileFilter])
 
   const search = (string: string) => {
     setFileFilter(string.toLowerCase())
     setPageNumber(0)
   }
 
-  const file = data[pageNumber]
+  const file = files[pageNumber]
 
   return (
     <>
