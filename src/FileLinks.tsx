@@ -11,7 +11,7 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
     ['0', '1', '2', '3', '4', '5', '12', '13'],
     ['14', '15', '23', '24', '25', '34', '35', '45'],
     ['123', '124', '125', '134', '135', '145', '234', '235'],
-    ['245', '345', '1234', '1235', '1245', '1345', '2345', '12345'],
+    ['245', '345', '1234', '1235', '1245', '1345', '345', '12345'],
   ]
   return (
     <div className="flex flex-col sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
@@ -23,7 +23,7 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
             const link = file[`Goto sm${rows[quadrant - 1][linkNum - 1]}`]
             return (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <button
+              <a
                 className="flex h-16 hover:cursor-pointer relative"
                 key={`q${quadrant}_link_${linkNum}`}
                 onClick={() => search(link)}
@@ -37,7 +37,7 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
                 <div className="absolute bottom-0 right-0 bg-fuchsia-200 w-40 border-y-[1px] border-l-[1px] border-black text-sm text-purple-800 font-bold">
                   {link}
                 </div>
-              </button>
+              </a>
             )
           })}
         </div>

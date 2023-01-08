@@ -5,8 +5,8 @@ interface Props {
   file?: {
     description: string
     'File Code': string
-    num_pages: number
-    page: number
+    'Set total': number
+    'Set#': number
   }
   loading: boolean
   pageNumber: number
