@@ -7,10 +7,16 @@ interface Props {
 }
 
 const FileLinks: React.FC<Props> = ({ file, search }) => {
-  const rows = [
+  const nameRows = [
     ['0', '1', '2', '3', '4', '5', '12', '13'],
     ['14', '15', '23', '24', '25', '34', '35', '45'],
     ['123', '124', '125', '134', '135', '145', '234', '235'],
+    ['245', '345', '1234', '1235', '1245', '1345', '2345', '12345'],
+  ]
+  const descriptionRows = [
+    ['0', '1', '2', '3', '4', '5', '12', '13'],
+    ['14', '15', '23', '24', '25', '34', '35', '45'],
+    ['124', '123', '125', '134', '135', '145', '234', '235'],
     ['245', '345', '1234', '1235', '1245', '1345', '2345', '12345'],
   ]
   return (
@@ -19,8 +25,8 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
         <div className="flex flex-col border-x-[1px] border-black" key={quadrant}>
           <h3 className="bg-green-200 border-black border-y-2 border-x-[1px]">Quadrant {quadrant}</h3>
           {range(1, 9).map((linkNum) => {
-            const description = file[`sm${rows[quadrant - 1][linkNum - 1]}`]
-            const link = file[`Goto sm${rows[quadrant - 1][linkNum - 1]}`]
+            const description = file[`sm${descriptionRows[quadrant - 1][linkNum - 1]}`]
+            const link = file[`Goto sm${nameRows[quadrant - 1][linkNum - 1]}`]
             return (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
               <a
