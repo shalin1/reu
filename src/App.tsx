@@ -1,35 +1,15 @@
 import './App.css'
-import { usePapaParse } from 'react-papaparse'
 import React, { useEffect, useState } from 'react'
 import filter from 'lodash/filter'
 import ReunionFile from './ReunionFile'
 // eslint-disable-next-line import/no-unresolved
-import csv from './data/tsvfilestest.tsv?url'
-import { createBrowserRouter } from 'react-router-dom'
+import { useFiles } from './Api'
 
 const App = () => {
-  const [loading, setLoading] = useState(true)
-  const [data, setData] = useState([] as any)
+  const { data, error, loading } = useFiles()
   const [files, setFiles] = useState([] as any)
   const [pageNumber, setPageNumber] = useState(0)
   const [fileFilter, setFileFilter] = useState('')
-
-  const { readRemoteFile } = usePapaParse()
-
-  useEffect(() => {
-    setLoading(true)
-
-    readRemoteFile(csv, {
-      header: true,
-      delimiter: '\t',
-      download: true,
-      dynamicTyping: true,
-      complete: ({ data }) => {
-        setData(data)
-        setLoading(false)
-      },
-    })
-  }, [])
 
   useEffect(() => {
     const filteredFiles = filter(data, (file: any) => {
