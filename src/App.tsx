@@ -5,6 +5,7 @@ import filter from 'lodash/filter'
 import ReunionFile from './ReunionFile'
 // eslint-disable-next-line import/no-unresolved
 import csv from './data/tsvfilestest.tsv?url'
+import { createBrowserRouter } from 'react-router-dom'
 
 const App = () => {
   const [loading, setLoading] = useState(true)
