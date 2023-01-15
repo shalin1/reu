@@ -37,7 +37,7 @@ const App = () => {
       <SearchInput query={query} setQuery={setQuery} />
       <ReunionFile
         file={file}
-        loading={loading && file}
+        loading={loading}
         pageNumber={pageNumber}
         search={setQuery}
         setPageNumber={setPageNumber}

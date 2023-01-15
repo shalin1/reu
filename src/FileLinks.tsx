@@ -25,8 +25,8 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
         <div className="flex flex-col border-x-[1px] border-black" key={quadrant}>
           <h3 className="bg-green-200 border-black border-y-2 border-x-[1px]">Quadrant {quadrant}</h3>
           {range(1, 9).map((linkNum) => {
-            const description = file[`sm${descriptionRows[quadrant - 1][linkNum - 1]}`]
-            const link = file[`Goto sm${nameRows[quadrant - 1][linkNum - 1]}`]
+            const description = file && file[`sm${descriptionRows[quadrant - 1][linkNum - 1]}`]
+            const link = file && file[`Goto sm${nameRows[quadrant - 1][linkNum - 1]}`]
             return (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
               <a

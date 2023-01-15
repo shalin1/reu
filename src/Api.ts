@@ -3,7 +3,7 @@ import csv from './data/tsvfilestest.tsv?url'
 import { readRemoteFile } from 'react-papaparse'
 import { useEffect, useState } from 'react'
 
-type FileMakerProTsvRow = any
+export type FileMakerProTsvRow = any
 
 export const useFiles = () => {
   const [data, setData] = useState<FileMakerProTsvRow>([])
