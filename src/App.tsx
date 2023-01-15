@@ -2,7 +2,6 @@ import './App.css'
 import React, { useEffect, useState } from 'react'
 import filter from 'lodash/filter'
 import ReunionFile from './ReunionFile'
-// eslint-disable-next-line import/no-unresolved
 import { useFiles } from './Api'
 import SearchInput from './SearchInput'
 import { useSearchParams } from 'react-router-dom'
