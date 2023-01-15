@@ -4,12 +4,15 @@ import filter from 'lodash/filter'
 import ReunionFile from './ReunionFile'
 // eslint-disable-next-line import/no-unresolved
 import { useFiles } from './Api'
+import SearchInput from './SearchInput'
+import { useSearchParams } from 'react-router-dom'
 
 const App = () => {
   const { data, error, loading } = useFiles()
   const [files, setFiles] = useState([] as any)
-  const [pageNumber, setPageNumber] = useState(0)
-  const [fileFilter, setFileFilter] = useState('')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const fileFilter = searchParams.get('query') || ''
+  const pageNumber = parseInt(searchParams.get('page') || '0')
 
   useEffect(() => {
     const filteredFiles = filter(data, (file: any) => {
@@ -24,20 +27,17 @@ const App = () => {
   }, [data, fileFilter])
 
   const search = (string: string) => {
-    setFileFilter(string.toLowerCase().replace('*', ''))
-    setPageNumber(0)
+    setSearchParams({ query: string.toLowerCase().replace('*', ''), page: '0' })
+  }
+  const setPageNumber = (page: number) => {
+    setSearchParams({ query: fileFilter, page: page.toString() })
   }
 
-  const file = files[pageNumber]
+  const file = files[pageNumber || 0]
 
   return (
     <>
-      <input
-        className="border-2 border-solid border-black"
-        type="text"
-        value={fileFilter}
-        onChange={(event) => search(event.target.value)}
-      />
+      <SearchInput />
       <ReunionFile
         file={file}
         loading={loading && file}

@@ -19,7 +19,6 @@ interface Props {
 
 const ReunionFile: React.FC<Props> = ({ file, loading, numPages, pageNumber, setPageNumber, search }) => {
   if (loading || !file) return <h1>Loading...</h1>
-  console.log(file)
 
   return (
     <>
