@@ -1,21 +1,15 @@
 import React, { ChangeEvent, useState } from 'react'
 import { useLocation, useSearchParams } from 'react-router-dom'
 
-const SearchInput: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
-
+interface Props {
+  query: string
+  setQuery: (query: string) => void
+}
+const SearchInput: React.FC<Props> = ({ query, setQuery }) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value
-    setSearchParams((curr) => ({ ...curr, query }))
+    setQuery(e.target.value)
   }
 
-  return (
-    <input
-      type="text"
-      className="border-2 border-solid border-black"
-      value={searchParams.get('query') || ''}
-      onChange={onChange}
-    />
-  )
+  return <input type="text" className="border-2 border-solid border-black" value={query} onChange={onChange} />
 }
 export default SearchInput
