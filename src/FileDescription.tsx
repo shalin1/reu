@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 interface Props {
   description: string
@@ -6,6 +6,7 @@ interface Props {
 }
 
 const FileDescription: React.FC<Props> = ({ description, name }) => {
+  // this is totally wrong but we'll fix "soon"
   const imageName = name.split(' ')[1].toLowerCase()
   const src = new URL(`./images/${imageName}.png`, import.meta.url).href
 
