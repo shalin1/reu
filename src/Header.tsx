@@ -18,7 +18,6 @@ const Header: React.FC<Props> = ({ file, numPages, setPageNumber, pageNumber }) 
             <button onClick={() => setPageNumber(pageNumber - 1)} className={'mr-xl' + (pageNumber === 0 && ' hidden')}>
               {'<'}
             </button>
-
             <span>
               Page {file['Set#']} of {file['Set total']}
             </span>

@@ -27,5 +27,6 @@ export const useFiles = () => {
       setError(err)
     }
   }, [csv])
+
   return { data, error, loading }
 }

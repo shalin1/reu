@@ -2,6 +2,7 @@ import React from 'react'
 import FileLinks from './FileLinks'
 import Header from './Header'
 import { useFiles } from './Api'
+import FileDescription from './FileDescription'
 
 interface Props {
   file?: {
@@ -21,14 +22,13 @@ interface Props {
 const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, setPageNumber, search }) => {
   const { loading } = useFiles()
   if (loading) return <h1>Loading...</h1>
+  if (!file) return <h2>No file found...</h2>
 
   return (
     <>
       <Header file={file} numPages={numPages} setPageNumber={setPageNumber} pageNumber={pageNumber} />
       <FileLinks file={file} search={search} />
-      {file && file['Information'] && (
-        <div className="border-solid border-2 border-grey-700 p-1 px-2 text-left">{file['Information']}</div>
-      )}
+      <FileDescription name={file['File Code']} description={file.Information} />
     </>
   )
 }
