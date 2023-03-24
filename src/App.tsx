@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import filter from 'lodash/filter'
 import ReunionFile from './ReunionFile'
 import { useFiles } from './Api'
-import SearchInput from './SearchInput'
+import SearchInput from './components/SearchInput'
 import { useSearchParams } from 'react-router-dom'
 
 const App = () => {

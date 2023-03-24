@@ -1,5 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
-import { useLocation, useSearchParams } from 'react-router-dom'
+import React, { ChangeEvent } from 'react'
 
 interface Props {
   query: string
