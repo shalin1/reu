@@ -14,13 +14,31 @@ const App = () => {
   const pageNumber = parseInt(searchParams.get('page') || '0')
 
   useEffect(() => {
-    const filteredFiles = filter(data, (file: any) => {
-      const name = file['File Code']
-      if (!name) return false
-      if (!query) return true
-      return query.split(' ').every((searchString) => name.toLowerCase().includes(searchString.toLowerCase().trim()))
+    const tightFilter = filter(data, (file: any) => {
+        const fileName = file['File Code']
+        if (!fileName) return false
+        if (!query) return true
+      return query.split(' ').every((searchString:string ) => (
+          fileName.toLowerCase().split(" ").some((word:string) => (
+              word.startsWith(searchString.toLowerCase().trim()))
+          )))
     })
-    setFiles(filteredFiles)
+
+    const looseFilter = filter(data, (file: any) => {
+      const fileName = file['File Code']
+      if (!fileName) return false
+      if (!query) return true
+      return query.split(' ').some((searchString:string ) => (
+              fileName.toLowerCase().split(" ").some((word:string) => (
+                  word.startsWith(searchString.toLowerCase().trim()))
+              )))
+    })
+    const looseFilterListFilteredWithTightFilterItemsFirst = filter(looseFilter, (looseFilterItem:any) => {
+        return tightFilter.some((tightFilterItem:any) => {
+            return tightFilterItem['File Code'] === looseFilterItem['File Code']
+        })
+    })
+    setFiles(looseFilterListFilteredWithTightFilterItemsFirst)
   }, [data, query])
 
   const setQuery = (string: string) => {
