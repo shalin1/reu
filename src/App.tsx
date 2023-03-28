@@ -33,12 +33,17 @@ const App = () => {
                   word.startsWith(searchString.toLowerCase().trim()))
               )))
     })
-    const looseFilterListFilteredWithTightFilterItemsFirst = filter(looseFilter, (looseFilterItem:any) => {
-        return tightFilter.some((tightFilterItem:any) => {
-            return tightFilterItem['File Code'] === looseFilterItem['File Code']
-        })
+
+    const loosestFilter = filter(data, (file: any) => {
+      const fileName = file['File Code']
+      if (!fileName) return false
+      if (!query) return true
+      return query.split(' ').some((searchString:string ) => (
+          fileName.toLowerCase().split(" ").some((word:string) => (
+              word.includes(searchString.toLowerCase().trim()))
+          )))
     })
-    setFiles(looseFilterListFilteredWithTightFilterItemsFirst)
+    setFiles(tightFilter.length > 1 ? tightFilter : looseFilter.length > 0 ? looseFilter: loosestFilter)
   }, [data, query])
 
   const setQuery = (string: string) => {
