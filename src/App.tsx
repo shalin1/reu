@@ -73,7 +73,7 @@ const App = () => {
       setFiles(sortedFiles);  }, [data, query])
 
   const setQuery = (string: string) => {
-    setSearchParams({ query: string.toLowerCase().replace('*', ''), page: '0' })
+    setSearchParams({ query: encodeURIComponent(string), page: '0' })
   }
   const setPageNumber = (page: number) => {
     setSearchParams({ query, page: page.toString() })
