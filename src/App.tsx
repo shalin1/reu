@@ -1,5 +1,5 @@
 import './App.css'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import filter from 'lodash/filter'
 import ReunionFile from './ReunionFile'
 import { useFiles } from './Api'
@@ -72,11 +72,26 @@ const App = () => {
     setSearchParams({ query, page: page.toString() })
   }
 
-  const file = files[pageNumber || 0]
+  const updatePage = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') {
+        setPageNumber(pageNumber + 1)
+      }
+      if (e.key === 'ArrowLeft') {
+        setPageNumber(pageNumber - 1)
+      }
+    },
+    [setPageNumber, pageNumber],
+  )
 
-  const names = files.map(({ 'File Code': name }: any) => name)
-  const uniqNames = names.filter((el:string, idx:number) => names.indexOf(el) == idx)
-  console.log(JSON.stringify(uniqNames))
+  useEffect(() => {
+    document.addEventListener('keydown', updatePage)
+    return () => {
+      document.removeEventListener('keydown', updatePage)
+    }
+  }, [updatePage])
+
+  const file = files[pageNumber || 0]
 
   return (
     <>
