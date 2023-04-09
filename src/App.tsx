@@ -1,5 +1,5 @@
 import './App.css'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import ReunionFile from './ReunionFile'
 import { useFiles } from './Api'
 import SearchInput from './components/SearchInput'
@@ -67,6 +67,7 @@ const App = () => {
     }
   }
 
+  const searchInputRef = useRef<HTMLInputElement>(null) // Create a ref for the input
   const updatePage = useCallback(
     (e: KeyboardEvent) => {
       if (!e.metaKey) {
@@ -76,6 +77,12 @@ const App = () => {
         if (e.key === 'ArrowLeft') {
           previousPage()
         }
+      }
+
+      if (e.metaKey && e.key.toLowerCase() === 'f') {
+        console.log('nice')
+        e.preventDefault() // Prevent the browser's default search behavior
+        searchInputRef.current?.focus() // Focus on the input
       }
     },
     [nextPage, previousPage],
@@ -92,7 +99,7 @@ const App = () => {
 
   return (
     <>
-      <SearchInput query={query} setQuery={search} />
+      <SearchInput ref={searchInputRef} query={query} setQuery={search} />
       <ReunionFile
         file={file}
         loading={loading}
