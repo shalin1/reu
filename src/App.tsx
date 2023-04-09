@@ -1,6 +1,5 @@
 import './App.css'
 import React, { useCallback, useEffect, useState } from 'react'
-import filter from 'lodash/filter'
 import ReunionFile from './ReunionFile'
 import { useFiles } from './Api'
 import SearchInput from './components/SearchInput'
