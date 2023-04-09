@@ -54,20 +54,28 @@ const App = () => {
   const setQuery = (string: string) => {
     setSearchParams({ query: encodeURIComponent(string), page: '0' })
   }
-  const setPageNumber = (page: number) => {
-    setSearchParams({ query, page: page.toString() })
+  const nextPage = () => {
+    if (pageNumber < files.length - 1) {
+      setSearchParams({ query, page: (pageNumber + 1).toString() })
+    }
+  }
+
+  const previousPage = () => {
+    if (pageNumber > 0) {
+      setSearchParams({ query, page: (pageNumber - 1).toString() })
+    }
   }
 
   const updatePage = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight') {
-        setPageNumber(pageNumber + 1)
+        nextPage()
       }
       if (e.key === 'ArrowLeft') {
-        setPageNumber(pageNumber - 1)
+        previousPage()
       }
     },
-    [setPageNumber, pageNumber],
+    [nextPage, previousPage],
   )
 
   useEffect(() => {
@@ -87,7 +95,8 @@ const App = () => {
         loading={loading}
         pageNumber={pageNumber}
         search={setQuery}
-        setPageNumber={setPageNumber}
+        nextPage={nextPage}
+        previousPage={previousPage}
         numPages={files.length}
       />
     </>
