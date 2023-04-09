@@ -10,7 +10,7 @@ const App = () => {
   const { data, error, loading } = useFiles()
   const [files, setFiles] = useState([] as any)
   const [searchParams, setSearchParams] = useSearchParams()
-  const query = searchParams.get('query') || ''
+  const query = decodeURIComponent(searchParams.get('query') || '')
   const searchWords = query.toLowerCase().split(' ')
   const pageNumber = parseInt(searchParams.get('page') || '0')
 
@@ -20,21 +20,8 @@ const App = () => {
       if (!fileName) return false
       if (!query) return true
       const fileNameWords = fileName.toLowerCase().split(' ')
-      // Check for tight filter matches
-      if (searchWords.every((searchString: string) => fileNameWords.includes(searchString.toLowerCase().trim()))) {
-        return true
-      }
-      // Check for loose filter matches
       if (
-        searchWords.some((searchString: string) =>
-          fileNameWords.some((word: string) => word.startsWith(searchString.toLowerCase().trim())),
-        )
-      ) {
-        return true
-      }
-      // Check for loosest filter matches
-      if (
-        searchWords.some((searchString: string) =>
+        searchWords.every((searchString: string) =>
           fileNameWords.some((word: string) => word.includes(searchString.toLowerCase().trim())),
         )
       ) {
@@ -48,11 +35,11 @@ const App = () => {
       const file2NameWords = file2['File Code'].toLowerCase().split(' ')
       // Check if file1 matches the tight filter
       const file1TightMatch = searchWords.every((searchString: string) =>
-        file1NameWords.includes(searchString.toLowerCase().trim()),
+        file1NameWords.some((word: string) => word.includes(searchString.toLowerCase().trim())),
       )
       // Check if file2 matches the tight filter
       const file2TightMatch = searchWords.every((searchString: string) =>
-        file2NameWords.includes(searchString.toLowerCase().trim()),
+        file2NameWords.some((word: string) => word.includes(searchString.toLowerCase().trim())),
       )
       if (file1TightMatch && !file2TightMatch) {
         return -1

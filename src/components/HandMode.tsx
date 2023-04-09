@@ -9,9 +9,12 @@ const HandMode: React.FC<Props> = ({ name }) => {
     const withoutParentheses = afterColon.replace(/\s*\(.*?\)\s*/g, '')
     const sanitized = withoutParentheses.trim().toLowerCase()
     const sanitizedWithoutAst = sanitized.replace('*', '')
-    const sanitizedWithoutFacilitation = sanitizedWithoutAst.replace(' facilitation', '')
+    const sanitizedWithoutQuote = sanitizedWithoutAst.replace('’', '')
+    const sanitizedWithoutFacilitation = sanitizedWithoutQuote.replace(' facilitation', '')
     const dealWithBelief = sanitizedWithoutFacilitation.startsWith('belief') ? 'belief' : sanitizedWithoutFacilitation
-    const dealWithHelpmode = dealWithBelief.replace(' helpmode', '')
+    const dealWithImplant = dealWithBelief.startsWith('implant') ? 'implant' : dealWithBelief
+    const dealWithNutrient = dealWithImplant.startsWith('nutrient') ? 'nutrient' : dealWithImplant
+    const dealWithHelpmode = dealWithNutrient.replace(' helpmode', '')
     const path = `/src/images/${dealWithHelpmode}.png`
     console.log('| ' + path + ' |')
     const modules = import.meta.glob('/src/images/*', { eager: true })
