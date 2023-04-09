@@ -68,11 +68,13 @@ const App = () => {
 
   const updatePage = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') {
-        nextPage()
-      }
-      if (e.key === 'ArrowLeft') {
-        previousPage()
+      if (!e.metaKey) {
+        if (e.key === 'ArrowRight') {
+          nextPage()
+        }
+        if (e.key === 'ArrowLeft') {
+          previousPage()
+        }
       }
     },
     [nextPage, previousPage],
