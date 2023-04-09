@@ -52,8 +52,8 @@ const App = () => {
   }, [data, query])
 
   const search = (string: string) => {
-    const stringWithNewlineAsSpace = string.replace(/\n/g, ' ')
-    setSearchParams({ query: encodeURIComponent(stringWithNewlineAsSpace), page: '0' })
+    const sanitizedSearch = string.replace(/\n/g, ' ').replace('*', '')
+    setSearchParams({ query: encodeURIComponent(sanitizedSearch), page: '0' })
   }
   const nextPage = () => {
     if (pageNumber < files.length - 1) {
