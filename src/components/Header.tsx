@@ -10,7 +10,7 @@ interface Props {
 const Header: React.FC<Props> = ({ file, numPages, setPageNumber, pageNumber }) => {
   const title = file ? file['File Code'] : 'No files found...'
   return (
-    <div className="flex justify-between">
+    <div className="border-grey-700 flex justify-between border-2 border-solid p-1 px-2">
       <h1 className="text-xl">{title}&nbsp;</h1>
       <div className="flex">
         {file && (

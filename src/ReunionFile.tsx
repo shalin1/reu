@@ -25,11 +25,11 @@ const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, setPageNumbe
   if (!file) return <h2>No file found...</h2>
 
   return (
-    <>
+    <div className="flex flex-col gap-2">
       <Header file={file} numPages={numPages} setPageNumber={setPageNumber} pageNumber={pageNumber} />
       <FileLinks file={file} search={search} />
       <FileDescription name={file['File Code']} description={file.Information} />
-    </>
+    </div>
   )
 }
 

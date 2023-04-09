@@ -8,7 +8,7 @@ interface Props {
 
 const FileDescription: React.FC<Props> = ({ description, name }) => {
   return (
-    <div className="flex">
+    <div className="flex gap-x-2">
       <HandMode name={name} />
       <div className="border-grey-700 border-2 border-solid p-1 px-2 text-left">{description}</div>
     </div>

@@ -22,6 +22,6 @@ const HandMode: React.FC<Props> = ({ name }) => {
     return mod?.default
   }
 
-  return <img alt={name} src={getAssetSrc(name)} />
+  return <img className="w-200" alt={name} src={getAssetSrc(name)} />
 }
 export default HandMode
