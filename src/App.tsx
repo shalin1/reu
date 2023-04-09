@@ -51,8 +51,9 @@ const App = () => {
     setFiles(sortedFiles)
   }, [data, query])
 
-  const setQuery = (string: string) => {
-    setSearchParams({ query: encodeURIComponent(string), page: '0' })
+  const search = (string: string) => {
+    const stringWithNewlineAsSpace = string.replace(/\n/g, ' ')
+    setSearchParams({ query: encodeURIComponent(stringWithNewlineAsSpace), page: '0' })
   }
   const nextPage = () => {
     if (pageNumber < files.length - 1) {
@@ -91,12 +92,12 @@ const App = () => {
 
   return (
     <>
-      <SearchInput query={query} setQuery={setQuery} />
+      <SearchInput query={query} setQuery={search} />
       <ReunionFile
         file={file}
         loading={loading}
         pageNumber={pageNumber}
-        search={setQuery}
+        search={search}
         nextPage={nextPage}
         previousPage={previousPage}
         numPages={files.length}
