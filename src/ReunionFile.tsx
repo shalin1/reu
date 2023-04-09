@@ -18,18 +18,28 @@ interface Props {
   nextPage: () => void
   previousPage: () => void
   search: (str: string) => void
+  showSearch: () => void
 }
 
-const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, previousPage, search }) => {
+const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, previousPage, showSearch, search }) => {
   const { loading } = useFiles()
   if (loading) return <h1>Loading...</h1>
   if (!file) return <h2>No file found...</h2>
 
   return (
-    <div className="flex flex-col gap-2">
-      <Header file={file} numPages={numPages} previousPage={previousPage} nextPage={nextPage} pageNumber={pageNumber} />
-      <FileLinks file={file} search={search} />
-      <FileDescription name={file['File Code']} description={file.Information} />
+    <div className="flex flex-col gap-3">
+      <Header
+        showSearch={showSearch}
+        file={file}
+        numPages={numPages}
+        previousPage={previousPage}
+        nextPage={nextPage}
+        pageNumber={pageNumber}
+      />
+      <div className="flex flex-col-reverse gap-3 md:flex-col">
+        <FileLinks file={file} search={search} />
+        <FileDescription name={file['File Code']} description={file.Information} />
+      </div>
     </div>
   )
 }

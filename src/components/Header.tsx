@@ -7,12 +7,15 @@ interface Props {
   pageNumber: number
   nextPage: () => void
   previousPage: () => void
+  showSearch: () => void
 }
-const Header: React.FC<Props> = ({ file, numPages, nextPage, previousPage, pageNumber }) => {
+const Header: React.FC<Props> = ({ file, numPages, nextPage, previousPage, pageNumber, showSearch }) => {
   const title = file ? file['File Code'] : 'No files found...'
   return (
     <div className="border-grey-700 flex justify-between border-2 border-solid p-1 px-2">
-      <h1 className="text-xl">{title}&nbsp;</h1>
+      <h1 className="text-xl" onClick={showSearch}>
+        {title}&nbsp;
+      </h1>
       <div className="flex">
         {file && (
           <>

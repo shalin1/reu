@@ -111,6 +111,7 @@ const App = () => {
         setQuery={search}
       />
       <ReunionFile
+        showSearch={() => setShowSearchModal(true)}
         file={file}
         loading={loading}
         pageNumber={pageNumber}
