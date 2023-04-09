@@ -2,12 +2,13 @@ import './App.css'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import ReunionFile from './ReunionFile'
 import { useFiles } from './Api'
-import SearchInput from './components/SearchInput'
 import { useSearchParams } from 'react-router-dom'
+import SearchModal from './components/SearchModal'
 
 const App = () => {
   const { data, error, loading } = useFiles()
   const [files, setFiles] = useState([] as any)
+  const [showSearchModal, setShowSearchModal] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
   const query = decodeURIComponent(searchParams.get('query') || '')
   const searchWords = query.toLowerCase().split(' ')
@@ -79,10 +80,13 @@ const App = () => {
         }
       }
 
-      if (e.metaKey && e.key.toLowerCase() === 'f') {
+      if (e.metaKey && e.key.toLowerCase() === 'k') {
         console.log('nice')
         e.preventDefault() // Prevent the browser's default search behavior
-        searchInputRef.current?.focus() // Focus on the input
+        setShowSearchModal(true)
+      }
+      if (e.key === 'Escape') {
+        setShowSearchModal(false)
       }
     },
     [nextPage, previousPage],
@@ -99,7 +103,13 @@ const App = () => {
 
   return (
     <>
-      <SearchInput ref={searchInputRef} query={query} setQuery={search} />
+      <SearchModal
+        ref={searchInputRef}
+        show={showSearchModal}
+        closeModal={() => setShowSearchModal(false)}
+        query={query}
+        setQuery={search}
+      />
       <ReunionFile
         file={file}
         loading={loading}
