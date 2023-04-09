@@ -16,7 +16,6 @@ const HandMode: React.FC<Props> = ({ name }) => {
     const dealWithNutrient = dealWithImplant.startsWith('nutrient') ? 'nutrient' : dealWithImplant
     const dealWithHelpmode = dealWithNutrient.replace(' helpmode', '')
     const path = `/src/images/${dealWithHelpmode}.png`
-    console.log('| ' + path + ' |')
     const modules = import.meta.glob('/src/images/*', { eager: true })
     const mod = modules[path] as { default: string }
     return mod?.default

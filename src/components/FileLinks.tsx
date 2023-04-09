@@ -39,7 +39,7 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
                   {linkNum}
                 </div>
                 <div className="w-full  border-b-[1px] border-solid border-black bg-violet-200 p-1 text-left text-xs leading-none">
-                  {description.includes('∞') ? <></> : description}
+                  {description?.includes('∞∞') ? '' : description}
                 </div>
                 {link && (
                   <div className="absolute bottom-0 right-0 w-40 border-y-[1px] border-l-[1px] border-black bg-fuchsia-200 text-sm font-bold text-purple-800">
