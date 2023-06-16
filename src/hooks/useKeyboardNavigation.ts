@@ -20,7 +20,9 @@ const useKeyboardNavigation = (
         e.preventDefault()
         setShowSearchModal(true)
       }
+
       if (e.key === 'Escape') {
+        e.preventDefault()
         setShowSearchModal(false)
       }
     },
