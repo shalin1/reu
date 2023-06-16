@@ -29,11 +29,11 @@ const useSearch = ({ data }: SearchFilesParams) => {
       const file2NameWords = file2['File Code'].toLowerCase().split(' ')
 
       const file1TightMatch = searchWords.every((searchString: string) =>
-        file1NameWords.some((word: string) => word.includes(searchString.toLowerCase().trim())),
+        file1NameWords.some((word: string) => word.includes(`(${searchString.toLowerCase().trim()})`)),
       )
 
       const file2TightMatch = searchWords.every((searchString: string) =>
-        file2NameWords.some((word: string) => word.includes(searchString.toLowerCase().trim())),
+        file2NameWords.some((word: string) => word.includes(`(${searchString.toLowerCase().trim()})`)),
       )
 
       if (file1TightMatch && !file2TightMatch) {
