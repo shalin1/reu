@@ -19,9 +19,9 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
       props.closeModal()
     }
 
-    const updatePage = useCallback(
+    const closeOnEscape = useCallback(
       (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
+        if (show && e.key === 'Escape') {
           closeModal()
         }
       },
@@ -29,11 +29,11 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
     )
 
     useEffect(() => {
-      document.addEventListener('keydown', updatePage)
+      document.addEventListener('keydown', closeOnEscape)
       return () => {
-        document.removeEventListener('keydown', updatePage)
+        document.removeEventListener('keydown', closeOnEscape)
       }
-    }, [updatePage])
+    }, [closeOnEscape])
 
     useEffect(() => {
       if (show && ref && typeof ref === 'object' && ref.current) {
