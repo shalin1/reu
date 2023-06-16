@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 export type FileMakerProTsvRow = any
 
-export const useFiles = () => {
+const useFiles = () => {
   const [data, setData] = useState<FileMakerProTsvRow>([])
   const [error, setError] = useState<any>(null)
   const [loading, setLoading] = useState(false)
@@ -31,3 +31,5 @@ export const useFiles = () => {
 
   return { data, error, loading }
 }
+
+export default useFiles

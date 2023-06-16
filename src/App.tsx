@@ -2,7 +2,7 @@
 import './App.css'
 import React, { useRef, useState } from 'react'
 import ReunionFile from './ReunionFile'
-import { useFiles } from './hooks/useFiles'
+import useFiles from './hooks/useFiles'
 import { useSearchParams } from 'react-router-dom'
 import SearchModal from './components/SearchModal'
 import useSearch from './hooks/useSearch'
