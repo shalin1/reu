@@ -40,7 +40,6 @@ const App = () => {
         ref={searchInputRef}
         show={showSearchModal}
         closeModal={() => setShowSearchModal(false)}
-        query={query}
         setQuery={search}
       />
       <ReunionFile

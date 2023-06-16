@@ -2,13 +2,13 @@ import React, { ChangeEvent, ForwardedRef, forwardRef, useCallback, useEffect, u
 
 interface Props {
   closeModal: () => void
-  query: string
   setQuery: (query: string) => void
   show: boolean
 }
+
 const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = forwardRef(
   (props: Props, ref: ForwardedRef<HTMLInputElement>) => {
-    const { query, setQuery, show } = props
+    const { setQuery, show } = props
     const [internalQuery, setInternalQuery] = useState('')
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInternalQuery(e.target.value)
