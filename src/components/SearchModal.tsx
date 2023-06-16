@@ -8,13 +8,17 @@ interface Props {
 }
 const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = forwardRef(
   (props: Props, ref: ForwardedRef<HTMLInputElement>) => {
-    const { closeModal, query, setQuery, show } = props
+    const { query, setQuery, show } = props
+    const [internalQuery, setInternalQuery] = useState('')
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setInternalQuery(e.target.value)
       setQuery(e.target.value)
     }
-    const onSubmit = () => {
-      closeModal()
+    const closeModal = () => {
+      setInternalQuery('')
+      props.closeModal()
     }
+
     const updatePage = useCallback(
       (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
@@ -41,7 +45,7 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
     return (
       <div className="fixed inset-0 z-40 h-full w-full overflow-y-auto bg-gray-600 bg-opacity-90" onClick={closeModal}>
         <div className="mx-auto flex h-3/5 w-3/4 flex-col justify-center">
-          <form onSubmit={onSubmit}>
+          <form onSubmit={closeModal}>
             <label htmlFor="default-search" className="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Search
             </label>
@@ -67,7 +71,7 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
                 type="text"
                 className="mb-2 block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 p-4 pl-10 text-xl text-gray-900 placeholder:text-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 ref={ref}
-                value={query}
+                value={internalQuery}
                 onChange={onChange}
                 placeholder="Search for file names"
               />
