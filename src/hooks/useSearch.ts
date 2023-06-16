@@ -69,8 +69,6 @@ const useSearch = ({ data }: SearchFilesParams) => {
         sanitized = sanitized.replace(/\bfacilitation\b.*$/, '') // Remove 'facilitation' and all following characters
         return sanitized.trim() // Remove leading and trailing spaces
       }
-      console.log('1: ', sanitizeForSort(file1['File Code']))
-      console.log('2: ', sanitizeForSort(file2['File Code']))
       if (sanitizeForSort(file1['File Code']) === sanitizeForSort(file2['File Code'])) {
         const setNumber1 = file1['Set#'] === 'F' ? Infinity : parseInt(file1['Set#'], 10)
         const setNumber2 = file2['Set#'] === 'F' ? Infinity : parseInt(file2['Set#'], 10)
