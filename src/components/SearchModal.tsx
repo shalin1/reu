@@ -12,9 +12,9 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
     const [internalQuery, setInternalQuery] = useState('')
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInternalQuery(e.target.value)
-      setQuery(e.target.value)
     }
     const closeModal = () => {
+      setQuery(internalQuery)
       setInternalQuery('')
       props.closeModal()
     }
