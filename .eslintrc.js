@@ -25,5 +25,6 @@ module.exports = {
   },
   rules: {
     // Add your own rules here to override ones from the extended configs.
+    'react/display-name': 'off',
   },
 }
