@@ -12,7 +12,7 @@ const App = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const pageNumber = parseInt(searchParams.get('page') || '0')
 
-  const { files, search, query } = useSearchFiles({ data }) // use the hook
+  const { files, search, query } = useSearchFiles({ data })
 
   const nextPage = () => {
     if (pageNumber < files.length - 1) {
@@ -26,7 +26,7 @@ const App = () => {
     }
   }
 
-  const searchInputRef = useRef<HTMLInputElement>(null) // Create a ref for the input
+  const searchInputRef = useRef<HTMLInputElement>(null)
   const updatePage = useCallback(
     (e: KeyboardEvent) => {
       if (!e.metaKey) {
@@ -40,7 +40,7 @@ const App = () => {
 
       if (e.metaKey && e.key.toLowerCase() === 'k') {
         console.log('nice')
-        e.preventDefault() // Prevent the browser's default search behavior
+        e.preventDefault()
         setShowSearchModal(true)
       }
       if (e.key === 'Escape') {
