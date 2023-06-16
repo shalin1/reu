@@ -1,7 +1,7 @@
 import React from 'react'
 import FileLinks from './components/FileLinks'
 import Header from './components/Header'
-import { useFiles } from './Api'
+import { useFiles } from './hooks/useFiles'
 import FileDescription from './components/FileDescription'
 
 interface Props {

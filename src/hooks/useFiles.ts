@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
-import csv from './data/tsvfilestest.tsv?url'
+import csv from '../data/tsvfilestest.tsv?url'
 import { readRemoteFile } from 'react-papaparse'
 import { useEffect, useState } from 'react'
 
@@ -9,6 +9,7 @@ export const useFiles = () => {
   const [data, setData] = useState<FileMakerProTsvRow>([])
   const [error, setError] = useState<any>(null)
   const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     try {
       setLoading(true)

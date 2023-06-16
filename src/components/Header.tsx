@@ -1,5 +1,5 @@
 import React from 'react'
-import { FileMakerProTsvRow } from '../Api'
+import { FileMakerProTsvRow } from '../hooks/useFiles'
 
 interface Props {
   file: FileMakerProTsvRow | null
