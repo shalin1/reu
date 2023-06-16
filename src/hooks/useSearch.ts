@@ -24,26 +24,33 @@ const useSearch = ({ data }: SearchFilesParams) => {
       )
     })
 
-    const sortedFiles = combinedFilter.sort((file1: any, file2: any) => {
-      const file1NameWords = file1['File Code'].toLowerCase().split(' ')
-      const file2NameWords = file2['File Code'].toLowerCase().split(' ')
-
-      const file1TightMatch = searchWords.every((searchString: string) =>
-        file1NameWords.some((word: string) => word.includes(`(${searchString.toLowerCase().trim()})`)),
-      )
-
-      const file2TightMatch = searchWords.every((searchString: string) =>
-        file2NameWords.some((word: string) => word.includes(`(${searchString.toLowerCase().trim()})`)),
-      )
-
-      if (file1TightMatch && !file2TightMatch) {
-        return -1
+    // Group files by 'File Code'
+    const fileGroups = combinedFilter.reduce((groups: any, file: any) => {
+      const key = file['File Code']
+      if (!groups[key]) {
+        groups[key] = []
       }
-      if (!file1TightMatch && file2TightMatch) {
-        return 1
-      }
-      return 0
+      groups[key].push(file)
+      return groups
+    }, {})
+
+    // Sort within each group
+    Object.keys(fileGroups).forEach((key) => {
+      fileGroups[key].sort((file1: any, file2: any) => {
+        const set1 = file1['Set#']
+        const set2 = file2['Set#']
+
+        if (set1 === 'F') return 1
+        if (set2 === 'F') return -1
+
+        return Number(set1) - Number(set2)
+      })
     })
+
+    // Concatenate all groups together
+    const sortedFiles = Object.keys(fileGroups).reduce((result: any[], key: string) => {
+      return [...result, ...fileGroups[key]]
+    }, [])
 
     setFiles(sortedFiles)
   }, [data, query])
