@@ -32,11 +32,7 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
     }, [updatePage])
 
     useEffect(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      if (show && ref && ref.current) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+      if (show && ref && typeof ref === 'object' && ref.current) {
         ref.current.focus()
       }
     }, [show, ref])
