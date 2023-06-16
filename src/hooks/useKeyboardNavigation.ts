@@ -16,7 +16,7 @@ const useKeyboardNavigation = (
         }
       }
 
-      if (e.metaKey && e.key.toLowerCase() === 'k') {
+      if (e.metaKey && (e.key.toLowerCase() === 'k' || e.key.toLowerCase() === 'f')) {
         e.preventDefault()
         setShowSearchModal(true)
       }
