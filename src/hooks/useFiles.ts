@@ -30,18 +30,6 @@ const useFiles = () => {
     }
   }, [csv])
 
-  useEffect(() => {
-    sanityClient
-      .fetch(
-        `*[_type == "reunionFile"]{
-        title,
-        description
-      }`,
-      )
-      .then((data) => console.log(data))
-      .catch(console.error)
-  }, [])
-
   return { data, error, loading }
 }
 

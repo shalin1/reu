@@ -3,6 +3,7 @@ import FileLinks from './components/FileLinks'
 import Header from './components/Header'
 import useFiles from './hooks/useFiles'
 import FileDescription from './components/FileDescription'
+import SanityFileDescription from './components/SanityFileDescription'
 
 interface Props {
   file?: {
