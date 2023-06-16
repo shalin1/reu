@@ -1,5 +1,5 @@
 export default {
-  name: 'content',
+  name: 'reunionFile',
   type: 'document',
   title: 'Reunion File',
   fields: [

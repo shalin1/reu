@@ -2,6 +2,7 @@
 import csv from '../data/tsvfilestest.tsv?url'
 import { readRemoteFile } from 'react-papaparse'
 import { useEffect, useState } from 'react'
+import sanityClient from '../data/sanityClient'
 
 export type FileMakerProTsvRow = any
 
@@ -28,6 +29,18 @@ const useFiles = () => {
       setError(err)
     }
   }, [csv])
+
+  useEffect(() => {
+    sanityClient
+      .fetch(
+        `*[_type == "reunionFile"]{
+        title,
+        description
+      }`,
+      )
+      .then((data) => console.log(data))
+      .catch(console.error)
+  }, [])
 
   return { data, error, loading }
 }

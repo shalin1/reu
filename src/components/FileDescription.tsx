@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import HandMode from './HandMode'
+import sanityClient from '../data/sanityClient'
 
 interface Props {
   description: string
