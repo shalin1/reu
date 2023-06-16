@@ -1,10 +1,12 @@
+// App.tsx
 import './App.css'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import ReunionFile from './ReunionFile'
 import { useFiles } from './Api'
 import { useSearchParams } from 'react-router-dom'
 import SearchModal from './components/SearchModal'
-import { useSearchFiles } from './hooks/useSearch'
+import useSearch from './hooks/useSearch'
+import useKeyboardNavigation from './hooks/useKeyboardNavigation'
 
 const App = () => {
   const { data, error, loading } = useFiles()
@@ -12,7 +14,7 @@ const App = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const pageNumber = parseInt(searchParams.get('page') || '0')
 
-  const { files, search, query } = useSearchFiles({ data })
+  const { files, search, query } = useSearch({ data })
 
   const nextPage = () => {
     if (pageNumber < files.length - 1) {
@@ -26,36 +28,9 @@ const App = () => {
     }
   }
 
+  useKeyboardNavigation(nextPage, previousPage, setShowSearchModal)
+
   const searchInputRef = useRef<HTMLInputElement>(null)
-  const updatePage = useCallback(
-    (e: KeyboardEvent) => {
-      if (!e.metaKey) {
-        if (e.key === 'ArrowRight') {
-          nextPage()
-        }
-        if (e.key === 'ArrowLeft') {
-          previousPage()
-        }
-      }
-
-      if (e.metaKey && e.key.toLowerCase() === 'k') {
-        console.log('nice')
-        e.preventDefault()
-        setShowSearchModal(true)
-      }
-      if (e.key === 'Escape') {
-        setShowSearchModal(false)
-      }
-    },
-    [nextPage, previousPage],
-  )
-
-  useEffect(() => {
-    document.addEventListener('keydown', updatePage)
-    return () => {
-      document.removeEventListener('keydown', updatePage)
-    }
-  }, [updatePage])
 
   const file = files[pageNumber || 0]
 

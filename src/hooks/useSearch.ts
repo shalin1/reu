@@ -6,7 +6,7 @@ interface SearchFilesParams {
   data: any[]
 }
 
-export const useSearchFiles = ({ data }: SearchFilesParams) => {
+const useSearch = ({ data }: SearchFilesParams) => {
   const [searchParams, setSearchParams] = useSearchParams()
   const query = decodeURIComponent(searchParams.get('query') || '')
   const searchWords = query.toLowerCase().split(' ')
@@ -55,3 +55,5 @@ export const useSearchFiles = ({ data }: SearchFilesParams) => {
 
   return { files, search, query }
 }
+
+export default useSearch
