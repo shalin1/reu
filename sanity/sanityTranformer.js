@@ -5,8 +5,7 @@ const path = require('path')
 const transformReunionFile = (row) => {
   const fileCode = row['File Code'].trim()
   const information = row['Information']
-  const setId = row['Set#']
-  const id = `${sanitizeId(fileCode)}-${setId}`
+  const id = `${sanitizeId(fileCode)}`
 
   const informationBlock = {
     _type: 'block',
@@ -29,7 +28,7 @@ const transformReunionFile = (row) => {
 }
 
 const sanitizeId = (id) => {
-  return id.replace(/[^a-zA-Z0-9._-]/g, '').replace(/^-/, '')
+  return id.replace(/[^a-zA-Z0-9._-]/g, '-').replace(/^-/, '')
 }
 
 const readAndTransformFile = (filePath) => {
@@ -45,6 +44,7 @@ const readAndTransformFile = (filePath) => {
         const document = transformReunionFile(result.data)
         const documentId = document._id
         if (!documentId) return
+        if (documents.find((doc) => doc._id === documentId)) return
         const count = idCounts[documentId] || 0
         idCounts[documentId] = count + 1
         if (count > 0) {
