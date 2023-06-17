@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import sanityClient from '../data/sanityClient'
 
 const useSanity = () => {
-  const [sanityData, setSanityData] = useState<any>([])
+  const [data, setData] = useState<any>([])
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     if (!loading) {
@@ -16,13 +16,11 @@ const useSanity = () => {
         description
       }`,
         )
-        .then((data) => {
-          setSanityData(data)
-        })
+        .then(setData)
         .then(() => setLoading(false))
         .catch(console.error)
     }
   }, [])
-  return { sanityData }
+  return { loading, data }
 }
 export default useSanity

@@ -11,8 +11,8 @@ interface Props {
 
 const FileDescription: React.FC<Props> = (props) => {
   const { name } = props
-  const { sanityData } = useSanity()
-  const doc = sanityData?.find((doc: any) => doc.title === name.trim())
+  const { data } = useSanity()
+  const doc = data?.find((doc: any) => doc.title === name.trim())
   const description = doc?.description
 
   return (
