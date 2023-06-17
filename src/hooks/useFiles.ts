@@ -1,8 +1,9 @@
 // eslint-disable-next-line import/no-unresolved
 import xlsx from '../data/june17.xlsx?url'
+import csv from '../data/tsvfilestest.tsv?url'
+import { readRemoteFile } from 'react-papaparse'
 import { useEffect, useState } from 'react'
 import { read, utils } from 'xlsx'
-import { readAndTransformData } from '../data/sanityTranformer'
 
 export type FileMakerProTsvRow = any
 
@@ -19,8 +20,7 @@ const useFiles = () => {
         const wb = read(f) // parse the array buffer
         const ws = wb.Sheets[wb.SheetNames[0]] // get the first worksheet
         const data: any[] = utils.sheet_to_json<any>(ws) // generate objects
-        await setData(data) // update state
-        readAndTransformData(data)
+        setData(data) // update state
         setLoading(false)
       })()
     } catch (error) {
