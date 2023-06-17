@@ -24,7 +24,19 @@ interface Props {
 const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, previousPage, showSearch, search }) => {
   const { loading } = useFiles()
   if (loading) return <h1>Loading...</h1>
-  if (!file) return <h2>No file found...</h2>
+  if (!file) {
+    return (
+      <div className="align-center flex flex-col justify-center">
+        <h2>No file found...</h2>
+        <button
+          className="rounded-lg border-2 border-gray-400 px-4 py-2 text-lg text-sm font-medium text-black "
+          onClick={showSearch}
+        >
+          Search again?
+        </button>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-3">
