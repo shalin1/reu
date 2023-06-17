@@ -9,7 +9,7 @@ interface SearchFilesParams {
 const useSearch = ({ data }: SearchFilesParams) => {
   const [searchParams, setSearchParams] = useSearchParams()
   const query = decodeURIComponent(searchParams.get('query') || '')
-  const searchWords = query.toLowerCase().split(' ')
+  const searchWords = query.toLowerCase().trim().split(' ')
   const [files, setFiles] = useState([] as any)
 
   useEffect(() => {
@@ -20,9 +20,9 @@ const useSearch = ({ data }: SearchFilesParams) => {
       const fileNameWords = fileName.toLowerCase().split(' ')
 
       return searchWords.every((searchString: string) => {
-        const sanitizedString = searchString.replace(/\n/g, ' ').replace('*', '')
+        const sanitizedString = searchString
         return fileNameWords.some((fileName: string) => {
-          if (fileName[0] === '(') {
+          if (fileName[0] === '(' || fileName[0] === '*') {
             return fileName.includes(sanitizedString.toLowerCase().trim())
           }
           return fileName.startsWith(sanitizedString.toLowerCase().trim())
