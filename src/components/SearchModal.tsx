@@ -13,7 +13,8 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInternalQuery(e.target.value)
     }
-    const closeModal = () => {
+    const closeModal = (e?: React.FormEvent) => {
+      e && e.preventDefault()
       setQuery(internalQuery)
       setInternalQuery('')
       props.closeModal()
@@ -40,6 +41,7 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
         ref.current.focus()
       }
     }, [show, ref])
+
     if (!show) return null
 
     return (
