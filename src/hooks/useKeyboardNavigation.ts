@@ -1,10 +1,6 @@
 import { useEffect, useCallback } from 'react'
 
-const useKeyboardNavigation = (
-  nextPage: () => void,
-  previousPage: () => void,
-  setShowSearchModal: React.Dispatch<React.SetStateAction<boolean>>,
-) => {
+const useKeyboardNavigation = (nextPage: () => void, previousPage: () => void) => {
   const updatePage = useCallback(
     (e: KeyboardEvent) => {
       if (!e.metaKey) {
@@ -15,18 +11,8 @@ const useKeyboardNavigation = (
           previousPage()
         }
       }
-
-      if (e.metaKey && (e.key.toLowerCase() === 'k' || e.key.toLowerCase() === 'f')) {
-        e.preventDefault()
-        setShowSearchModal(true)
-      }
-
-      if (e.key === 'Escape') {
-        e.preventDefault()
-        setShowSearchModal(false)
-      }
     },
-    [nextPage, previousPage, setShowSearchModal],
+    [nextPage, previousPage],
   )
 
   useEffect(() => {

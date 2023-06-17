@@ -1,18 +1,23 @@
 import React, { ChangeEvent, ForwardedRef, forwardRef, useCallback, useEffect, useState } from 'react'
 
 interface Props {
-  closeModal: () => void
   loading: boolean
 
   noResults: boolean
+  initialShow?: boolean
   setQuery: (internalQuery: any) => void
-  show: boolean
 }
 
 const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = forwardRef(
   (props: Props, ref: ForwardedRef<HTMLInputElement>) => {
-    const { setQuery, loading, noResults, show } = props
+    const [show, setShow] = useState(props.initialShow || false)
+    useEffect(() => {
+      if (props.initialShow !== undefined) {
+        setShow(props.initialShow)
+      }
+    }, [props.initialShow])
     const [internalQuery, setInternalQuery] = useState('')
+    const { setQuery, loading, noResults } = props
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInternalQuery(e.target.value)
     }
@@ -20,7 +25,7 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
       e && e.preventDefault()
       setQuery(internalQuery)
       setInternalQuery('')
-      props.closeModal()
+      setShow(false)
     }
 
     const closeOnEscape = useCallback(
@@ -43,9 +48,38 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
       if (show && ref && typeof ref === 'object' && ref.current) {
         ref.current.focus()
       }
-    }, [show, ref])
+    }, [show, ref, noResults])
 
-    if (loading || (!show && !noResults)) return null
+    useEffect(() => {
+      if (noResults) {
+        setShow(true)
+      }
+    }, [noResults])
+
+    const keyboardHandler = useCallback(
+      (e: KeyboardEvent) => {
+        if (e.metaKey && (e.key.toLowerCase() === 'k' || e.key.toLowerCase() === 'f')) {
+          e.preventDefault()
+          setShow(true)
+        }
+
+        if (e.key === 'Escape') {
+          e.preventDefault()
+          setShow(false)
+        }
+      },
+      [setShow],
+    )
+
+    useEffect(() => {
+      document.addEventListener('keydown', keyboardHandler)
+      return () => {
+        document.removeEventListener('keydown', keyboardHandler)
+      }
+    }, [keyboardHandler])
+
+    if (loading || !show) return null
+
     const placeholder = props.noResults ? 'No results found, try again.' : 'Search for file names'
 
     return (
