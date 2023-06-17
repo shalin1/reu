@@ -82,7 +82,7 @@ const useSearch = ({ data }: SearchFilesParams) => {
   }, [data, query])
 
   const search = (string: string) => {
-    const sanitizedSearch = string.replace(/\n/g, ' ').toLowerCase()
+    const sanitizedSearch = string.replace(/\n/g, ' ')
     setSearchParams({ query: encodeURIComponent(sanitizedSearch), page: '0' })
   }
 

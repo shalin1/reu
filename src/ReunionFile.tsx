@@ -18,6 +18,7 @@ interface Props {
   previousPage: () => void
   sanityData: any
   search: (str: string) => void
+  showSearch: () => void
 }
 
 const ReunionFile: React.FC<Props> = ({
@@ -28,6 +29,7 @@ const ReunionFile: React.FC<Props> = ({
   nextPage,
   previousPage,
   sanityData,
+  showSearch,
   search,
 }) => {
   if (loading) return <h2>Loading...</h2>
@@ -37,7 +39,14 @@ const ReunionFile: React.FC<Props> = ({
   const description = doc.description
   return (
     <div className="flex flex-col gap-3">
-      <Header file={file} numPages={numPages} previousPage={previousPage} nextPage={nextPage} pageNumber={pageNumber} />
+      <Header
+        showSearch={showSearch}
+        file={file}
+        numPages={numPages}
+        previousPage={previousPage}
+        nextPage={nextPage}
+        pageNumber={pageNumber}
+      />
       <div className="flex flex-col-reverse gap-3 md:flex-col">
         <FileLinks file={file} search={search} />
         <FileDescription name={file['File Code']} description={description} />

@@ -38,11 +38,11 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
                 <div className="flex w-[28px] items-center justify-center border-r-[1px] border-b-[1px] border-neutral-800 bg-[#c5f7c5]">
                   {linkNum}
                 </div>
-                <div className="w-full border-b-[1px] border-solid border-black bg-violet-200 p-1 text-left text-xs leading-none">
+                <div className="w-full  border-b-[1px] border-solid border-black bg-violet-200 p-1 text-left text-xs leading-none">
                   {description?.includes('∞∞') ? '' : description}
                 </div>
                 {link && (
-                  <div className="absolute bottom-0 right-0 w-[120px] border-y-[1px] border-l-[1px] border-black bg-fuchsia-200 text-sm font-bold text-purple-800">
+                  <div className="absolute bottom-0 right-0 w-40 border-y-[1px] border-l-[1px] border-black bg-fuchsia-200 text-sm font-bold text-purple-800">
                     {link}
                   </div>
                 )}
