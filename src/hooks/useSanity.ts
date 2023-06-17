@@ -5,7 +5,7 @@ const useSanity = () => {
   const [data, setData] = useState<any>([])
   const [loading, setLoading] = useState(false)
   useEffect(() => {
-    if (!loading) {
+    if (!loading && !data.length) {
       console.log('pinging sanity')
       setLoading(true)
 
