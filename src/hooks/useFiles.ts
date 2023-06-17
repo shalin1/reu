@@ -29,7 +29,6 @@ const useFiles = () => {
     }
   }, [csv])
 
-  console.error(data[0])
   return { data, error, loading }
 }
 
