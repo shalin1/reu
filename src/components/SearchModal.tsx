@@ -2,8 +2,6 @@ import React, { ChangeEvent, ForwardedRef, forwardRef, useCallback, useEffect, u
 
 interface Props {
   closeModal: () => void
-  loading: boolean
-
   noResults: boolean
   setQuery: (internalQuery: any) => void
   show: boolean
@@ -11,7 +9,7 @@ interface Props {
 
 const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = forwardRef(
   (props: Props, ref: ForwardedRef<HTMLInputElement>) => {
-    const { setQuery, loading, noResults, show } = props
+    const { setQuery, noResults, show } = props
     const [internalQuery, setInternalQuery] = useState('')
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInternalQuery(e.target.value)
@@ -45,7 +43,7 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
       }
     }, [show, ref])
 
-    if (loading || (!show && !noResults)) return null
+    if (!show && !noResults) return null
     const placeholder = props.noResults ? 'No results found, try again.' : 'Search for file names'
 
     return (

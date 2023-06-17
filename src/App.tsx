@@ -40,7 +40,6 @@ const App = () => {
     <>
       <SearchModal
         ref={searchInputRef}
-        loading={loading && sanityLoading}
         noResults={files.length === 0}
         show={showSearchModal}
         closeModal={() => setShowSearchModal(false)}
