@@ -1,4 +1,5 @@
 import fs from 'fs'
+import useFiles from '../hooks/useFiles'
 
 const transformReunionFile = (row) => {
   const fileCode = row['File Code'].trim()
@@ -35,7 +36,7 @@ const dataToNdjson = (data) => {
 }
 
 export const readAndTransformData = (data) => {
-  const documents = []
+  const documents: any[] = []
   data.forEach((document) => {
     const documentId = document._id
     if (!documentId) return
@@ -44,3 +45,6 @@ export const readAndTransformData = (data) => {
   })
   return dataToNdjson(documents)
 }
+
+const { data } = useFiles()
+readAndTransformData(data)
