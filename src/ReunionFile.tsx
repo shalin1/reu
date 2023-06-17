@@ -1,6 +1,7 @@
 import React from 'react'
 import FileLinks from './components/FileLinks'
 import Header from './components/Header'
+import useFiles from './hooks/useFiles'
 import FileDescription from './components/FileDescription'
 
 interface Props {
@@ -16,27 +17,15 @@ interface Props {
   pageNumber: number
   nextPage: () => void
   previousPage: () => void
-  sanityData: any
   search: (str: string) => void
   showSearch: () => void
 }
 
-const ReunionFile: React.FC<Props> = ({
-  file,
-  loading,
-  numPages,
-  pageNumber,
-  nextPage,
-  previousPage,
-  sanityData,
-  showSearch,
-  search,
-}) => {
-  if (loading) return <h2>Loading...</h2>
-  if (!file) return <h2>File not found.</h2>
+const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, previousPage, showSearch, search }) => {
+  const { loading } = useFiles()
+  if (loading) return <h1>Loading...</h1>
+  if (!file) return <h2>No file found...</h2>
 
-  const doc = sanityData.find((doc: any) => doc.title === file['File Code'].trim())
-  const description = doc.description
   return (
     <div className="flex flex-col gap-3">
       <Header
@@ -49,7 +38,7 @@ const ReunionFile: React.FC<Props> = ({
       />
       <div className="flex flex-col-reverse gap-3 md:flex-col">
         <FileLinks file={file} search={search} />
-        <FileDescription name={file['File Code']} description={description} />
+        <FileDescription name={file['File Code']} description={file.Information} />
       </div>
     </div>
   )
