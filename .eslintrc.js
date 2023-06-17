@@ -10,6 +10,7 @@ module.exports = {
     // Make sure it's always the last config, so it gets the chance to override other configs.
     'eslint-config-prettier',
   ],
+  plugins: ['unused-imports'],
   settings: {
     react: {
       // Tells eslint-plugin-react to automatically detect the version of React to use.
@@ -26,5 +27,11 @@ module.exports = {
   rules: {
     // Add your own rules here to override ones from the extended configs.
     'react/display-name': 'off',
+    'no-unused-vars': 'error', // or "@typescript-eslint/no-unused-vars": "off",
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
+    ],
   },
 }

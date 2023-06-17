@@ -1,7 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
 import xlsx from '../data/june17.xlsx?url'
-import csv from '../data/tsvfilestest.tsv?url'
-import { readRemoteFile } from 'react-papaparse'
 import { useEffect, useState } from 'react'
 import { read, utils } from 'xlsx'
 
