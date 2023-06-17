@@ -1,69 +1,54 @@
-const Papa = require('papaparse')
+const {read, utils} = require('xlsx')
 const fs = require('fs')
 const path = require('path')
 
 const transformReunionFile = (row) => {
-  const fileCode = row['File Code'].trim()
-  const information = row['Information']
-  const id = `${sanitizeId(fileCode)}`
+  const title = row['File Code'].trim()
+  const description = row['Information']
 
-  const informationBlock = {
+  const descriptionBlock = {
     _type: 'block',
     markDefs: [],
     children: [
       {
         _type: 'span',
-        text: information,
+        text: description,
         marks: [],
       },
     ],
   }
 
   return {
-    _id: sanitizeId(id),
+    _id: titleToId(title),
     _type: 'reunionFile',
-    title: fileCode,
-    description: [informationBlock],
+    title: title,
+    description: [descriptionBlock],
   }
 }
 
-const sanitizeId = (id) => {
-  return id.replace(/[^a-zA-Z0-9._-]/g, '-').replace(/^-/, '')
-}
+const titleToId = (title) => title.replace(/\s/g, '-').replace(/[^a-zA-Z0-9-]/g, '')
 
-const readAndTransformFile = (filePath) => {
-  return new Promise((resolve, reject) => {
-    const fullPath = path.resolve(filePath)
-    const fileStream = fs.createReadStream(fullPath)
+const readAndTransformFile = async (filePath) => {
+  const fullPath = path.resolve(filePath)
+  const fileBuffer = fs.readFileSync(fullPath)
+  const wb = read(fileBuffer, {type: 'buffer'}) // parse the file
+  const ws = wb.Sheets[wb.SheetNames[0]] // get the first worksheet
+  const data = utils.sheet_to_json(ws) // generate objects
 
-    const documents = []
-    const idCounts = {}
-    Papa.parse(fileStream, {
-      header: true,
-      step: (result) => {
-        const document = transformReunionFile(result.data)
-        const documentId = document._id
-        if (!documentId) return
-        if (documents.find((doc) => doc._id === documentId)) return
-        const count = idCounts[documentId] || 0
-        idCounts[documentId] = count + 1
-        if (count > 0) {
-          document._id = `${documentId}-${count}`
-        }
-        documents.push(document)
-      },
-      error: reject,
-      complete: () => resolve(documents),
-    })
+  // New code for tracking seen ids
+  const seenIds = new Set()
+  return data.map(transformReunionFile).filter((doc) => {
+    if (!doc._id || seenIds.has(doc._id)) {
+      return false
+    }
+    seenIds.add(doc._id)
+    return true
   })
 }
 
-readAndTransformFile('../src/data/tsvfilestest.tsv')
+readAndTransformFile('../src/data/june17.xlsx')
   .then((documents) => {
-    const ndjson = documents
-      .filter(({_id}) => _id)
-      .map((doc) => JSON.stringify(doc))
-      .join('\n')
+    const ndjson = documents.map((doc) => JSON.stringify(doc)).join('\n')
     fs.writeFileSync('./sanityDocuments.ndjson', ndjson)
   })
   .catch((err) => console.error(err))
