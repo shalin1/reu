@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .ts,.tsx",
-    "test": "jest"
+    "test": "jest",
+    "sanity-import": "cd sanity;node sanityTranformer.js;sanity dataset import sanityDocuments.ndjson production --missing;cd .."
   },
   "dependencies": {
     "@portabletext/react": "^3.0.2",

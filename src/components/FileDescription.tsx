@@ -17,7 +17,7 @@ const FileDescription: React.FC<Props> = (props) => {
 
   return (
     <div className="flex">
-      <div className="mr-2 w-1/3 md:w-1/5">
+      <div className="mr-2 w-1/3 md:w-1/6">
         <HandMode name={name} />
       </div>
       <div className="w-2/3 md:w-4/5">
