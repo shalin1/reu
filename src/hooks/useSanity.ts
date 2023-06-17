@@ -3,9 +3,12 @@ import sanityClient from '../data/sanityClient'
 
 const useSanity = () => {
   const [sanityData, setSanityData] = useState<any>([])
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
-    console.log('pinging sanity')
-    if (sanityData.length === 0)
+    if (!loading) {
+      console.log('pinging sanity')
+      setLoading(true)
+
       sanityClient
         .fetch(
           `*[_type == "reunionFile"]{
@@ -13,8 +16,12 @@ const useSanity = () => {
         description
       }`,
         )
-        .then((data) => setSanityData(data))
+        .then((data) => {
+          setSanityData(data)
+        })
+        .then(() => setLoading(false))
         .catch(console.error)
+    }
   }, [])
   return { sanityData }
 }

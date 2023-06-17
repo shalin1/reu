@@ -2,7 +2,6 @@
 import csv from '../data/tsvfilestest.tsv?url'
 import { readRemoteFile } from 'react-papaparse'
 import { useEffect, useState } from 'react'
-import sanityClient from '../data/sanityClient'
 
 export type FileMakerProTsvRow = any
 
@@ -30,6 +29,7 @@ const useFiles = () => {
     }
   }, [csv])
 
+  console.error(data[0])
   return { data, error, loading }
 }
 

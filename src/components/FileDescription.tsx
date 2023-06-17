@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import HandMode from './HandMode'
 import useSanity from '../hooks/useSanity'
 import { PortableText } from '@portabletext/react'
+import sanityClient from '../data/sanityClient'
 
 interface Props {
   description: string
