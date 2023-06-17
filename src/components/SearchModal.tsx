@@ -2,13 +2,14 @@ import React, { ChangeEvent, ForwardedRef, forwardRef, useCallback, useEffect, u
 
 interface Props {
   closeModal: () => void
-  setQuery: (query: string) => void
+  noResults: boolean
+  setQuery: (internalQuery: any) => void
   show: boolean
 }
 
 const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = forwardRef(
   (props: Props, ref: ForwardedRef<HTMLInputElement>) => {
-    const { setQuery, show } = props
+    const { setQuery, noResults, show } = props
     const [internalQuery, setInternalQuery] = useState('')
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInternalQuery(e.target.value)
@@ -42,7 +43,8 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
       }
     }, [show, ref])
 
-    if (!show) return null
+    if (!show && !noResults) return null
+    const placeholder = props.noResults ? 'No results found, try again.' : 'Search for file names'
 
     return (
       <div className="fixed inset-0 z-40 h-full w-full overflow-y-auto bg-gray-600 bg-opacity-90" onClick={closeModal}>
@@ -75,7 +77,7 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
                 ref={ref}
                 value={internalQuery}
                 onChange={onChange}
-                placeholder="Search for file names"
+                placeholder={placeholder}
               />
               <button
                 type="submit"

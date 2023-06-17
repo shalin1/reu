@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import HandMode from './HandMode'
-import useSanity from '../hooks/useSanity'
 import { PortableText } from '@portabletext/react'
-import sanityClient from '../data/sanityClient'
 
 interface Props {
-  description: string
+  description: any[]
   name: string
 }
 
 const FileDescription: React.FC<Props> = (props) => {
-  const { name } = props
-  const { data } = useSanity()
-  const doc = data?.find((doc: any) => doc.title === name.trim())
-  const description = doc?.description
+  const { description, name } = props
 
   return (
     <div className="flex">
@@ -22,7 +17,7 @@ const FileDescription: React.FC<Props> = (props) => {
       </div>
       <div className="w-2/3 md:w-4/5">
         <div className="border-grey-700 border-2 border-solid p-1 px-2 text-left">
-          {description ? <PortableText value={description} /> : props.description}
+          <PortableText value={description} />
         </div>
       </div>
     </div>

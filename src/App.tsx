@@ -7,9 +7,11 @@ import { useSearchParams } from 'react-router-dom'
 import SearchModal from './components/SearchModal'
 import useSearch from './hooks/useSearch'
 import useKeyboardNavigation from './hooks/useKeyboardNavigation'
+import useSanity from './hooks/useSanity'
 
 const App = () => {
-  const { data, error, loading } = useFiles()
+  const { data, loading } = useFiles()
+  const { data: sanityData, loading: sanityLoading } = useSanity()
   const [showSearchModal, setShowSearchModal] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
   const pageNumber = parseInt(searchParams.get('page') || '0')
@@ -38,14 +40,16 @@ const App = () => {
     <>
       <SearchModal
         ref={searchInputRef}
+        noResults={files.length === 0}
         show={showSearchModal}
         closeModal={() => setShowSearchModal(false)}
         setQuery={search}
       />
       <ReunionFile
+        sanityData={sanityData}
         showSearch={() => setShowSearchModal(true)}
         file={file}
-        loading={loading}
+        loading={loading && sanityLoading}
         pageNumber={pageNumber}
         search={search}
         nextPage={nextPage}
