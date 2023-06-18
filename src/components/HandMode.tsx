@@ -11,19 +11,29 @@ const HandMode: React.FC<Props> = ({ name }) => {
       .replace(/\s*\(.*?\)\s*/g, '')
       .trim()
       .toLowerCase()
-    return sanitized.replace(/[*’]| facilitation| helpmode/g, '')
+    const replaced = sanitized.replace(/[*’]| facilitation| helpmode |opening/g, '')
+    return replaced
+  }
+
+  const nameMap: { [key: string]: string } = {
+    // 'seeding source': 'seeding',
+    // Add any other transformations here as key-value pairs
   }
 
   const checkForPrefixes = (name: string) => {
-    const prefixes = ['belief', 'implant', 'nutrient']
-    return prefixes.some((prefix) => name.startsWith(prefix))
-      ? prefixes.find((prefix) => name.startsWith(prefix))
-      : name
+    const prefixes = ['belief', 'implant', 'nutrient', 'seeding']
+    const prefixFound = prefixes.find((prefix) => name.startsWith(prefix))
+    return prefixFound || name
   }
 
   const getAssetSrc = (name: string) => {
+    console.log({ name })
     const sanitized = sanitizeName(name)
-    const finalName = checkForPrefixes(sanitized)
+    console.log({ sanitized })
+    const replacedName = Object.prototype.hasOwnProperty.call(nameMap, sanitized) ? nameMap[sanitized] : sanitized
+    console.log({ replacedName })
+    const finalName = checkForPrefixes(replacedName)
+    console.log({ finalName })
     const path = `/src/images/${finalName}.png`
     const modules = import.meta.glob('/src/images/*', { eager: true })
     const mod = modules[path] as { default: string }
