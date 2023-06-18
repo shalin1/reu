@@ -11,7 +11,7 @@ const HandMode: React.FC<Props> = ({ name }) => {
       .replace(/\s*\(.*?\)\s*/g, '')
       .trim()
       .toLowerCase()
-    const replaced = sanitized.replace(/[*’]| facilitation| helpmode| opening/g, '')
+    const replaced = sanitized.replace(/[*’]| facilitation| helpmode| opening|facilitator\//g, '')
     return replaced
   }
 
