@@ -1,8 +1,8 @@
 import React from 'react'
-import FileLinks from './components/FileLinks'
-import Header from './components/Header'
-import useFiles from './hooks/useFiles'
-import FileDescription from './components/FileDescription'
+import FileLinks from './FileLinks'
+import Header from './Header'
+import useFiles from '../hooks/useFiles'
+import FileDescription from './FileDescription'
 
 interface Props {
   file?: {

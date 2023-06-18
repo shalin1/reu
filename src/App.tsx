@@ -1,7 +1,7 @@
 // App.tsx
 import './App.css'
 import React, { useRef, useState } from 'react'
-import ReunionFile from './ReunionFile'
+import ReunionFile from './components/ReunionFile'
 import useFiles from './hooks/useFiles'
 import { useSearchParams } from 'react-router-dom'
 import SearchModal from './components/SearchModal'
