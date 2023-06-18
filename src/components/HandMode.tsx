@@ -21,19 +21,16 @@ const HandMode: React.FC<Props> = ({ name }) => {
   }
 
   const checkForPrefixes = (name: string) => {
-    const prefixes = ['belief', 'implant', 'nutrient', 'seeding', 'alliances', 'demonic']
+    const prefixes = ['belief', 'implant', 'nutrient', 'seeding', 'alliances', 'demonic', 'circuit', 'code']
     const prefixFound = prefixes.find((prefix) => name.startsWith(prefix))
     return prefixFound || name
   }
 
   const getAssetSrc = (name: string) => {
-    console.log({ name })
     const sanitized = sanitizeName(name)
-    console.log({ sanitized })
     const replacedName = Object.prototype.hasOwnProperty.call(nameMap, sanitized) ? nameMap[sanitized] : sanitized
-    console.log({ replacedName })
     const finalName = checkForPrefixes(replacedName)
-    console.log({ finalName })
+    console.log(finalName)
     const path = `/src/images/${finalName}.png`
     const modules = import.meta.glob('/src/images/*', { eager: true })
     const mod = modules[path] as { default: string }
