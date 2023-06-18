@@ -24,6 +24,7 @@ interface Props {
 const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, previousPage, showSearch, search }) => {
   const { loading } = useFiles()
   if (loading) return <h1>Loading...</h1>
+
   if (!file) {
     return (
       <div className="align-center flex flex-col justify-center">
