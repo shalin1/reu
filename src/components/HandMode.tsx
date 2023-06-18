@@ -11,7 +11,7 @@ const HandMode: React.FC<Props> = ({ name }) => {
       .replace(/\s*\(.*?\)\s*/g, '')
       .trim()
       .toLowerCase()
-    const replaced = sanitized.replace(/[*’]| facilitation| helpmode |opening/g, '')
+    const replaced = sanitized.replace(/[*’]| facilitation| helpmode| opening/g, '')
     return replaced
   }
 
@@ -21,7 +21,7 @@ const HandMode: React.FC<Props> = ({ name }) => {
   }
 
   const checkForPrefixes = (name: string) => {
-    const prefixes = ['belief', 'implant', 'nutrient', 'seeding']
+    const prefixes = ['belief', 'implant', 'nutrient', 'seeding', 'alliances', 'demonic']
     const prefixFound = prefixes.find((prefix) => name.startsWith(prefix))
     return prefixFound || name
   }
