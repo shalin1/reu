@@ -84,6 +84,9 @@ const useSearch = ({ data }: SearchFilesParams) => {
   }, [data, query])
 
   const search = (string: string) => {
+    if (string === 'IMPLANT\rIndex') {
+      return setSearchParams({ query: encodeURIComponent('implant index'), page: '0' })
+    }
     const sanitizedSearch = string.replace(/\n/g, ' ').replace(/\*$/, '') // Remove trailing *
     setSearchParams({ query: encodeURIComponent(sanitizedSearch), page: '0' })
   }

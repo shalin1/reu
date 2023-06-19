@@ -31,18 +31,18 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
             return (
               // eslint-disable-next-line jsx-a11y/anchor-is-valid
               <a
-                className="relative flex h-[52px] hover:cursor-pointer"
+                className="relative flex h-[64px] hover:cursor-pointer"
                 key={`q${quadrant}_link_${linkNum}`}
                 onClick={() => search(link)}
               >
                 <div className="flex w-[28px] items-center justify-center border-r-[1px] border-b-[1px] border-neutral-800 bg-[#c5f7c5]">
                   {linkNum}
                 </div>
-                <div className="w-full border-b-[1px] border-solid border-black bg-violet-200 p-1 py-0.5 text-left text-sm leading-none">
+                <div className="w-full border-b-[1px] border-solid border-black bg-violet-200 p-1 py-0.5 text-left text-[13px] leading-none">
                   {description?.includes('∞∞') ? '' : description}
                 </div>
                 {link && (
-                  <div className="absolute bottom-0 right-0 w-32 border-y-[1px] border-l-[1px] border-black bg-fuchsia-200 py-0 text-xs font-bold text-purple-800">
+                  <div className="absolute bottom-0 right-0 border-y-[1px] border-l-[1px] border-black bg-fuchsia-200 px-2 py-0 text-xs font-bold text-purple-800">
                     {link}
                   </div>
                 )}
