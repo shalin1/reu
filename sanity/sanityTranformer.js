@@ -20,7 +20,7 @@ const transformReunionFile = (row) => {
 
   return {
     _id: titleToId(title),
-    _type: 'reunionFile',
+    _type: 'reunionFileDescription',
     title: title,
     description: [descriptionBlock],
   }

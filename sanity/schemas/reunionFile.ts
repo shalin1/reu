@@ -1,7 +1,7 @@
 export default {
-  name: 'reunionFile',
+  name: 'reunionFileDescription',
   type: 'document',
-  title: 'Reunion File',
+  title: 'Reunion File Description',
   fields: [
     {
       name: 'title',

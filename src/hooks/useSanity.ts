@@ -6,12 +6,11 @@ const useSanity = () => {
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     if (!loading && !data.length) {
-      console.log('pinging sanity')
       setLoading(true)
 
       sanityClient
         .fetch(
-          `*[_type == "reunionFile"]{
+          `*[_type == "reunionFileDescription"]{
         title,
         description
       }`,
