@@ -1,3 +1,3 @@
-import reunionFile from './reunionFile'
+import reunionFileDescription from './reunionFileDescription'
 
-export const schemaTypes = [reunionFile]
+export const schemaTypes = [reunionFileDescription]
