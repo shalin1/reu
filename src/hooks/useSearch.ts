@@ -20,12 +20,11 @@ const useSearch = ({ data }: SearchFilesParams) => {
       const fileNameWords = fileName.toLowerCase().split(' ')
 
       return searchWords.every((searchString: string) => {
-        const sanitizedString = searchString
         return fileNameWords.some((fileNameWord: string) => {
           if (fileNameWord[0] === '(' || fileNameWord[0] === '*') {
-            return fileNameWord.slice(1).startsWith(sanitizedString.toLowerCase().trim())
+            return fileNameWord.slice(1).startsWith(searchString.toLowerCase().trim())
           }
-          return fileNameWord.startsWith(sanitizedString.toLowerCase().trim())
+          return fileNameWord.startsWith(searchString.toLowerCase().trim())
         })
       })
     })
