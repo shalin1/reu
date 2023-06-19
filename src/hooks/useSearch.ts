@@ -21,31 +21,31 @@ const useSearch = ({ data }: SearchFilesParams) => {
 
       return searchWords.every((searchString: string) => {
         const sanitizedString = searchString
-        return fileNameWords.some((fileName: string) => {
-          if (fileName[0] === '(' || fileName[0] === '*') {
-            return fileName.includes(sanitizedString.toLowerCase().trim())
+        return fileNameWords.some((fileNameWord: string) => {
+          if (fileNameWord[0] === '(' || fileNameWord[0] === '*') {
+            return fileNameWord.slice(1).startsWith(sanitizedString.toLowerCase().trim())
           }
-          return fileName.startsWith(sanitizedString.toLowerCase().trim())
+          return fileNameWord.startsWith(sanitizedString.toLowerCase().trim())
         })
       })
     })
 
     const sortedFiles = filteredFiles.sort((file1: any, file2: any) => {
-      const file1NameWords = file1['File Code'].toLowerCase().split(' ')
-      const file2NameWords = file2['File Code'].toLowerCase().split(' ')
+      const file1NameWords = file1['File Code'].toLowerCase().replace(/\*$/, '').split(' ')
+      const file2NameWords = file2['File Code'].toLowerCase().replace(/\*$/, '').split(' ')
 
-      const file1TightMatch = searchWords.every((searchString: string) =>
+      const file1ParensMatch = searchWords.every((searchString: string) =>
         file1NameWords.some((word: string) => word === `(${searchString.toLowerCase().trim()})`),
       )
 
-      const file2TightMatch = searchWords.every((searchString: string) =>
+      const file2ParensMatch = searchWords.every((searchString: string) =>
         file2NameWords.some((word: string) => word === `(${searchString.toLowerCase().trim()})`),
       )
 
-      if (file1TightMatch && !file2TightMatch) {
+      if (file1ParensMatch && !file2ParensMatch) {
         return -1
       }
-      if (!file1TightMatch && file2TightMatch) {
+      if (!file1ParensMatch && file2ParensMatch) {
         return 1
       }
 
@@ -69,6 +69,7 @@ const useSearch = ({ data }: SearchFilesParams) => {
         sanitized = sanitized.replace(/\bfacilitation\b.*$/, '') // Remove 'facilitation' and all following characters
         return sanitized.trim() // Remove leading and trailing spaces
       }
+
       if (sanitizeForSort(file1['File Code']) === sanitizeForSort(file2['File Code'])) {
         const setNumber1 = file1['Set#'] === 'F' ? Infinity : parseInt(file1['Set#'], 10)
         const setNumber2 = file2['Set#'] === 'F' ? Infinity : parseInt(file2['Set#'], 10)
@@ -82,7 +83,7 @@ const useSearch = ({ data }: SearchFilesParams) => {
   }, [data, query])
 
   const search = (string: string) => {
-    const sanitizedSearch = string.replace(/\n/g, ' ')
+    const sanitizedSearch = string.replace(/\n/g, ' ').replace(/\*$/, '') // Remove trailing *
     setSearchParams({ query: encodeURIComponent(sanitizedSearch), page: '0' })
   }
 
