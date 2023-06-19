@@ -13,21 +13,30 @@ const useSearch = ({ data }: SearchFilesParams) => {
   const [files, setFiles] = useState([] as any)
 
   useEffect(() => {
-    const filteredFiles = data.filter((file: any) => {
-      const fileName = file['File Code']
-      if (!fileName) return false
-      if (!query) return true
-      const fileNameWords = fileName.toLowerCase().split(' ')
+    let filteredFiles
+    if (query === 'Inherited') {
+      filteredFiles = data.filter((file: any) => file['File Code'].toLowerCase().includes('*inherited'))
+    } else if (query === 'Prepare') {
+      filteredFiles = data.filter((file: any) => file['File Code'].toLowerCase().includes('*prepare'))
+    } else if (query === 'who') {
+      filteredFiles = data.filter((file: any) => file['File Code'].toLowerCase().includes('*who'))
+    } else {
+      filteredFiles = data.filter((file: any) => {
+        const fileName = file['File Code']
+        if (!fileName) return false
+        if (!query) return true
+        const fileNameWords = fileName.toLowerCase().split(' ')
 
-      return searchWords.every((searchString: string) => {
-        return fileNameWords.some((fileNameWord: string) => {
-          if (fileNameWord[0] === '(' || fileNameWord[0] === '*') {
-            return fileNameWord.slice(1).startsWith(searchString.toLowerCase().trim())
-          }
-          return fileNameWord.startsWith(searchString.toLowerCase().trim())
+        return searchWords.every((searchString: string) => {
+          return fileNameWords.some((fileNameWord: string) => {
+            if (fileNameWord[0] === '(' || fileNameWord[0] === '*') {
+              return fileNameWord.slice(1).startsWith(searchString.toLowerCase().trim())
+            }
+            return fileNameWord.startsWith(searchString.toLowerCase().trim())
+          })
         })
       })
-    })
+    }
 
     const sortedFiles = filteredFiles.sort((file1: any, file2: any) => {
       const sanitizeForSort = (fileName: string) => {
@@ -87,7 +96,8 @@ const useSearch = ({ data }: SearchFilesParams) => {
     if (string === 'IMPLANT\rIndex') {
       return setSearchParams({ query: encodeURIComponent('implant index'), page: '0' })
     }
-    const sanitizedSearch = string.replace(/\n/g, ' ').replace(/\*$/, '') // Remove trailing *
+    const sanitizedSearch = string.replace(/\n/g, ' ').replace(/^\*|\*$/g, '') // Remove leading and trailing *
+
     setSearchParams({ query: encodeURIComponent(sanitizedSearch), page: '0' })
   }
 
