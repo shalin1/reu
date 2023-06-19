@@ -46,9 +46,7 @@ const readAndTransformFile = async (filePath) => {
   })
 }
 
-readAndTransformFile('../src/data/june17.xlsx')
-  .then((documents) => {
-    const ndjson = documents.map((doc) => JSON.stringify(doc)).join('\n')
-    fs.writeFileSync('./sanityDocuments.ndjson', ndjson)
-  })
-  .catch((err) => console.error(err))
+readAndTransformFile('../src/data/june17.xlsx').then((documents) => {
+  const ndjson = documents.map((doc) => JSON.stringify(doc)).join('\n')
+  fs.writeFileSync('./sanityDocuments.ndjson', ndjson)
+})
