@@ -7,8 +7,10 @@ import { useSearchParams } from 'react-router-dom'
 import SearchModal from './components/SearchModal'
 import useSearch from './hooks/useSearch'
 import useKeyboardNavigation from './hooks/useKeyboardNavigation'
+import useScrollToTop from './hooks/useScrollToTop'
 
 const App = () => {
+  useScrollToTop()
   const { data, loading } = useFiles()
   const [showSearchModal, setShowSearchModal] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
