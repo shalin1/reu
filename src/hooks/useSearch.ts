@@ -31,8 +31,22 @@ const useSearch = ({ data }: SearchFilesParams) => {
     })
 
     const sortedFiles = filteredFiles.sort((file1: any, file2: any) => {
-      const file1NameWords = file1['File Code'].toLowerCase().replace(/\*$/, '').split(' ')
-      const file2NameWords = file2['File Code'].toLowerCase().replace(/\*$/, '').split(' ')
+      const sanitizeForSort = (fileName: string) => {
+        let sanitized = fileName.toLowerCase().replace(/\*$/, '') // Remove trailing *
+        sanitized = sanitized.replace(/\bfacilitation\b.*$/, '') // Remove 'facilitation' and all following characters
+        return sanitized.trim() // Remove leading and trailing spaces
+      }
+
+      const file1Name = sanitizeForSort(file1['File Code'])
+      const file2Name = sanitizeForSort(file2['File Code'])
+      const file1NameWords = file1Name.split(' ')
+      const file2NameWords = file2Name.split(' ')
+
+      if (file1Name === file2Name) {
+        const setNumber1 = file1['Set#'] === 'F' ? Infinity : parseInt(file1['Set#'], 10)
+        const setNumber2 = file2['Set#'] === 'F' ? Infinity : parseInt(file2['Set#'], 10)
+        return setNumber1 - setNumber2
+      }
 
       const file1ParensMatch = searchWords.every((searchString: string) =>
         file1NameWords.some((word: string) => word === `(${searchString.toLowerCase().trim()})`),
@@ -62,18 +76,6 @@ const useSearch = ({ data }: SearchFilesParams) => {
       }
       if (!file1FullWordMatch && file2FullWordMatch) {
         return 1
-      }
-
-      const sanitizeForSort = (fileName: string) => {
-        let sanitized = fileName.toLowerCase().replace(/\*$/, '') // Remove trailing *
-        sanitized = sanitized.replace(/\bfacilitation\b.*$/, '') // Remove 'facilitation' and all following characters
-        return sanitized.trim() // Remove leading and trailing spaces
-      }
-
-      if (sanitizeForSort(file1['File Code']) === sanitizeForSort(file2['File Code'])) {
-        const setNumber1 = file1['Set#'] === 'F' ? Infinity : parseInt(file1['Set#'], 10)
-        const setNumber2 = file2['Set#'] === 'F' ? Infinity : parseInt(file2['Set#'], 10)
-        return setNumber1 - setNumber2
       }
 
       return 0
