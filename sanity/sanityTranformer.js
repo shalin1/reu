@@ -3,7 +3,6 @@ const fs = require('fs')
 const path = require('path')
 
 const transformReunionFile = (row) => {
-  console.log({row})
   const title = row['File Code'].trim()
   const description = row['Information']
 
