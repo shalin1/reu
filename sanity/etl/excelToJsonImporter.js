@@ -2,7 +2,7 @@ const {read, utils} = require('xlsx')
 const path = require('path')
 const fs = require('fs')
 
-export const importExcelFile = async (filePath) => {
+const importExcelAsJson = async (filePath) => {
   const fullPath = path.resolve(filePath)
   const fileBuffer = fs.readFileSync(fullPath)
   const parsedFile = read(fileBuffer, {type: 'buffer'}) // parse the file
@@ -11,3 +11,5 @@ export const importExcelFile = async (filePath) => {
   console.log('excel data', json)
   return json
 }
+
+// export default importExcelAsJson
