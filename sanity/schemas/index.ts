@@ -1,6 +1,4 @@
-import goto from './goto'
 import reunionFile from './reunionFile'
-import reunionFileDescription from './reunionFileDescription'
-import submode from './submode'
+import description from './description'
 
-export const schemaTypes = [goto, reunionFile, reunionFileDescription, submode]
+export const schemaTypes = [reunionFile, description]

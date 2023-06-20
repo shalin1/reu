@@ -50,7 +50,7 @@ const jsonToSanity = (data) => {
   const sanityReunionFiles = reunionFiles.map((doc) => JSON.stringify(doc)).join('\n')
   console.log('dupe files', dupeFiles)
 
-  return {sanityDescriptions, sanityReunionFiles}
+  return [...sanityDescriptions, ...sanityReunionFiles]
 }
 
 const titleToDescriptionId = (title) => title.replace(/\s/g, '-').replace(/[^a-zA-Z0-9-]/g, '')
