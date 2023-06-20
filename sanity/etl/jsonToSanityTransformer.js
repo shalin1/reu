@@ -4,28 +4,26 @@ const jsonToSanity = (data) => {
   const reunionFiles = []
 
   data.map((row) => {
-    const title = row['File Code'].trim()
-    if (!title) return
-
+    const fileTitle = row['File Code'].trim()
+    if (!fileTitle) return
+    const title = textToBlock(fileTitle)
     const descriptionId = titleToDescriptionId(title)
     const description = textToBlock(row['Information'])
     const page = row['Set#']
-    const numPages = row['Set total']
-    const gotoSm0 = row['Goto sm0']
-    const sm0 = textToBlock(row['sm0'])
 
     reunionFiles.push({
       _type: 'reunionFile',
       _id: titleToReunionFileId(title),
       title,
       page,
-      numPages,
+      numPages: row['Set total'],
       description,
-      sm0,
-      gotoSm0,
+      sm0: row['Goto sm0'],
+      gotoSm0: textToBlock(row['sm0']),
     })
 
     if (seenDescriptionIds.has(descriptionId)) return
+
     descriptions.push({
       _id: descriptionId,
       _type: 'description',
