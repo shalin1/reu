@@ -10,9 +10,21 @@ export default {
     },
     {
       name: 'description',
-      type: 'array',
+      type: 'reference',
       title: 'Description',
-      of: [{type: 'block'}],
+      to: [{type: 'reunionFileDescription'}],
+    },
+    {
+      name: 'goto',
+      type: 'reference',
+      title: 'Goto',
+      to: [{type: 'goto'}],
+    },
+    {
+      name: 'submode',
+      type: 'reference',
+      title: 'Submode',
+      to: [{type: 'submode'}],
     },
   ],
 }
