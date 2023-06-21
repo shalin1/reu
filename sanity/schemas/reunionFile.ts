@@ -5,9 +5,8 @@ export default {
   fields: [
     {
       name: 'title',
-      type: 'array',
+      type: 'string',
       title: 'Title',
-      of: [{type: 'block'}],
     },
     {
       name: 'page',
@@ -33,7 +32,7 @@ export default {
       of: [{type: 'block'}],
     },
     {
-      name: 'goto_sm0',
+      name: 'gotoSm0',
       title: 'Submode 0 Goto',
       type: 'string',
     },
