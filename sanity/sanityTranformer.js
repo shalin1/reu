@@ -12,62 +12,61 @@ const importExcelAsJson = async (filePath) => {
 }
 
 const jsonToSanity = (data) => {
-  const seenDescriptionIds = new Set()
-  const seenReunionFileIds = new Set()
+  const pageTitles = new Set()
+  const seenPageIds = new Set()
   const dupeFiles = []
-  const descriptions = []
   const reunionFiles = []
+  const pages = []
 
   data.forEach((row) => {
     const title = row['File Code'].trim()
     if (!title || title === 's') return
 
-    const descriptionId = titleToDescriptionId(title)
+    const reunionFileId = titleToReunionFileId(title)
     const description = textToBlock(row['Information'])
-    const descriptionRef = {
+    const reunionFileRef = {
       _type: 'reference',
-      _ref: descriptionId,
+      _ref: reunionFileId,
     }
-    const page = row['Set#']
+    const pageNum = row['Set#']
 
-    if (seenReunionFileIds.has(titleToReunionFileId(title, page))) return
-    seenReunionFileIds.add(titleToReunionFileId(title, page))
+    if (seenPageIds.has(titleToPageId(title, pageNum))) return
+    seenPageIds.add(titleToPageId(title, pageNum))
 
-    reunionFiles.push({
+    pages.push({
       _type: 'reunionFile',
-      _id: titleToReunionFileId(title, page),
+      _id: titleToPageId(title, pageNum),
       title: textToBlock(title),
-      page,
+      pageNum,
       numPages: row['Set total'],
-      description: descriptionRef,
+      description: reunionFileRef,
       sm0: row['Goto sm0'],
       gotoSm0: textToBlock(row['sm0']),
     })
 
-    if (seenDescriptionIds.has(descriptionId)) return
-    seenDescriptionIds.add(descriptionId)
+    if (pageTitles.has(reunionFileId)) return
+    pageTitles.add(reunionFileId)
 
-    descriptions.push({
-      _id: descriptionId,
+    reunionFiles.push({
+      _id: reunionFileId,
       _type: 'description',
       title,
       description,
     })
   })
 
-  const sanityDescriptions = descriptions.map((doc) => JSON.stringify(doc)).join('\n')
   const sanityReunionFiles = reunionFiles.map((doc) => JSON.stringify(doc)).join('\n')
-  console.log('dupe files', dupeFiles)
+  const sanityPages = pages.map((doc) => JSON.stringify(doc)).join('\n')
 
-  return {sanityDescriptions, sanityReunionFiles}
+  return {reunionFiles, pages}
 }
 
-const titleToDescriptionId = (title) => {
+const titleToReunionFileId = (title) => {
   return title.replace(/\s/g, '-').replace(/[^a-zA-Z0-9-]/g, '')
 }
 
-const titleToReunionFileId = (title, page) =>
-  page ? `${titleToDescriptionId(title)}-${page.trim()}` : titleToDescriptionId(title)
+const titleToPageId = (title, pageNum) =>
+  pageNum ? `${titleToReunionFileId(title)}-${pageNum.trim()}` : titleToReunionFileId(title)
 
 const textToBlock = (text) => [
   {
@@ -83,7 +82,7 @@ const textToBlock = (text) => [
   },
 ]
 importExcelAsJson('../src/data/june17.xlsx').then((data) => {
-  const {sanityDescriptions, sanityReunionFiles} = jsonToSanity(data)
-  fs.writeFileSync('./sanityDescriptions.ndjson', sanityDescriptions)
-  fs.writeFileSync('./sanityReunionFiles.ndjson', sanityReunionFiles)
+  const {sanityReunionFiles, sanityPages} = jsonToSanity(data)
+  fs.writeFileSync('./reunionFiles.ndjson', sanityReunionFiles)
+  fs.writeFileSync('./pages.ndjson', sanityPages)
 })

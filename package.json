@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "jest",
-    "sanity-import": "cd sanity;node sanityTranformer.js;sanity dataset import sanityDescriptions.ndjson production --replace;sanity dataset import sanityReunionFiles.ndjson production --replace;cd .."
+    "sanity-import": "cd sanity;node sanityTranformer.js;sanity dataset import reunionFiles.ndjson production --replace;sanity dataset import pages.ndjson production --replace;sanity build"
   },
   "dependencies": {
     "@portabletext/react": "^3.0.2",
