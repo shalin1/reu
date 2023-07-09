@@ -89,10 +89,13 @@ const useSearch = ({ data }: SearchFilesParams) => {
       return 0
     })
 
+    console.log(filteredFiles[0])
     setFiles(sortedFiles)
   }, [data, query])
 
   const search = (string: string) => {
+    if (!string) return setSearchParams({ query: '', page: '1' })
+
     if (string === 'IMPLANT\rIndex') {
       return setSearchParams({ query: encodeURIComponent('implant index'), page: '0' })
     }

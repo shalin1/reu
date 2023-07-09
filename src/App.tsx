@@ -14,7 +14,7 @@ const App = () => {
   const { data, loading } = useFiles()
   const [showSearchModal, setShowSearchModal] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
-  const pageNumber = parseInt(searchParams.get('page') || '0')
+  const pageNumber = parseInt(searchParams.get('page') || '1')
 
   const { files, search, query } = useSearch({ data })
 
