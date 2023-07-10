@@ -15,15 +15,11 @@ const FileDescription: React.FC<Props> = (props) => {
   const description = doc?.description
 
   return (
-    <div className="flex">
-      <div className="mr-2 w-1/3 md:w-1/5">
+    <div className="float-left w-full xl:w-1/6">
+      <div className="float-left mr-2 w-1/2 sm:w-1/4 xl:mr-2 xl:w-full">
         <HandMode name={name} />
       </div>
-      <div className="w-2/3 md:w-4/5">
-        <div className="border-grey-700 border-2 border-solid p-1 px-2 text-left text-sm">
-          {description ? <PortableText value={description} /> : props.description}
-        </div>
-      </div>
+      <div className="text-left text-sm">{description ? <PortableText value={description} /> : props.description}</div>
     </div>
   )
 }

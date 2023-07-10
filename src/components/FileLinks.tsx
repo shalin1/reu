@@ -20,10 +20,10 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
     ['245', '345', '1234', '1235', '1245', '1345', '2345', '12345'],
   ]
   return (
-    <div className="flex flex-col gap-2 sm:grid sm:grid-cols-2 lg:grid-cols-4">
+    <div className="flex w-full flex-row flex-wrap xl:w-5/6">
       {range(1, 5).map((quadrant) => (
-        <div className="flex flex-col border-x-[1px] border-black" key={quadrant}>
-          <h3 className="border-y-2 border-x-[1px] border-black bg-green-200">Quadrant {quadrant}</h3>
+        <div className="flex w-full flex-col gap-x-2 border-black md:w-1/2 xl:w-1/4" key={quadrant}>
+          <h3 className="border-x-[1px] border-y-[2px] border-black bg-green-200">Quadrant {quadrant}</h3>
           {range(1, 9).map((linkNum) => {
             const suffix = descriptionRows[quadrant - 1][linkNum - 1]
             const description = file && file[`sm${suffix}`]
@@ -35,7 +35,7 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
                 key={`q${quadrant}_link_${linkNum}`}
                 onClick={() => search(link)}
               >
-                <div className="flex w-[28px] items-center justify-center border-r-[1px] border-b-[1px] border-neutral-800 bg-[#c5f7c5]">
+                <div className="flex w-[28px] items-center justify-center border-[1px] border-r-[1px] border-t-[0px] border-neutral-800 bg-[#c5f7c5]">
                   {linkNum}
                 </div>
                 <div className="w-full border-b-[1px] border-solid border-black bg-violet-200 p-1 py-0.5 text-left text-[13px] leading-none">
