@@ -20,9 +20,9 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
     ['245', '345', '1234', '1235', '1245', '1345', '2345', '12345'],
   ]
   return (
-    <div className="flex w-2/3 flex-col gap-2 lg:w-3/4 xl:w-4/5 xl:flex-row">
+    <div className="flex flex-col gap-2 sm:grid sm:grid-cols-2 lg:grid-cols-4">
       {range(1, 5).map((quadrant) => (
-        <div className="w-100 flex flex-col border-x-[1px] border-black xl:w-1/4" key={quadrant}>
+        <div className="flex flex-col border-x-[1px] border-black" key={quadrant}>
           <h3 className="border-y-2 border-x-[1px] border-black bg-green-200">Quadrant {quadrant}</h3>
           {range(1, 9).map((linkNum) => {
             const suffix = descriptionRows[quadrant - 1][linkNum - 1]

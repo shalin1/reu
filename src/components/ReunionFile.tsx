@@ -49,9 +49,9 @@ const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, pr
         nextPage={nextPage}
         pageNumber={pageNumber}
       />
-      <div className="flex gap-3">
-        <FileDescription name={file['File Code']} description={file.Information} />
+      <div className="flex flex-col-reverse gap-3">
         <FileLinks file={file} search={search} />
+        <FileDescription name={file['File Code']} description={file.Information} />
       </div>
     </div>
   )
