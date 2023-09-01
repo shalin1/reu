@@ -50,6 +50,10 @@ const useSearch = ({ data }: SearchFilesParams) => {
       const file1NameWords = file1Name.split(' ')
       const file2NameWords = file2Name.split(' ')
 
+      // Check if either file is 'OPENING ENTRY FORMS (EF)'
+      if (file1Name === 'opening entry forms (ef)') return -1;
+      if (file2Name === 'opening entry forms (ef)') return 1;
+
       if (file1Name === file2Name) {
         const setNumber1 = file1['Set#'] === 'F' ? Infinity : parseInt(file1['Set#'], 10)
         const setNumber2 = file2['Set#'] === 'F' ? Infinity : parseInt(file2['Set#'], 10)
@@ -94,7 +98,7 @@ const useSearch = ({ data }: SearchFilesParams) => {
   }, [data, query])
 
   const search = (string: string) => {
-    if (!string) return setSearchParams({ query: '', page: '1' })
+    if (!string) return setSearchParams({ query: '', page: '0' })
 
     if (string === 'IMPLANT\rIndex') {
       return setSearchParams({ query: encodeURIComponent('implant index'), page: '0' })
