@@ -14,5 +14,10 @@ export default {
       title: 'Description',
       of: [{type: 'block'}],
     },
+    {
+      name: 'q1r1',
+      type: 'string',
+      title: 'Quadrant 1, Row 1',
+    },
   ],
 }

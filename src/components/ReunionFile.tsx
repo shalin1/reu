@@ -3,9 +3,10 @@ import FileLinks from './FileLinks'
 import Header from './Header'
 import useFiles from '../hooks/useFiles'
 import FileDescription from './FileDescription'
+import useSanity from '../hooks/useSanity'
 
 interface Props {
-  file?: {
+  file: {
     description: string
     'File Code': string
     Information: string
@@ -22,6 +23,9 @@ interface Props {
 }
 
 const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, previousPage, showSearch, search }) => {
+  const { sanityData } = useSanity()
+  const sanityFile = sanityData?.find((doc: any) => doc.title === file['File Code'].trim())
+  const description = sanityFile?.description
   const [flipped, setFlipped] = useState(false)
   const { loading } = useFiles()
   if (loading) return <h1>Loading...</h1>
@@ -43,6 +47,7 @@ const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, pr
   const flipIt = () => {
     setFlipped(!flipped)
   }
+
   return (
     <div className="flex flex-col gap-3">
       <Header
@@ -55,8 +60,8 @@ const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, pr
         pageNumber={pageNumber}
       />
       <div className={`flex ${flipped ? 'flex-col-reverse' : 'flex-col'} gap-3`}>
-        <FileLinks file={file} search={search} />
-        <FileDescription name={file['File Code']} description={file.Information} />
+        <FileLinks file={file} sanityFile={sanityFile} search={search} />
+        <FileDescription name={file['File Code']} description={description} />
       </div>
     </div>
   )

@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react'
 import sanityClient from '../data/sanityClient'
 
 const useSanity = () => {
-  const [data, setData] = useState<any>([])
+  const [sanityData, setData] = useState<any>([])
   const [loading, setLoading] = useState(false)
   useEffect(() => {
-    if (!loading && !data.length) {
-      console.log('pinging sanity')
+    if (!loading && !sanityData.length) {
       setLoading(true)
 
       sanityClient
         .fetch(
           `*[_type == "reunionFile"]{
         title,
-        description
+        description,
+        q1r1,
       }`,
         )
         .then(setData)
@@ -21,6 +21,6 @@ const useSanity = () => {
         .catch(console.error)
     }
   }, [])
-  return { loading, data }
+  return { loading, sanityData }
 }
 export default useSanity
