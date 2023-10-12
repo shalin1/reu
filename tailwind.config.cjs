@@ -4,6 +4,12 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {},
+  theme: {
+    extend: {
+      colors: {
+        'newsprint-pink': '#f5eaf3',
+      }
+    },
+  },
   plugins: [],
 }
