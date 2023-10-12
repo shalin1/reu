@@ -28,7 +28,7 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
             const suffix = descriptionRows[quadrant - 1][linkNum - 1]
             const description = file && file[`sm${suffix}`]
             const rawLink = file && file[`Goto sm${nameRows[quadrant - 1][linkNum - 1]}`]
-            const link = rawLink.replace('Entry\rET', 'ET')
+            const link = rawLink && rawLink.replace('Entry\rET', 'ET')
             return (
               // eslint-disable-next-line jsx-a11y/anchor-is-valid
               <a
