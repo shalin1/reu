@@ -20,7 +20,7 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
     ['245', '345', '1234', '1235', '1245', '1345', '2345', '12345'],
   ]
   return (
-    <div className="flex w-full flex-row flex-wrap xl:w-5/6">
+    <div className="flex w-full flex-row flex-wrap">
       {range(1, 5).map((quadrant) => (
         <div className="flex w-full flex-col gap-x-2 border-black md:w-1/2 xl:w-1/4" key={quadrant}>
           <h3 className="border-x-[1px] border-y-[2px] border-black bg-green-200">Quadrant {quadrant}</h3>
@@ -29,6 +29,7 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
             const description = file && file[`sm${suffix}`]
             const rawLink = file && file[`Goto sm${nameRows[quadrant - 1][linkNum - 1]}`]
             const link = rawLink && rawLink.replace('Entry\rET', 'ET')
+
             return (
               // eslint-disable-next-line jsx-a11y/anchor-is-valid
               <a
