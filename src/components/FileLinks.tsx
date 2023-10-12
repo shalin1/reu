@@ -33,21 +33,21 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
             return (
               // eslint-disable-next-line jsx-a11y/anchor-is-valid
               <a
-                className="flex h-[50px] overflow-hidden hover:cursor-pointer"
+                className="relative flex h-[57px] hover:cursor-pointer"
                 key={`q${quadrant}_link_${linkNum}`}
                 onClick={() => search(link)}
               >
                 <div className="flex w-[28px] items-center justify-center border-[1px] border-r-[1px] border-t-[0px] border-neutral-800 bg-[#c5f7c5]">
                   {linkNum}
                 </div>
-                <div className="flex w-full justify-between border-b-[1px] border-solid border-black bg-newsprint-pink text-left text-[12px] leading-none">
-                  <div className="">{description?.includes('∞∞') ? '' : description}</div>
-                  {link && (
-                    <div className="float-right flex h-4 items-end whitespace-nowrap border-y-[1px] border-l-[1px] border-black bg-link-name px-2 py-0 text-xs font-bold text-purple-900">
-                      {link}
-                    </div>
-                  )}
+                <div className="w-full border-b-[1px] border-solid border-black bg-newsprint-pink p-1 py-0.5 text-left text-[12px] leading-none">
+                  {description?.includes('∞∞') ? '' : description}
                 </div>
+                {link && (
+                  <div className="absolute bottom-0 right-0 border-y-[1px] border-l-[1px] border-black bg-link-name px-2 py-0 text-xs font-bold text-purple-800">
+                    {link}
+                  </div>
+                )}
               </a>
             )
           })}
