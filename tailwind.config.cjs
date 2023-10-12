@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       colors: {
         'newsprint-pink': '#f5eaf3',
+        'link-name': '#dfddf7',
       }
     },
   },
