@@ -24,11 +24,12 @@ interface Props {
 
 const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, previousPage, showSearch, search }) => {
   const { sanityData } = useSanity()
-  const sanityFile = sanityData?.find((doc: any) => doc.title === file['File Code'].trim())
-  const description = sanityFile?.description
   const [flipped, setFlipped] = useState(false)
   const { loading } = useFiles()
-  if (loading) return <h1>Loading...</h1>
+
+  if (loading || !file) return <h1>Loading...</h1>
+  const sanityFile = sanityData?.find((doc: any) => doc.title === file['File Code'].trim())
+  const description = sanityFile?.description
 
   if (!file) {
     return (

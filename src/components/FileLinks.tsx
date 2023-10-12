@@ -8,7 +8,6 @@ interface Props {
 }
 
 const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
-  console.log(sanityFile)
   const nameRows = [
     ['0', '1', '2', '3', '4', '5', '12', '13'],
     ['14', '15', '23', '24', '25', '34', '35', '45'],
@@ -27,8 +26,10 @@ const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
         <div className="flex w-full flex-col gap-x-2 border-black sm:w-1/2 md:w-1/4" key={quadrant}>
           <h3 className="border-x-[1px] border-y-[2px] border-black bg-green-200">Quadrant {quadrant}</h3>
           {range(1, 9).map((linkNum) => {
-            const suffix = descriptionRows[quadrant - 1][linkNum - 1]
-            const description = file && file[`sm${suffix}`]
+            const filemakerSuffix = descriptionRows[quadrant - 1][linkNum - 1]
+            const filemakerDescription = file && file[`sm${filemakerSuffix}`]
+            const sanityDescription = sanityFile[`q${quadrant}r${linkNum}`]
+            const description = sanityDescription || filemakerDescription
             const rawLink = file && file[`Goto sm${nameRows[quadrant - 1][linkNum - 1]}`]
             const link = rawLink && rawLink.replace('Entry\rET', 'ET')
 
