@@ -22,7 +22,7 @@ const FileLinks: React.FC<Props> = ({ file, search }) => {
   return (
     <div className="flex w-full flex-row flex-wrap">
       {range(1, 5).map((quadrant) => (
-        <div className="flex w-full flex-col gap-x-2 border-black md:w-1/2 xl:w-1/4" key={quadrant}>
+        <div className="flex w-full flex-col gap-x-2 border-black sm:w-1/2 lg:w-1/4" key={quadrant}>
           <h3 className="border-x-[1px] border-y-[2px] border-black bg-green-200">Quadrant {quadrant}</h3>
           {range(1, 9).map((linkNum) => {
             const suffix = descriptionRows[quadrant - 1][linkNum - 1]
