@@ -9,13 +9,7 @@ const useSanity = () => {
       setLoading(true)
 
       sanityClient
-        .fetch(
-          `*[_type == "reunionFile"]{
-        title,
-        description,
-        q1r1,
-      }`,
-        )
+        .fetch(`*[_type == "reunionFile"]{ title, description, pages[]-> }`)
         .then(setData)
         .then(() => setLoading(false))
         .catch(console.error)
