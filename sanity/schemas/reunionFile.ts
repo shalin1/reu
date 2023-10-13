@@ -18,7 +18,8 @@ export default {
       name: 'pages',
       type: 'array',
       title: 'Pages',
-      of: [{type: 'reference', to: [{type: 'pageTest'}]}],
+      of: [{type: 'reference', to: [{type: 'pageTest'}], readOnly: true}],
+      readOnly: true,
     },
   ],
 }
