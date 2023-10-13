@@ -8,8 +8,7 @@ interface Props {
 }
 
 const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
-  const page = sanityFile?.pages.find((p: { pageNumber: any }) => p.pageNumber === file['Set#'])
-  console.log(page)
+  const page = sanityFile?.pages?.find((p: { pageNumber: any }) => p.pageNumber === file['Set#'])
 
   const nameRows = [
     ['0', '1', '2', '3', '4', '5', '12', '13'],

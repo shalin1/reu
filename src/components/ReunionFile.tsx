@@ -26,9 +26,8 @@ const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, pr
   const { sanityData } = useSanity()
   const { loading } = useFiles()
 
-  if (loading || !file) return <h1>Loading...</h1>
-  const sanityFile = sanityData?.find((doc: any) => doc.title === file['File Code'].trim())
-  const description = sanityFile?.description
+  if (loading || !sanityData) return <h1>Loading...</h1>
+
   if (!file) {
     return (
       <div className="align-center flex flex-col justify-center">
@@ -43,6 +42,8 @@ const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, pr
     )
   }
 
+  const sanityFile = sanityData.find((doc: any) => doc.title === file['File Code'].trim())
+  const description = sanityFile?.description
   return (
     <div className="flex flex-col gap-3">
       <Header
@@ -55,7 +56,7 @@ const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, pr
       />
       <div className="flex flex-col gap-3">
         <FileLinks file={file} sanityFile={sanityFile} search={search} />
-        <FileDescription name={file['File Code']} description={file.Information} />
+        <FileDescription name={file['File Code']} description={description} />
       </div>
     </div>
   )
