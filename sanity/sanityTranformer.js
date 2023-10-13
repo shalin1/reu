@@ -4,20 +4,7 @@ const path = require('path')
 
 const transformReunionFile = (row) => {
   const title = row['File Code'].trim()
-  const description = row['Information']
   const q1r1 = row['sm0']
-
-  const descriptionBlock = {
-    _type: 'block',
-    markDefs: [],
-    children: [
-      {
-        _type: 'span',
-        text: description,
-        marks: [],
-      },
-    ],
-  }
 
   return {
     _id: titleToId(title),
@@ -51,7 +38,6 @@ const readAndTransformFile = async (filePath) => {
 readAndTransformFile('../src/data/Oct 12.xlsx')
   .then((documents) => {
     const ndjson = documents.map((doc) => JSON.stringify(doc)).join('\n')
-    console.log(ndjson)
     // fs.writeFileSync('./sanityDocuments.ndjson', ndjson)
   })
   .catch((err) => console.error(err))
