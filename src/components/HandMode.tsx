@@ -30,7 +30,6 @@ const HandMode: React.FC<Props> = ({ name }) => {
     const sanitized = sanitizeName(name)
     const replacedName = Object.prototype.hasOwnProperty.call(nameMap, sanitized) ? nameMap[sanitized] : sanitized
     const finalName = checkForPrefixes(replacedName)
-    console.log(finalName)
     const path = `/src/images/${finalName}.png`
     const modules = import.meta.glob('/src/images/*', { eager: true })
     const mod = modules[path] as { default: string }

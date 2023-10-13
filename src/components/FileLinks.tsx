@@ -8,6 +8,7 @@ interface Props {
 }
 
 const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
+  console.log(sanityFile)
   const nameRows = [
     ['0', '1', '2', '3', '4', '5', '12', '13'],
     ['14', '15', '23', '24', '25', '34', '35', '45'],

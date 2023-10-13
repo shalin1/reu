@@ -93,7 +93,6 @@ const useSearch = ({ data }: SearchFilesParams) => {
       return 0
     })
 
-    console.log(filteredFiles[0])
     setFiles(sortedFiles)
   }, [data, query])
 

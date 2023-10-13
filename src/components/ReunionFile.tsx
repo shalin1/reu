@@ -30,7 +30,6 @@ const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, pr
   if (loading || !file) return <h1>Loading...</h1>
   const sanityFile = sanityData?.find((doc: any) => doc.title === file['File Code'].trim())
   const description = sanityFile?.description
-  console.log(sanityFile)
   if (!file) {
     return (
       <div className="align-center flex flex-col justify-center">
