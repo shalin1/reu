@@ -51,8 +51,8 @@ const useSearch = ({ data }: SearchFilesParams) => {
       const file2NameWords = file2Name.split(' ')
 
       // Check if either file is 'OPENING ENTRY FORMS (EF)'
-      if (file1Name === 'opening entry forms (ef)') return -1;
-      if (file2Name === 'opening entry forms (ef)') return 1;
+      if (file1Name === 'opening entry forms (ef)') return -1
+      if (file2Name === 'opening entry forms (ef)') return 1
 
       if (file1Name === file2Name) {
         const setNumber1 = file1['Set#'] === 'F' ? Infinity : parseInt(file1['Set#'], 10)
