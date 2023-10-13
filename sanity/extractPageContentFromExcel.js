@@ -7,11 +7,11 @@ const transformReunionFile = (row) => {
   const pageNumber = row['Set#']?.split(' ')[0]
 
   return {
-    _id: titleToId(fileTitle) + pageNumber,
-    _type: 'page',
-    pageNumber,
+    _id: titleToFileId(fileTitle) + '_' + pageNumber,
+    _type: 'pageTest',
     title: fileTitle + ' ' + pageNumber,
-    fileTitle,
+    pageNumber,
+    parent: {_type: 'reference', _ref: titleToFileId(fileTitle)},
     q1r1: row['sm0'],
     q1r2: row['sm1'],
     q1r3: row['sm2'],
@@ -47,7 +47,7 @@ const transformReunionFile = (row) => {
   }
 }
 
-const titleToId = (title) => title.replace(/\s/g, '-').replace(/[^a-zA-Z0-9-]/g, '')
+const titleToFileId = (title) => title.replace(/\s/g, '-').replace(/[^a-zA-Z0-9-]/g, '')
 
 const readAndTransformFile = async (filePath) => {
   const fullPath = path.resolve(filePath)
@@ -59,7 +59,7 @@ const readAndTransformFile = async (filePath) => {
   return data.map(transformReunionFile)
 }
 
-readAndTransformFile('../src/data/Oct 12.xlsx')
+readAndTransformFile('../src/data/Oct 13.xlsx')
   .then((documents) => {
     const ndjson = documents.map((doc) => JSON.stringify(doc)).join('\n')
     fs.writeFileSync('./reunionPages.ndjson', ndjson)

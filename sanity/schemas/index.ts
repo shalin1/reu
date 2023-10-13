@@ -1,4 +1,4 @@
-import page from './page'
 import reunionFile from './reunionFile'
+import pageTest from './page'
 
-export const schemaTypes = [page, reunionFile]
+export const schemaTypes = [pageTest, reunionFile]
