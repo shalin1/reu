@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import sanityClient from '../data/sanityClient'
 
 const useSanity = () => {
-  const [sanityData, setData] = useState<any>([])
+  const [sanityData, setData] = useState<any>(false)
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     if (!loading && !sanityData.length) {
