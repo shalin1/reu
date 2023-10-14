@@ -7,6 +7,34 @@ interface Props {
   search: (string: string) => void
 }
 
+const LinkGrid = ({
+  onClick,
+  linkNum,
+  description,
+  link,
+}: {
+  onClick: () => any
+  linkNum: number
+  description: string
+  link: string
+}) => {
+  return (
+    <a className="relative flex h-[51px] hover:cursor-pointer" onClick={onClick}>
+      <div className="flex w-[28px] items-center justify-center border-[1px] border-r-[1px] border-t-[0px] border-neutral-800 bg-[#c5f7c5]">
+        {linkNum}
+      </div>
+      <div className="w-full border-b-[1px] border-solid border-black bg-newsprint-pink p-1 py-0.5 text-left text-[11px] leading-none md:text-[10px] xl:text-[11px]">
+        {description?.includes('∞∞') ? '' : description}
+      </div>
+      {link && (
+        <div className="absolute bottom-0 right-0 border-y-[1px] border-l-[1px] border-black bg-link-name px-2 text-[11px] font-bold text-purple-800">
+          {link}
+        </div>
+      )}
+    </a>
+  )
+}
+
 const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
   const page = sanityFile?.pages?.find((p: { pageNumber: any }) => p.pageNumber === file['Set#'])
 
@@ -37,23 +65,13 @@ const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
 
             return (
               // eslint-disable-next-line jsx-a11y/anchor-is-valid
-              <a
-                className="relative flex h-[51px] hover:cursor-pointer"
+              <LinkGrid
                 key={`q${quadrant}_link_${linkNum}`}
                 onClick={() => search(link)}
-              >
-                <div className="flex w-[28px] items-center justify-center border-[1px] border-r-[1px] border-t-[0px] border-neutral-800 bg-[#c5f7c5]">
-                  {linkNum}
-                </div>
-                <div className="w-full border-b-[1px] border-solid border-black bg-newsprint-pink p-1 py-0.5 text-left text-[11px] leading-none md:text-[10px] xl:text-[11px]">
-                  {description?.includes('∞∞') ? '' : description}
-                </div>
-                {link && (
-                  <div className="absolute bottom-0 right-0 border-y-[1px] border-l-[1px] border-black bg-link-name px-2 text-[11px] font-bold text-purple-800">
-                    {link}
-                  </div>
-                )}
-              </a>
+                linkNum={linkNum}
+                description={description}
+                link={link}
+              />
             )
           })}
         </div>
