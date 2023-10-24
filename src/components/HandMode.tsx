@@ -19,7 +19,13 @@ const HandMode: React.FC<Props> = ({ name }) => {
     if (name.includes('breakout')) {
       return 'egg'
     }
-    const prefixes = ['belief', 'nutrient', 'seeding', 'alliances', 'demonic', 'circuit', 'code']
+    if (name === 'implant trance') {
+      return name
+    }
+    if (name.includes('1-6')) {
+      return 'general'
+    }
+    const prefixes = ['belief', 'implant', 'nutrient', 'seeding', 'alliances', 'demonic', 'circuit', 'code']
     const prefixFound = prefixes.find((prefix) => name.startsWith(prefix))
     return prefixFound || name
   }
