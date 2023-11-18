@@ -9,7 +9,7 @@ interface SearchFilesParams {
 const useSearch = ({ data }: SearchFilesParams) => {
   const [searchParams, setSearchParams] = useSearchParams()
   let query = decodeURIComponent(searchParams.get('query') || '')
-  query = query.replace(/%250D/g, '%2520')
+  query = query.replace(/\r/g, ' ')
   const searchWords = query.toLowerCase().trim().split(' ')
   const [files, setFiles] = useState([] as any)
 
