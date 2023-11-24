@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
-import xlsx from '../data/Oct 13.xlsx?url'
+import xlsx from '../data/Nov 24.xlsx?url'
 import { useEffect, useState } from 'react'
 import { read, utils } from 'xlsx'
 
