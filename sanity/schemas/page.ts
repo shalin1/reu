@@ -1,6 +1,6 @@
 export default {
   name: 'pageTest',
-  type: 'object',
+  type: 'document',
   title: 'Page',
   fields: [
     {name: 'title', type: 'string', title: 'Title'},
