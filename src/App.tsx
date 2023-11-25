@@ -8,8 +8,11 @@ import SearchModal from './components/SearchModal'
 import useSearch from './hooks/useSearch'
 import useKeyboardNavigation from './hooks/useKeyboardNavigation'
 import useScrollToTop from './hooks/useScrollToTop'
+import ProcedurePagesModal from './components/ProcedurePagesModal'
+import useSanity from './hooks/useSanity'
 
 const App = () => {
+  const [showModal, setShowModal] = useState(false)
   useScrollToTop()
   const { data, loading } = useFiles()
   const [showSearchModal, setShowSearchModal] = useState(false)
@@ -30,12 +33,14 @@ const App = () => {
     }
   }
 
-  useKeyboardNavigation(nextPage, previousPage, setShowSearchModal)
+  const disabled = showModal
+  useKeyboardNavigation(disabled, nextPage, previousPage, setShowSearchModal)
 
   const searchInputRef = useRef<HTMLInputElement>(null)
 
   const file = files[pageNumber || 0]
 
+  const { sanityData } = useSanity()
   return (
     <>
       <SearchModal
@@ -45,6 +50,7 @@ const App = () => {
         setQuery={search}
       />
       <ReunionFile
+        sanityData={sanityData}
         showSearch={() => setShowSearchModal(true)}
         file={file}
         loading={loading}
@@ -54,6 +60,7 @@ const App = () => {
         previousPage={previousPage}
         numPages={files.length}
       />
+      <ProcedurePagesModal showModal={showModal} setShowModal={setShowModal} hidden={loading || !sanityData} />
     </>
   )
 }

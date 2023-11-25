@@ -3,7 +3,6 @@ import FileLinks from './FileLinks'
 import Header from './Header'
 import useFiles from '../hooks/useFiles'
 import FileDescription from './FileDescription'
-import useSanity from '../hooks/useSanity'
 
 interface Props {
   file: {
@@ -20,10 +19,19 @@ interface Props {
   previousPage: () => void
   search: (str: string) => void
   showSearch: () => void
+  sanityData: any[] | undefined
 }
 
-const ReunionFile: React.FC<Props> = ({ file, numPages, pageNumber, nextPage, previousPage, showSearch, search }) => {
-  const { sanityData } = useSanity()
+const ReunionFile: React.FC<Props> = ({
+  sanityData,
+  file,
+  numPages,
+  pageNumber,
+  nextPage,
+  previousPage,
+  showSearch,
+  search,
+}) => {
   const { loading } = useFiles()
 
   if (loading || !sanityData) return <h1>Loading...</h1>

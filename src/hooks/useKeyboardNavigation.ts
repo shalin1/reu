@@ -1,13 +1,14 @@
 import { useEffect, useCallback } from 'react'
 
 const useKeyboardNavigation = (
+  disabled = false,
   nextPage: () => void,
   previousPage: () => void,
   setShowSearchModal: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   const updatePage = useCallback(
     (e: KeyboardEvent) => {
-      if (!e.metaKey) {
+      if (!e.metaKey && !disabled) {
         if (e.key === 'ArrowRight') {
           nextPage()
         }
