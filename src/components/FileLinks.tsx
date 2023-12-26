@@ -19,7 +19,7 @@ const LinkGrid = ({
   link: string
 }) => {
   return (
-    <a className="relative flex h-[51px] hover:cursor-pointer" onClick={onClick}>
+    <a className={`relative flex h-[51px] ${link.trim() && 'hover:cursor-pointer'}`} onClick={onClick}>
       <div className=" flex w-[24px] justify-center border-x-[1px] border-b-[1px] border-neutral-800 bg-[#c5f7c5] pt-[1px]">
         {linkNum}
       </div>
@@ -69,7 +69,9 @@ const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
               // eslint-disable-next-line jsx-a11y/anchor-is-valid
               <LinkGrid
                 key={`q${quadrant}_link_${linkNum}`}
-                onClick={() => search(link)}
+                onClick={() => {
+                  if (link.trim()) search(link)
+                }}
                 linkNum={linkNum}
                 description={description}
                 link={link}

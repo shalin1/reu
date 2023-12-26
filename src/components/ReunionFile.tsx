@@ -50,9 +50,7 @@ const ReunionFile: React.FC<Props> = ({
     )
   }
 
-  console.log(file)
   const sanityFile = sanityData.find((doc: any) => doc.title === file['File Code'].trim())
-  console.log(sanityFile)
   const description = sanityFile?.description
   return (
     <div className="flex flex-col gap-3">
