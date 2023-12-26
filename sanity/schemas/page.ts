@@ -4,7 +4,7 @@ export default {
   title: 'Page',
   fields: [
     {name: 'title', type: 'string', title: 'Title'},
-    {name: 'pageNumber', type: 'string', title: 'Page Number', readOnly: true},
+    {name: 'pageNumber', type: 'string', title: 'Page Number'},
     {name: 'parent', type: 'reference', to: [{type: 'reunionFile'}], readOnly: true},
     {name: 'q1r1', type: 'text', rows: 4, title: 'Quadrant 1, Row 1'},
     {name: 'q1r2', type: 'text', rows: 4, title: 'Quadrant 1, Row 2'},
