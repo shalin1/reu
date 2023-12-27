@@ -1,11 +1,14 @@
 // App.tsx
 import './App.css'
 import React, { useRef, useState } from 'react'
+import ReunionFile from './components/ReunionFile'
 import useFiles from './hooks/useFiles'
 import { useSearchParams } from 'react-router-dom'
+import SearchModal from './components/SearchModal'
 import useSearch from './hooks/useSearch'
 import useKeyboardNavigation from './hooks/useKeyboardNavigation'
 import useScrollToTop from './hooks/useScrollToTop'
+import ProcedurePagesModal from './components/ProcedurePagesModal'
 import useSanity from './hooks/useSanity'
 
 const App = () => {
@@ -39,10 +42,26 @@ const App = () => {
 
   const { sanityData } = useSanity()
   return (
-    <h1>
-      Good luck to peter and all the reunion facilitators in finding a reliable subcontractor for the reunion process
-      facilitator's toolkit!
-    </h1>
+    <>
+      <SearchModal
+        ref={searchInputRef}
+        show={showSearchModal}
+        closeModal={() => setShowSearchModal(false)}
+        setQuery={search}
+      />
+      <ReunionFile
+        sanityData={sanityData}
+        showSearch={() => setShowSearchModal(true)}
+        file={file}
+        loading={loading}
+        pageNumber={pageNumber}
+        search={search}
+        nextPage={nextPage}
+        previousPage={previousPage}
+        numPages={files.length}
+      />
+      <ProcedurePagesModal showModal={showModal} setShowModal={setShowModal} hidden={loading || !sanityData} />
+    </>
   )
 }
 

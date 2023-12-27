@@ -19,7 +19,7 @@ const LinkGrid = ({
   link: string
 }) => {
   return (
-    <a className={`relative flex h-[51px] ${link.toString().trim() && 'hover:cursor-pointer'}`} onClick={onClick}>
+    <a className={`relative flex h-[51px] ${link.trim() && 'hover:cursor-pointer'}`} onClick={onClick}>
       <div className=" flex w-[24px] justify-center border-x-[1px] border-b-[1px] border-neutral-800 bg-[#c5f7c5] pt-[1px]">
         {linkNum}
       </div>
@@ -37,8 +37,7 @@ const LinkGrid = ({
 
 const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
   const page = sanityFile?.pages?.find((p: { pageNumber: any }) => {
-    console.log(file['Set#'].toString(), p.pageNumber)
-    p.pageNumber.trim() === file['Set#'].toString().trim()
+    p.pageNumber.trim() === file['Set#'].trim()
   })
 
   const nameRows = [
