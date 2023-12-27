@@ -39,10 +39,7 @@ const App = () => {
 
   const { sanityData } = useSanity()
   return (
-    <h1>
-      Good luck to peter and all the reunion facilitators in finding a reliable subcontractor for the reunion process
-      facilitator's toolkit!
-    </h1>
+    <h1>This site will be restored when Peter learns how to speak to his allies with a modicum of respect and love.</h1>
   )
 }
 
