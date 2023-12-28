@@ -1,7 +1,7 @@
 # README
 
 ## Running the app
-`npm run dev`
+`yarn dev`
 
 ## Importing files
-`npm run import`
+`yarn import`

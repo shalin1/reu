@@ -1,6 +1,7 @@
 // App.tsx
 import './App.css'
 import React, { useRef, useState } from 'react'
+import Auth from './components/Auth'
 import ReunionFile from './components/ReunionFile'
 import useFiles from './hooks/useFiles'
 import { useSearchParams } from 'react-router-dom'
@@ -41,8 +42,10 @@ const App = () => {
   const file = files[pageNumber || 0]
 
   const { sanityData } = useSanity()
+
   return (
     <>
+      <Auth />
       <SearchModal
         ref={searchInputRef}
         show={showSearchModal}
