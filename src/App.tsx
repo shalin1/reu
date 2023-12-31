@@ -1,7 +1,6 @@
 // App.tsx
 import './App.css'
 import React, { useRef, useState } from 'react'
-import { useAuth0 } from '@auth0/auth0-react'
 import Splash from './components/Splash'
 import ReunionFile from './components/ReunionFile'
 import useFiles from './hooks/useFiles'
@@ -13,6 +12,7 @@ import useScrollToTop from './hooks/useScrollToTop'
 import ProcedurePagesModal from './components/ProcedurePagesModal'
 import useSanity from './hooks/useSanity'
 import LogoutButton from './components/LogoutButton'
+import useAuth0UserWithSanity from './hooks/useAuth0UserWithSanity'
 
 const App = () => {
   const [showModal, setShowModal] = useState(false)
@@ -45,9 +45,9 @@ const App = () => {
 
   const { sanityData } = useSanity()
 
-  const { isAuthenticated, isLoading } = useAuth0()
+  const { isAuthenticated, isLoading: auth0IsLoading } = useAuth0UserWithSanity()
 
-  if (isLoading) {
+  if (auth0IsLoading) {
     return <div>Loading...</div>
   }
 
