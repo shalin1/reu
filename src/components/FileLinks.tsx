@@ -36,7 +36,8 @@ const LinkGrid = ({
 }
 
 const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
-  const page = sanityFile?.pages?.find((p: { pageNumber: any }) => {
+  console.log(sanityFile, 'sanityFile')
+  const sanityPage = sanityFile?.pages?.find((p: { pageNumber: any }) => {
     p.pageNumber.trim() === file['Set#'].trim()
   })
 
@@ -60,17 +61,19 @@ const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
           {range(1, 9).map((linkNum) => {
             const filemakerSuffix = descriptionRows[quadrant - 1][linkNum - 1]
             const filemakerDescription = file && file[`sm${filemakerSuffix}`]
-            const sanityDescription = page && page[`q${quadrant}r${linkNum}`]
+            const sanityDescription = sanityPage && sanityPage[`q${quadrant}r${linkNum}`]
+            console.log(sanityDescription, 'sanity')
+            console.log(filemakerDescription, 'filemaker')
             const description = sanityDescription || filemakerDescription
             const rawLink = file && file[`Goto sm${nameRows[quadrant - 1][linkNum - 1]}`]
-            const link = rawLink && rawLink.replace('Entry\rET', 'ET')
+            const link = rawLink && rawLink.replace('Entry\rET', 'ET').replace('Entry', 'Entry ET')
 
             return (
               // eslint-disable-next-line jsx-a11y/anchor-is-valid
               <LinkGrid
                 key={`q${quadrant}_link_${linkNum}`}
                 onClick={() => {
-                  if (link.trim()) search(link)
+                  if (link?.trim()) search(link)
                 }}
                 linkNum={linkNum}
                 description={description}
