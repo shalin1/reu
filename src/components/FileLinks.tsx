@@ -36,9 +36,8 @@ const LinkGrid = ({
 }
 
 const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
-  console.log(sanityFile, 'sanityFile')
   const sanityPage = sanityFile?.pages?.find((p: { pageNumber: any }) => {
-    p.pageNumber.trim() === file['Set#'].trim()
+    return p.pageNumber.trim() === file['Set#'].trim()
   })
 
   const nameRows = [
@@ -62,8 +61,6 @@ const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
             const filemakerSuffix = descriptionRows[quadrant - 1][linkNum - 1]
             const filemakerDescription = file && file[`sm${filemakerSuffix}`]
             const sanityDescription = sanityPage && sanityPage[`q${quadrant}r${linkNum}`]
-            console.log(sanityDescription, 'sanity')
-            console.log(filemakerDescription, 'filemaker')
             const description = sanityDescription || filemakerDescription
             const rawLink = file && file[`Goto sm${nameRows[quadrant - 1][linkNum - 1]}`]
             const link = rawLink && rawLink.replace('Entry\rET', 'ET').replace('Entry', 'Entry ET')
