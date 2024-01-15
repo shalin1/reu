@@ -16,7 +16,7 @@ export default {
     {
       name: 'auth0UserId',
       type: 'string',
-      title: 'Auth0 User ID'
+      title: 'Users'
     }
   ]
 }
