@@ -1,6 +1,7 @@
 // App.tsx
 import './App.css'
 import React, { useRef, useState } from 'react'
+import Splash from './components/Splash'
 import ReunionFile from './components/ReunionFile'
 import useFiles from './hooks/useFiles'
 import { useSearchParams } from 'react-router-dom'
@@ -10,6 +11,8 @@ import useKeyboardNavigation from './hooks/useKeyboardNavigation'
 import useScrollToTop from './hooks/useScrollToTop'
 import ProcedurePagesModal from './components/ProcedurePagesModal'
 import useSanity from './hooks/useSanity'
+import LogoutButton from './components/LogoutButton'
+import useAuth0UserWithSanity from './hooks/useAuth0UserWithSanity'
 
 const App = () => {
   const [showModal, setShowModal] = useState(false)
@@ -41,28 +44,42 @@ const App = () => {
   const file = files[pageNumber || 0]
 
   const { sanityData } = useSanity()
-  return (
-    <>
-      <SearchModal
-        ref={searchInputRef}
-        show={showSearchModal}
-        closeModal={() => setShowSearchModal(false)}
-        setQuery={search}
-      />
-      <ReunionFile
-        sanityData={sanityData}
-        showSearch={() => setShowSearchModal(true)}
-        file={file}
-        loading={loading}
-        pageNumber={pageNumber}
-        search={search}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        numPages={files.length}
-      />
-      <ProcedurePagesModal showModal={showModal} setShowModal={setShowModal} hidden={loading || !sanityData} />
-    </>
-  )
+
+  const { isAuthenticated, isLoading: auth0IsLoading } = useAuth0UserWithSanity()
+
+  if (auth0IsLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (isAuthenticated) {
+    return (
+      <>
+        <div className="text-right">
+          <LogoutButton />
+        </div>
+        <SearchModal
+          ref={searchInputRef}
+          show={showSearchModal}
+          closeModal={() => setShowSearchModal(false)}
+          setQuery={search}
+        />
+        <ReunionFile
+          sanityData={sanityData}
+          showSearch={() => setShowSearchModal(true)}
+          file={file}
+          loading={loading}
+          pageNumber={pageNumber}
+          search={search}
+          nextPage={nextPage}
+          previousPage={previousPage}
+          numPages={files.length}
+        />
+        <ProcedurePagesModal showModal={showModal} setShowModal={setShowModal} hidden={loading || !sanityData} />
+      </>
+    )
+  } else {
+    return <Splash />
+  }
 }
 
 export default App
