@@ -21,6 +21,8 @@ fastify.post('/create-checkout-session', async (req, res) => {
     success_url: `${DOMAIN}?success=true&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${DOMAIN}?canceled=true`,
   })
+  // `{CHECKOUT_SESSION_ID}` is a string literal that is replaced by the actual
+  // session ID by Stripe on success
 
   res.redirect(303, session.url)
 })
