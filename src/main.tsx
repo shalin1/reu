@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import ErrorPage from './ErrorPage'
 import './index.css'
+import Checkout from './components/Checkout'
 
 const domain = import.meta.env.VITE_AUTH0_DOMAIN as string
 const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID as string
@@ -23,6 +24,11 @@ const router = createBrowserRouter([
         <App />
       </Auth0Provider>
     ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/checkout',
+    element: <Checkout />,
     errorElement: <ErrorPage />,
   },
 ])
