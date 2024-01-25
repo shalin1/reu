@@ -7,16 +7,18 @@ import {copyPastePlugin} from '@superside-oss/sanity-plugin-copy-paste'
 
 const devOnlyPlugins = [getStartedPlugin()]
 
+const projectId = process.env.SANITY_PROJECT_ID as string
+
 export default defineConfig({
   name: 'default',
   title: 'inri',
 
-  projectId: 'rxwn78ar',
+  projectId,
   dataset: 'production',
 
   plugins: [deskTool(), copyPastePlugin(), visionTool(), ...(isDev ? devOnlyPlugins : [])],
 
   schema: {
-    types: schemaTypes,
-  },
+    types: schemaTypes
+  }
 })
