@@ -1,6 +1,5 @@
 import {defineCliConfig} from 'sanity/cli'
-
-const projectId = process.env.SANITY_PROJECT_ID as string
+import {projectId} from './environment'
 
 export default defineCliConfig({
   api: {
