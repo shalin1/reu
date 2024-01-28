@@ -1,37 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Auth0Provider } from '@auth0/auth0-react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import App from './App'
 import ErrorPage from './ErrorPage'
+import Auth0ProviderLayout from './components/Auth0ProviderLayout'
+import Checkout from './pages/Checkout'
 import './index.css'
-import Checkout from './components/Checkout'
 
-const domain = import.meta.env.VITE_AUTH0_DOMAIN as string
-const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID as string
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: (
-      <Auth0Provider
-        domain={domain}
-        clientId={clientId}
-        authorizationParams={{
-          redirect_uri: window.location.origin,
-        }}
-      >
-        <App />
-      </Auth0Provider>
-    ),
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: '/checkout',
-    element: <Checkout />,
-    errorElement: <ErrorPage />,
-  },
-])
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<Auth0ProviderLayout />} errorElement={<ErrorPage />}>
+      <Route path="/" element={<App />}>
+        <Route path="checkout" element={<Checkout />} />
+      </Route>
+    </Route>,
+  ),
+)
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
