@@ -15,11 +15,13 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
+    "@fastify/formbody": "^7.4.0",
     "@portabletext/react": "^3.0.2",
     "@sanity/client": "^6.10.0",
     "@stripe/react-stripe-js": "^2.4.0",
     "@stripe/stripe-js": "^2.4.0",
     "@superside-oss/sanity-plugin-copy-paste": "^1.0.3",
+    "@tanstack/react-query": "^5.17.19",
     "axios": "^1.6.6",
     "dotenv": "^16.4.1",
     "fastify": "^4.25.2",
@@ -32,6 +34,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.17.22",
     "@testing-library/react": "^14.0.0",
     "@types/lodash": "^4.14.191",
     "@types/react": "^18.0.26",
