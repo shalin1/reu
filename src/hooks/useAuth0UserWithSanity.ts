@@ -21,6 +21,7 @@ const useAuth0UserWithSanity = () => {
               _type: 'user',
               auth0UserId: user!.sub,
               email: user!.email,
+              name: user!.email,
             })
             setSanityUserRecord(newRecord)
           }
