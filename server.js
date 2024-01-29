@@ -41,6 +41,14 @@ fastify.get('/stripe-session-details/:sessionId', async (req, res) => {
   })
 })
 
+fastify.get('/stripe-subscription-details/:customerId', async (req, res) => {
+  const customer = await stripe.customers.retrieve(session.customer)
+
+  res.send({
+    active: Boolean(customer.subscription && customer.subscription.status === 'active'),
+  })
+})
+
 const start = async () => {
   try {
     await fastify.listen({ port: 5252 })

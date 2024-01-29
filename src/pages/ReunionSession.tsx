@@ -41,13 +41,32 @@ const ReunionSession = () => {
 
   const file = files[pageNumber || 0]
 
-  const { sanityData } = useSanity()
+  const { sanityData } = useSanity(`*[_type == "reunionFile"]{ title, description, pages[]-> }`)
 
-  const { isLoading: auth0IsLoading } = useAuth0UserWithSanity()
+  const { isLoading: auth0IsLoading, sanityUser } = useAuth0UserWithSanity()
 
   if (auth0IsLoading) {
     return <div>Loading...</div>
   }
+
+  console.log('sanityUser', sanityUser)
+
+  // const stripeCustomerId = sanityUser && sanityUser.stripeCustomerId
+
+  // const {
+  //   isPending,
+  //   error,
+  //   data: stripeData,
+  // } = useQuery({
+  //   queryKey: ['stripeSubscriptions', stripeCustomerId],
+  //   queryFn: () => getStripeSubscriptionStatus(stripeCustomerId),
+  // })
+
+  // if (isPending) return <div>Loading...</div>
+
+  // if (error) return <div>An error has occurred: {error.message}</div>
+
+  // console.log(stripeData)
 
   return (
     <>
