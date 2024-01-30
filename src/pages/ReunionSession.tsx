@@ -58,12 +58,7 @@ const ReunionSession = () => {
     enabled: Boolean(sanityUser?.stripeCustomerId),
   })
 
-  if (auth0IsLoading) {
-    console.log('auth0IsLoading')
-    return <div>Loading...</div>
-  }
-
-  if (sanityUser?.stripeCustomerId && isPending) {
+  if (auth0IsLoading || (sanityUser?.stripeCustomerId && isPending)) {
     return <div>Loading...</div>
   }
 
