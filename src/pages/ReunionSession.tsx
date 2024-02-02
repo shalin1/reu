@@ -11,7 +11,7 @@ import ProcedurePagesModal from '../components/ProcedurePagesModal'
 import useSanity from '../hooks/useSanity'
 import LogoutButton from '../components/LogoutButton'
 import useAuth0UserWithSanity from '../hooks/useAuth0UserWithSanity'
-import { getStripeSubscriptionStatus } from '../api'
+import { getHasActiveStripeSubscription } from '../api'
 import './ReunionSession.css'
 
 const ReunionSession = () => {
@@ -54,7 +54,7 @@ const ReunionSession = () => {
     data: hasActiveSubscription,
   } = useQuery({
     queryKey: ['stripeSubscriptions'],
-    queryFn: () => getStripeSubscriptionStatus(sanityUser?.stripeCustomerId),
+    queryFn: () => getHasActiveStripeSubscription(sanityUser?.stripeCustomerId),
     enabled: Boolean(sanityUser?.stripeCustomerId),
   })
 

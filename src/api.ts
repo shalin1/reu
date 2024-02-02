@@ -6,7 +6,7 @@ export const getStripeSessionData = async (sessionId: string) => {
   return response.data
 }
 
-export const getStripeSubscriptionStatus = async (stripeCustomerId: string) => {
+export const getHasActiveStripeSubscription = async (stripeCustomerId: string) => {
   const response = await axios.get(`/api/stripe-subscription-details/${stripeCustomerId}`)
   return response.data.subscriptions.some((subscription: Stripe.Subscription) => subscription.status === 'active')
 }
