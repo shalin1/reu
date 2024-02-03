@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { getStripeSessionData } from '../api'
 import { epochToDateString } from '../utils'
@@ -40,10 +40,11 @@ const Success = () => {
   return (
     <div>
       <h1>Success! Congratulations on your subscription, {stripeData.customerName}!</h1>
-      <p>
+      <p className="my-3">
         Your current subscription started {epochToDateString(stripeData.subscriptionStart)} and renews{' '}
         {epochToDateString(stripeData.subscriptionEnd)}
       </p>
+      <Link to="/session" className="btn-primary">Click to continue</Link>
     </div>
   )
 }

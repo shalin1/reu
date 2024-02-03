@@ -16,9 +16,10 @@ import './ReunionSession.css'
 
 const ReunionSession = () => {
   const [showModal, setShowModal] = useState(false)
+  const [showSearchModal, setShowSearchModal] = useState(false)
+  const [shouldNavigate, setShouldNavigate] = useState(false)
   useScrollToTop()
   const { data, loading } = useFiles()
-  const [showSearchModal, setShowSearchModal] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
   const pageNumber = parseInt(searchParams.get('page') || '0')
   const navigate = useNavigate()
@@ -52,25 +53,32 @@ const ReunionSession = () => {
     isPending,
     error,
     data: hasActiveSubscription,
+    isFetched,
   } = useQuery({
     queryKey: ['stripeSubscriptions'],
     queryFn: () => getHasActiveStripeSubscription(sanityUser?.stripeCustomerId),
     enabled: Boolean(sanityUser?.stripeCustomerId),
   })
 
+  useEffect(() => {
+    if (!auth0IsLoading && sanityUser && isFetched) {
+      if (!sanityUser.stripeCustomerId || !hasActiveSubscription) {
+        setShouldNavigate(true)
+      }
+    }
+  }, [auth0IsLoading, sanityUser, isFetched, hasActiveSubscription])
+
+  useEffect(() => {
+    if (shouldNavigate) {
+      navigate('/order/checkout')
+    }
+  }, [shouldNavigate])
+
   if (auth0IsLoading || (sanityUser?.stripeCustomerId && isPending)) {
     return <div>Loading...</div>
   }
 
   if (error) return <div>An error has occurred: {error.message}</div>
-
-  useEffect(() => {
-    if (sanityUser) {
-      if (!sanityUser.stripeCustomerId || !hasActiveSubscription) {
-        navigate('/order/checkout')
-      }
-    }
-  }, [sanityUser])
 
   return (
     <>
