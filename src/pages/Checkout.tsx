@@ -32,7 +32,7 @@ const Checkout = () => {
         your order.
       </p>
       <form action="/api/create-checkout-session" method="POST">
-        <div className="flex gap-5">
+        <div className="flex gap-5 justify-center my-3">
           {
             subscriptionOptions.map((option) => (
               <div key={option.name} className={optionDivClass(option)}>
@@ -50,7 +50,6 @@ const Checkout = () => {
             ))
           }
         </div>
-        <br />
         <button type="submit" className="btn-primary">
           Checkout
         </button>
