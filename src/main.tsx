@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import ErrorPage from './ErrorPage'
 import Auth0ProviderLayout from './components/Auth0ProviderLayout'
 import StripeSessionParamWrapper from './components/StripeSessionParamWrapper'
+import AuthenticationGuard from './components/AuthenticationGuard'
 import Checkout from './pages/Checkout'
 import ReunionSession from './pages/ReunionSession'
 import Splash from './pages/Splash'
@@ -17,10 +18,10 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Auth0ProviderLayout />} errorElement={<ErrorPage />}>
       <Route path="/" element={<Splash />} />
-      <Route path="/session" element={<ReunionSession />} />
-      <Route path="/order/checkout" element={<Checkout />} />
+      <Route path="/session" element={<AuthenticationGuard component={ReunionSession} />} />
+      <Route path="/order/checkout" element={<AuthenticationGuard component={Checkout} />} />
       <Route element={<StripeSessionParamWrapper />}>
-        <Route path="/order/success" element={<Success />} />
+        <Route path="/order/success" element={<AuthenticationGuard component={Success} />} />
       </Route>
     </Route>,
   ),
