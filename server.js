@@ -11,7 +11,7 @@ fastify.get('/publishable-key', () => {
 })
 
 fastify.post('/create-checkout-session', async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
+  const options = {
     mode: 'subscription',
     line_items: [
       {
@@ -21,9 +21,15 @@ fastify.post('/create-checkout-session', async (req, res) => {
     ],
     success_url: `${domain}/order/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${domain}?canceled=true`,
-  })
+  }
   // `{CHECKOUT_SESSION_ID}` is a string literal that is replaced by the actual
   // session ID by Stripe on success
+
+  if (req.body.stripeCustomerId) {
+    options.customer = req.body.stripeCustomerId
+  }
+
+  const session = await stripe.checkout.sessions.create(options)
 
   res.redirect(303, session.url)
 })

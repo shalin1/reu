@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classNames from 'classnames'
+import useAuth0UserWithSanity from '../hooks/useAuth0UserWithSanity'
 
 type SubscriptionOption = {
   name: string,
@@ -13,16 +14,22 @@ const subscriptionOptions = [
 
 const Checkout = () => {
   const [selectedPriceId, setSelectedPriceId] = useState('')
+  const [stripeCustomerId, setStripeCustomerId] = useState('')
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPriceId(event.target.value)
   }
+  const { sanityUser } = useAuth0UserWithSanity()
   const optionDivClass = (option: SubscriptionOption) => classNames(
     'border-2', 'rounded-full', 'p-2', {
-      'border-red-500': selectedPriceId === option.priceId,
-      'border-gray-300': selectedPriceId !== option.priceId,
-      'hover:border-red-300': selectedPriceId !== option.priceId
+    'border-red-500': selectedPriceId === option.priceId,
+    'border-gray-300': selectedPriceId !== option.priceId,
+    'hover:border-red-300': selectedPriceId !== option.priceId
+  })
+  useEffect(() => {
+    if (sanityUser && sanityUser.stripeCustomerId) {
+      setStripeCustomerId(sanityUser.stripeCustomerId)
     }
-  )
+  }, [sanityUser])
 
   return (
     <div>
@@ -50,6 +57,7 @@ const Checkout = () => {
             ))
           }
         </div>
+        <input type="hidden" id="stripe-customer-id" name="stripeCustomerId" value={stripeCustomerId} />
         <button type="submit" className="btn-primary">
           Checkout
         </button>
