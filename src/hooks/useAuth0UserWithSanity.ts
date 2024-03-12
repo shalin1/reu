@@ -4,6 +4,7 @@ import sanityClient from '../data/sanityClient'
 
 const useAuth0UserWithSanity = () => {
   const { isAuthenticated, isLoading, user } = useAuth0()
+
   useEffect(() => {
     const createSanityUserRecord = async () => {
       try {
@@ -29,7 +30,8 @@ const useAuth0UserWithSanity = () => {
     createSanityUserRecord()
   }, [isAuthenticated, user])
 
-  return { isAuthenticated, isLoading, user }
+  const userIsAuthenticated = isAuthenticated || import.meta.env.VITE_SKIP_LOGIN === 'true'
+  return { isAuthenticated: userIsAuthenticated, isLoading, user }
 }
 
 export default useAuth0UserWithSanity
