@@ -15,7 +15,9 @@ const useSearch = ({ data }: SearchFilesParams) => {
 
   useEffect(() => {
     let filteredFiles
-    if (query === 'Inherited') {
+    if (query.toLowerCase().includes('implant')) {
+      filteredFiles = data.filter((file: any) => file['File Code'].toLowerCase().includes('implant'))
+    } else if (query === 'Inherited') {
       filteredFiles = data.filter((file: any) => file['File Code'].toLowerCase().includes('*inherited'))
     } else if (query === 'Prepare') {
       filteredFiles = data.filter((file: any) => file['File Code'].toLowerCase().includes('*prepare'))
@@ -104,7 +106,7 @@ const useSearch = ({ data }: SearchFilesParams) => {
   const search = (string: string) => {
     if (!string) return setSearchParams({ query: 'EF', page: '0' })
 
-    if (string === 'IMPLANT\rIndex') {
+    if (string.trim() === 'IMPLANT\rIndex') {
       return setSearchParams({ query: encodeURIComponent('implant index'), page: '0' })
     }
     const sanitizedSearch = string.replace(/\n/g, ' ').replace(/^\*|\*$/g, '') // Remove leading and trailing *
