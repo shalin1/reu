@@ -36,7 +36,7 @@ const LinkGrid = ({
 }
 
 const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
-  const sanityPage = sanityFile?.pages?.find((p: { pageNumber: any }) => {
+  const sanityPage = sanityFile?.pages?.find((p: { pageNumber: string }) => {
     return p.pageNumber.trim() === file['Set#'].trim()
   })
 
