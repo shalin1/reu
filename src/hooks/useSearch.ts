@@ -15,9 +15,7 @@ const useSearch = ({ data }: SearchFilesParams) => {
 
   useEffect(() => {
     let filteredFiles
-    if (query.toLowerCase().includes('implant')) {
-      filteredFiles = data.filter((file: any) => file['File Code'].toLowerCase().includes('implant'))
-    } else if (query === 'Inherited') {
+    if (query === 'Inherited') {
       filteredFiles = data.filter((file: any) => file['File Code'].toLowerCase().includes('*inherited'))
     } else if (query === 'Prepare') {
       filteredFiles = data.filter((file: any) => file['File Code'].toLowerCase().includes('*prepare'))
@@ -60,6 +58,10 @@ const useSearch = ({ data }: SearchFilesParams) => {
       // Check if either file is 'iself recognitions' and send to the back
       if (file1Name === 'opening: iself recognitions (isr) (ef)') return 1
       if (file2Name === 'opening: iself recognitions (isr) (ef)') return -1
+
+      // Check if either file is 'implant index' and send to the front
+      if (file1Name === 'implant index (ii)') return -1
+      if (file2Name === 'implant index (ii)') return 1
 
       if (file1Name === file2Name) {
         const setNumber1 = file1['Set#'] === 'F' ? Infinity : parseInt(file1['Set#'], 10)
