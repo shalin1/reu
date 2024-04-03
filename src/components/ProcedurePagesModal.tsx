@@ -66,7 +66,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 outline-none focus:outline-none">
             <div className="relative h-full w-full overflow-hidden rounded-lg bg-white shadow-lg">
               <div className="flex items-start justify-between border-b p-5">
-                <h3 className="text-2xl font-semibold">Modal Title</h3>
+                <h3 className="text-2xl font-semibold">Procedure Pages</h3>
                 <button
                   className="text-3xl leading-none text-black opacity-50 outline-none focus:outline-none"
                   onClick={() => setShowModal(false)}
