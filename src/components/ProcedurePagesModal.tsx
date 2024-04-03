@@ -61,7 +61,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
           </button>
         </div>
       )}
-      {showModal ? (
+      {showModal && (
         <>
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 outline-none focus:outline-none">
             <div className="relative h-full w-full overflow-hidden rounded-lg bg-white shadow-lg">
@@ -94,7 +94,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
           </div>
           <div className="fixed inset-0 z-40 bg-black opacity-50"></div>
         </>
-      ) : null}
+      )}
     </>
   )
 }
