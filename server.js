@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+const express = require('express')
 const fastify = require('fastify')({ logger: true })
 fastify.register(require('@fastify/formbody'))
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
