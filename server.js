@@ -4,7 +4,7 @@ const fastify = require('fastify')({ logger: true })
 fastify.register(require('@fastify/formbody'))
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
-const domain = process.env.DOMAIN
+const domain = process.env.CLIENT_DOMAIN
 
 fastify.get('/publishable-key', () => {
   return { publishable_key: process.env.STRIPE_PUBLISHABLE_KEY }
