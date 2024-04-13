@@ -9,7 +9,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:5252',
+        target: process.env.SERVER_DOMAIN,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
