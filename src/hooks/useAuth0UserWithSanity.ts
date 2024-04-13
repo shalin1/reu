@@ -34,7 +34,8 @@ const useAuth0UserWithSanity = () => {
     createSanityUserRecord()
   }, [isAuthenticated, user])
 
-  return { isAuthenticated, isLoading, auth0User: user, sanityUser: sanityUserRecord }
+  const userIsAuthenticated = isAuthenticated || import.meta.env.VITE_SKIP_LOGIN === 'true'
+  return { isAuthenticated: userIsAuthenticated, isLoading, auth0User: user, sanityUser: sanityUserRecord }
 }
 
 export default useAuth0UserWithSanity
