@@ -61,11 +61,10 @@ const ReunionSession = () => {
   })
 
   useEffect(() => {
-    if (!auth0IsLoading && sanityUser && isFetched) {
-      if (!sanityUser.stripeCustomerId || !hasActiveSubscription) {
-        setShouldNavigate(true)
-      }
-    }
+    if (auth0IsLoading) return
+    if (!sanityUser) return
+    if (!sanityUser.stripeCustomerId) return setShouldNavigate(true)
+    if (isFetched && !hasActiveSubscription) return setShouldNavigate(true)
   }, [auth0IsLoading, sanityUser, isFetched, hasActiveSubscription])
 
   useEffect(() => {
