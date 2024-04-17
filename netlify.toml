@@ -1,6 +1,5 @@
 [build]
-  command = "yarn dev"
-  framework = "#custom"
+  command = ""
   functions = "netlify/functions"
   publish = "public"
 
@@ -20,6 +19,6 @@
   command = "yarn dev" # Command to start your dev server
   port = 5173
   publish = "dist" # Folder with the static content for _redirect file
-  targetPort =
+  targetPort = 5252
 
 ## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/
