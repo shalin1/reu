@@ -1,0 +1,25 @@
+[build]
+  command = "yarn dev"
+  framework = "#custom"
+  functions = "netlify/functions"
+  publish = "public"
+
+[functions]
+  node_bundler = "esbuild"
+
+  ## Uncomment to use this redirect for Single Page Applications like create-react-app.
+  ## Not needed for static site generators.
+[[redirects]]
+  from = "/*"
+  to = "/main.tsx"
+  status = 200
+
+## (optional) Settings for Netlify Dev
+## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection
+[dev]
+  command = "yarn dev" # Command to start your dev server
+  port = 5173
+  publish = "dist" # Folder with the static content for _redirect file
+  targetPort =
+
+## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/
