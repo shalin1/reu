@@ -17,6 +17,11 @@ export default {
       name: 'auth0UserId',
       type: 'string',
       title: 'Users'
+    },
+    {
+      name: 'stripeCustomerId',
+      type: 'string',
+      title: 'Stripe Customer ID'
     }
   ]
 }

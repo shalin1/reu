@@ -59,6 +59,10 @@ const useSearch = ({ data }: SearchFilesParams) => {
       if (file1Name === 'opening: iself recognitions (isr) (ef)') return 1
       if (file2Name === 'opening: iself recognitions (isr) (ef)') return -1
 
+      // Check if either file is 'implant index' and send to the front
+      if (file1Name === 'implant index (ii)') return -1
+      if (file2Name === 'implant index (ii)') return 1
+
       if (file1Name === file2Name) {
         const setNumber1 = file1['Set#'] === 'F' ? Infinity : parseInt(file1['Set#'], 10)
         const setNumber2 = file2['Set#'] === 'F' ? Infinity : parseInt(file2['Set#'], 10)
@@ -104,7 +108,7 @@ const useSearch = ({ data }: SearchFilesParams) => {
   const search = (string: string) => {
     if (!string) return setSearchParams({ query: 'EF', page: '0' })
 
-    if (string === 'IMPLANT\rIndex') {
+    if (string.trim() === 'IMPLANT\rIndex') {
       return setSearchParams({ query: encodeURIComponent('implant index'), page: '0' })
     }
     const sanitizedSearch = string.replace(/\n/g, ' ').replace(/^\*|\*$/g, '') // Remove leading and trailing *
