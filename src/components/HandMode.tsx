@@ -33,8 +33,8 @@ const HandMode: React.FC<Props> = ({ name }) => {
   const getAssetSrc = (name: string) => {
     const sanitized = sanitizeName(name)
     const finalName = checkForPrefixes(sanitized)
-    const path = `/src/images/${finalName}.png`
-    const modules = import.meta.glob('/src/images/*', { eager: true })
+    const path = `/images/${finalName}.png`
+    const modules = import.meta.glob('/images/*', { eager: true })
     const mod = modules[path] as { default: string }
     return mod?.default
   }
