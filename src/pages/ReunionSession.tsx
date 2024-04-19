@@ -64,7 +64,7 @@ const ReunionSession = () => {
     if (auth0IsLoading) return
     if (!sanityUser) return
     if (!sanityUser.stripeCustomerId) return setShouldNavigate(true)
-    if (isFetched && !hasActiveSubscription) return setShouldNavigate(true)
+    if (isFetched && !hasActiveSubscription && !import.meta.env.VITE_DISABLE_PAYWALL) return setShouldNavigate(true)
   }, [auth0IsLoading, sanityUser, isFetched, hasActiveSubscription])
 
   useEffect(() => {
