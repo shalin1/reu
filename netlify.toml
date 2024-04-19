@@ -1,6 +1,7 @@
 [build]
-  command = ""
-  functions = "netlify/functions"
+  command = "npm run build"
+  environment= { NODE_VERSION = "18" }
+  functions = ".netlify/functions"
   publish = "dist"
 
 [functions]
@@ -8,11 +9,12 @@
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.
+
 [[redirects]]
-  from = "/api/*"
-  force = true
-  to = "/netlify/functions/:splat"
-  status = 200
+force = true
+from = '/api/*'
+status = 200
+to = '/:splat'
 
 [[redirects]]
 from = "/*"
