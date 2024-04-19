@@ -1,7 +1,7 @@
 import { createClient, type ClientConfig } from '@sanity/client'
 
-const token = process.env.VITE_SANITY_STUDIO_TOKEN as string
-const projectId = process.env.VITE_SANITY_STUDIO_PROJECT_ID as string
+const token = import.meta.env.VITE_SANITY_STUDIO_TOKEN as string
+const projectId = import.meta.env.VITE_SANITY_STUDIO_PROJECT_ID as string
 
 const config: ClientConfig = {
   apiVersion: '2023-06-16', // use a UTC date string
