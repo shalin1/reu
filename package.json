@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "commonjs",
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "env && tsc && vite build",
     "client": "vite",
     "dev": "NODE_ENV=development concurrently --kill-others 'yarn run client' 'yarn run server'",
     "lint": "eslint . --ext .ts,.tsx",
