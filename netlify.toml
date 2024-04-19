@@ -1,7 +1,7 @@
 [build]
-command = 'npm run build'
-environment = {NODE_VERSION = '18'}
-publish = 'dist'
+  command = 'npm run build'
+  environment = {NODE_VERSION = '18'}
+  publish = 'dist'
 
 ## (optional) Settings for Netlify Dev
 ## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection
@@ -15,6 +15,6 @@ publish = 'dist'
 
 [[redirects]]
   from = "/*"
-  to = "https://www.google.com"
+  to = "/index.html"
   status = 200
   force = true
