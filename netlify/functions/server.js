@@ -4,7 +4,7 @@ const fastify = require('fastify')({ logger: true })
 fastify.register(require('@fastify/formbody'))
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
-const domain = process.env.CLIENT_DOMAIN
+const clientDomain = process.env.CLIENT_DOMAIN
 
 fastify.get('/publishable-key', () => {
   return { publishable_key: process.env.STRIPE_PUBLISHABLE_KEY }
@@ -19,8 +19,8 @@ fastify.post('/create-checkout-session', async (req, res) => {
         quantity: 1,
       },
     ],
-    success_url: `${domain}/order/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${domain}?canceled=true`,
+    success_url: `${clientDomain}/order/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${clientDomain}?canceled=true`,
   }
   // `{CHECKOUT_SESSION_ID}` is a string literal that is replaced by the actual
   // session ID by Stripe on success
