@@ -8,9 +8,10 @@
     "client": "vite",
     "dev": "NODE_ENV=development concurrently --kill-others 'yarn run client' 'yarn run server'",
     "lint": "eslint . --ext .ts,.tsx",
+    "netlify": "netlify dev",
     "preview": "vite preview",
     "sanity-import": "cd sanity;node sanityTranformer.js;sanity dataset import sanityDocuments.ndjson production --missing;cd ..",
-    "server": "node server.js",
+    "server": "node netlify/functions/server.js",
     "test": "jest"
   },
   "dependencies": {

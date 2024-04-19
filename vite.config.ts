@@ -11,7 +11,7 @@ export default defineConfig({
       '/api': {
         target: process.env.SERVER_DOMAIN,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        rewrite: (path) => path.replace(/^\/api/, 'netlify/functions'),
       },
     },
   },
