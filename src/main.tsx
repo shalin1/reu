@@ -1,36 +1,34 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Auth0Provider } from '@auth0/auth0-react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import App from './App'
 import ErrorPage from './ErrorPage'
-import Auth0ProviderLayout from './components/Auth0ProviderLayout'
-import StripeSessionParamWrapper from './components/StripeSessionParamWrapper'
-import AuthenticationGuard from './components/AuthenticationGuard'
-import Checkout from './pages/Checkout'
-import ReunionSession from './pages/ReunionSession'
-import Splash from './pages/Splash'
-import Success from './pages/Success'
 import './index.css'
 
-const queryClient = new QueryClient()
+const domain = import.meta.env.VITE_AUTH0_DOMAIN as string
+const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID as string
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route element={<Auth0ProviderLayout />} errorElement={<ErrorPage />}>
-      <Route path="/" element={<Splash />} />
-      <Route path="/session" element={<AuthenticationGuard component={ReunionSession} />} />
-      <Route path="/order/checkout" element={<AuthenticationGuard component={Checkout} />} />
-      <Route element={<StripeSessionParamWrapper />}>
-        <Route path="/order/success" element={<AuthenticationGuard component={Success} />} />
-      </Route>
-    </Route>,
-  ),
-)
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <Auth0Provider
+        domain={domain}
+        clientId={clientId}
+        authorizationParams={{
+          redirect_uri: window.location.origin,
+        }}
+      >
+        <App />
+      </Auth0Provider>
+    ),
+    errorElement: <ErrorPage />,
+  },
+])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )

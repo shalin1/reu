@@ -5,7 +5,10 @@ const LogoutButton = () => {
   const { logout } = useAuth0()
 
   return (
-    <button className="btn-primary" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+    <button
+      className="rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-white shadow-sm"
+      onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+    >
       Log Out
     </button>
   )

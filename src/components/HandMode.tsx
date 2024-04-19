@@ -23,7 +23,7 @@ const HandMode: React.FC<Props> = ({ name }) => {
       return name
     }
     if (name.includes('1-6')) {
-      return 'force'
+      return 'general'
     }
     const prefixes = ['belief', 'implant', 'nutrient', 'seeding', 'alliances', 'demonic', 'circuit', 'code']
     const prefixFound = prefixes.find((prefix) => name.startsWith(prefix))

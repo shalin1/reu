@@ -1,10 +1,9 @@
 import {defineConfig, isDev} from 'sanity'
-import {deskTool} from 'sanity/desk'
 import {visionTool} from '@sanity/vision'
-import {copyPastePlugin} from '@superside-oss/sanity-plugin-copy-paste'
-import {getStartedPlugin} from './plugins/sanity-plugin-tutorial'
+import {deskTool} from 'sanity/desk'
 import {schemaTypes} from './schemas'
-import {projectId} from './environment'
+import {getStartedPlugin} from './plugins/sanity-plugin-tutorial'
+import {copyPastePlugin} from '@superside-oss/sanity-plugin-copy-paste'
 
 const devOnlyPlugins = [getStartedPlugin()]
 
@@ -12,12 +11,12 @@ export default defineConfig({
   name: 'default',
   title: 'inri',
 
-  projectId,
+  projectId: 'rxwn78ar',
   dataset: 'production',
 
   plugins: [deskTool(), copyPastePlugin(), visionTool(), ...(isDev ? devOnlyPlugins : [])],
 
   schema: {
-    types: schemaTypes
-  }
+    types: schemaTypes,
+  },
 })

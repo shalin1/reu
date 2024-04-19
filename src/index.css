@@ -1,9 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer components {
-  .btn-primary {
-    @apply rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-white shadow-sm;
-  }
-}
