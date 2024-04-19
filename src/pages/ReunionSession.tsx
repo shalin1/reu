@@ -68,7 +68,7 @@ const ReunionSession = () => {
   }, [auth0IsLoading, sanityUser, isFetched, hasActiveSubscription])
 
   useEffect(() => {
-    if (shouldNavigate) {
+    if (shouldNavigate && !import.meta.env.VITE_DISABLE_PAYWALL) {
       navigate('/order/checkout')
     }
   }, [shouldNavigate])
