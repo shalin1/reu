@@ -11,15 +11,15 @@
   ## Not needed for static site generators.
 
 [[redirects]]
+from = "/*"
+status = 200
+to = "/index.html"
+
+[[redirects]]
 force = true
 from = '/api/*'
 status = 200
 to = '/:splat'
-
-[[redirects]]
-from = "/*"
-status = 200
-to = "/index.html"
 
 ## (optional) Settings for Netlify Dev
 ## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection
