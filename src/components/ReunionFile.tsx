@@ -62,7 +62,7 @@ const ReunionFile: React.FC<Props> = ({
         nextPage={nextPage}
         pageNumber={pageNumber}
       />
-      <div className="flex flex-col-reverse gap-3 md:flex-col">
+      <div className="flex flex-col-reverse gap-3 xl:flex-col">
         <FileLinks file={file} sanityFile={sanityFile} search={search} />
         <FileDescription name={file['File Code']} description={description} />
       </div>

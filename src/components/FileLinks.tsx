@@ -23,7 +23,7 @@ const LinkGrid = ({
       <div className=" flex w-[24px] justify-center border-x-[1px] border-b-[1px] border-neutral-800 bg-[#c5f7c5] pt-[1px]">
         {linkNum}
       </div>
-      <div className="w-full border-b-[1px] border-r-[1px] border-solid border-gray-600 bg-newsprint-pink p-1 text-left text-justify text-[11px] leading-none md:text-[10px] xl:text-[11px]">
+      <div className="w-full border-b-[1px] border-r-[1px] border-solid border-gray-600 bg-newsprint-pink p-1 text-left text-justify text-[11px] leading-none md:text-[13px]">
         {description?.includes('∞∞') ? '' : description}
       </div>
       {link && (
@@ -53,7 +53,7 @@ const FileLinks: React.FC<Props> = ({ file, sanityFile, search }) => {
     ['245', '345', '1234', '1235', '1245', '1345', '2345', '12345'],
   ]
   return (
-    <div className="grid gap-1 xs:grid-cols-2 md:grid-cols-4">
+    <div className="grid gap-1 xs:grid-cols-2 xl:grid-cols-4">
       {range(1, 5).map((quadrant) => (
         <div className="- flex w-full flex-col border-black" key={quadrant}>
           <h3 className="rounded-t-sm border-[1px] border-gray-500 bg-green-200">Quadrant {quadrant}</h3>
