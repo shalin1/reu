@@ -1,16 +1,21 @@
-require('dotenv').config()
+import { config as dotenvconfig } from 'dotenv'
+import bodyParser from 'body-parser'
+import express, { Router } from 'express'
+import serverless from 'serverless-http'
+import Stripe from 'stripe'
 
-const fastify = require('fastify')({ logger: true })
-fastify.register(require('@fastify/formbody'))
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
-
+dotenvconfig()
+const app = express()
+app.use(bodyParser.json())
+const router = Router()
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 const clientDomain = process.env.CLIENT_DOMAIN
 
-fastify.get('/publishable-key', () => {
-  return { publishable_key: process.env.STRIPE_PUBLISHABLE_KEY }
+router.get('/publishable-key', (req, res) => {
+  res.json({ publishable_key: process.env.STRIPE_PUBLISHABLE_KEY })
 })
 
-fastify.post('/create-checkout-session', async (req, res) => {
+router.post('/create-checkout-session', async (req, res) => {
   const options = {
     mode: 'subscription',
     line_items: [
@@ -34,7 +39,7 @@ fastify.post('/create-checkout-session', async (req, res) => {
   res.redirect(303, session.url)
 })
 
-fastify.get('/stripe-session-details/:sessionId', async (req, res) => {
+router.get('/stripe-session-details/:sessionId', async (req, res) => {
   const session = await stripe.checkout.sessions.retrieve(req.params.sessionId)
   const customer = await stripe.customers.retrieve(session.customer)
   const subscription = await stripe.subscriptions.retrieve(session.subscription)
@@ -47,7 +52,7 @@ fastify.get('/stripe-session-details/:sessionId', async (req, res) => {
   })
 })
 
-fastify.get('/stripe-subscription-details/:customerId', async (req, res) => {
+router.get('/stripe-subscription-details/:customerId', async (req, res) => {
   const subscriptionList = await stripe.subscriptions.list({ customer: req.params.customerId })
 
   res.send({
@@ -55,14 +60,18 @@ fastify.get('/stripe-subscription-details/:customerId', async (req, res) => {
   })
 })
 
-const start = async () => {
-  try {
-    await fastify.listen({ port: 5252 })
-    console.log('Server listening ... ')
-  } catch (err) {
-    fastify.log.error(err)
-    process.exit(1)
-  }
-}
+app.use('/api/', router)
 
-start()
+const handler = serverless(app)
+
+// const handler = async (req, context) => {
+//   console.log({ req, context })
+
+//   return new Response('hi homie!')
+// }
+
+export default handler
+
+// export const config = {
+//   path: '/api/*',
+// }

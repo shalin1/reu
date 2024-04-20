@@ -1,7 +1,6 @@
 import axios from 'axios'
 import Stripe from 'stripe'
 
-const serverUrl = import.meta.env.SERVER_URL
 export const getStripeSessionData = async (sessionId: string) => {
   const response = await axios.get(`api/stripe-session-details/${sessionId}`)
   return response.data

@@ -6,15 +6,17 @@
 ## (optional) Settings for Netlify Dev
 ## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection
 [dev]
-  command = "yarn dev" # Command to start your dev server
-  port = 5173
+  command = "yarn client" # Command to start your dev server
   publish = "dist" # Folder with the static content for _redirect file
-  targetPort = 5252
+
+[functions]
+  external_node_modules = ["express"]
+  node_bundler = "esbuild"
 
 ## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
   force = true
+  from = "/api/*"
+  status = 200
+  to = "/.netlify/functions/api/:splat"
