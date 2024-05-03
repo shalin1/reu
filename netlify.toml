@@ -1,5 +1,5 @@
 [build]
-  command = 'node scripts/set-env.js && npm run build'
+  command = 'node scripts/set-domain.js && npm run build'
   environment = {NODE_VERSION = '18'}
   publish = 'dist'
   functions = 'netlify/functions'
