@@ -83,9 +83,4 @@ router.get('/stripe-subscription-details/:customerId', async (req, res) => {
 
 app.use('/api/', router)
 
-// export const handler = serverless(app)
-
-export const handler = async (event, context) => {
-  console.log('Environment Variables:', process.env)
-  return serverless(app)
-}
+export const handler = serverless(app)
