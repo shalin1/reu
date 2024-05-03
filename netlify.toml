@@ -1,5 +1,5 @@
 [build]
-  command = "node scripts/set-domain.js && npm run build"
+  command = "npm run build"
   environment = {NODE_VERSION = "18"}
   publish = "dist"
   functions = "netlify/functions"
@@ -15,6 +15,9 @@
   node_bundler = "esbuild"
 
 ## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/
+
+[[context.deploy-preview.plugins]]
+  package = ".netlify/plugins/set-domain"
 
 [[redirects]]
   force = true
