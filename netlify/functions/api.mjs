@@ -86,4 +86,5 @@ app.use('/api/', router)
 
 export const handler = async (event, context) => {
   console.log('Environment Variables:', process.env)
+  return serverless(app)
 }
