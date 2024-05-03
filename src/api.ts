@@ -1,8 +1,10 @@
 import axios from 'axios'
 import Stripe from 'stripe'
 
+const clientDomain = import.meta.env.VITE_CLIENT_DOMAIN
+
 const apiClient = axios.create({
-  baseURL: `${import.meta.env.VITE_CLIENT_DOMAIN}/api`
+  baseURL: `${clientDomain}/api`
 })
 
 export const getStripeSessionData = async (sessionId: string) => {
