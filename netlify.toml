@@ -1,8 +1,8 @@
 [build]
-  command = 'node scripts/set-domain.js && npm run build'
-  environment = {NODE_VERSION = '18'}
-  publish = 'dist'
-  functions = 'netlify/functions'
+  command = "node scripts/set-domain.js && npm run build"
+  environment = {NODE_VERSION = "18"}
+  publish = "dist"
+  functions = "netlify/functions"
 
 ## (optional) Settings for Netlify Dev
 ## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection
@@ -21,3 +21,9 @@
   from = "/api/*"
   status = 200
   to = "/.netlify/functions/api/:splat"
+
+[[redirects]]
+  force = false
+  from = "/*"
+  status = 200
+  to = "/index.html"
