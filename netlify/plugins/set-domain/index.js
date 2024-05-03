@@ -4,6 +4,7 @@ module.exports = {
       const deployUrl = constants.DEPLOY_PRIME_URL
       process.env.CLIENT_DOMAIN = deployUrl
       process.env.VITE_CLIENT_DOMAIN = deployUrl
+      console.log(`CLIENT_DOMAIN set to ${deployUrl}`)
     }
   },
 }
