@@ -6,15 +6,12 @@ import useAuth0UserWithSanity from '../hooks/useAuth0UserWithSanity'
 
 const Splash = () => {
   const { isAuthenticated, isLoading } = useAuth0UserWithSanity()
-  const clientDomain = import.meta.env.VITE_CLIENT_DOMAIN
 
   if (isLoading) return <div>Loading...</div>
 
+
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-3">
-      <div>
-        Client domain is {clientDomain}
-      </div>
       <Link to="/">
         <img className="mx-auto" alt="egg logo" src="/images/egg.png" />
       </Link>

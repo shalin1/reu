@@ -10,6 +10,7 @@ import Checkout from './pages/Checkout'
 import ReunionSession from './pages/ReunionSession'
 import Splash from './pages/Splash'
 import Success from './pages/Success'
+import Vars from './pages/Vars'
 import './index.css'
 
 const queryClient = new QueryClient()
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Auth0ProviderLayout />} errorElement={<ErrorPage />}>
       <Route path="/" element={<Splash />} />
+      <Route path="/vars" element={<Vars />} />
       <Route path="/session" element={<AuthenticationGuard component={ReunionSession} />} />
       <Route path="/order/checkout" element={<AuthenticationGuard component={Checkout} />} />
       <Route element={<StripeSessionParamWrapper />}>
