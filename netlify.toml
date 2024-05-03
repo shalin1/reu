@@ -17,7 +17,7 @@
 ## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/
 
 [[context.deploy-preview.plugins]]
-  package = "netlify/plugins/set-domain"
+  package = "/netlify/plugins/set-domain"
 
 [[redirects]]
   force = true
