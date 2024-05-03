@@ -1,7 +1,8 @@
 [build]
-  command = 'npm run build'
+  command = 'node set-env.js && npm run build'
   environment = {NODE_VERSION = '18'}
   publish = 'dist'
+  functions = 'netlify/functions'
 
 ## (optional) Settings for Netlify Dev
 ## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection

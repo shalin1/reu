@@ -15,7 +15,7 @@ const allowCrossDomain = (req, res, next) => {
 app.use(allowCrossDomain)
 const router = Router()
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-const clientDomain = process.env.CLIENT_DOMAIN
+const clientDomain = process.env.VITE_CLIENT_DOMAIN
 
 const jsonify = (request) => {
   if (Buffer.isBuffer(request.body)) {
