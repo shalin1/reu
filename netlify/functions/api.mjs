@@ -13,6 +13,11 @@ const allowCrossDomain = (req, res, next) => {
   next()
 }
 app.use(allowCrossDomain)
+let clientDomain
+app.use((req, res, next) => {
+  clientDomain = req.headers.origin || process.env.CLIENT_DOMAIN
+  next()
+})
 const router = Router()
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
@@ -36,8 +41,6 @@ router.get('/publishable-key', (req, res) => {
 
 router.post('/create-checkout-session', async (req, res) => {
   jsonify(req)
-  console.log({ req })
-  let clientDomain
   const options = {
     mode: 'subscription',
     line_items: [
