@@ -21,9 +21,10 @@ app.use((req, res, next) => {
 const router = Router()
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-const jsonify = (request) => {
-  if (Buffer.isBuffer(request.body)) {
-    const parts = request.body
+const jsonifyBody = (requestBody) => {
+  let body = requestBody
+  if (Buffer.isBuffer(body)) {
+    body = body
       .toString()
       .split('&')
       .reduce((acc, part) => {
@@ -31,8 +32,8 @@ const jsonify = (request) => {
         acc[decodeURIComponent(key)] = decodeURIComponent(value)
         return acc
       }, {})
-    request.body = parts
   }
+  return body
 }
 
 router.get('/publishable-key', (req, res) => {
@@ -40,12 +41,12 @@ router.get('/publishable-key', (req, res) => {
 })
 
 router.post('/create-checkout-session', async (req, res) => {
-  jsonify(req)
+  const requestBody = jsonifyBody(req.body)
   const options = {
     mode: 'subscription',
     line_items: [
       {
-        price: req.body.priceId,
+        price: requestBody.priceId,
         quantity: 1,
       },
     ],
@@ -55,8 +56,8 @@ router.post('/create-checkout-session', async (req, res) => {
   // `{CHECKOUT_SESSION_ID}` is a string literal that is replaced by the actual
   // session ID by Stripe on success
 
-  if (req.body.stripeCustomerId) {
-    options.customer = req.body.stripeCustomerId
+  if (requestBody.stripeCustomerId) {
+    options.customer = requestBody.stripeCustomerId
   }
 
   const session = await stripe.checkout.sessions.create(options)
