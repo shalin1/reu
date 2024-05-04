@@ -5,26 +5,30 @@ const Vars = () => {
 
   return (
     <table>
-      <tr>
-        <th>Key</th>
-        <th>Value</th>
-      </tr>
-      <tr>
-        <td>VITE_AUTH0_DOMAIN</td>
-        <td>{VITE_AUTH0_DOMAIN}</td>
-      </tr>
-      <tr>
-        <td>VITE_CLIENT_DOMAIN</td>
-        <td>{VITE_CLIENT_DOMAIN}</td>
-      </tr>
-      <tr>
-        <td>VITE_DISABLE_PAYWALL</td>
-        <td>{VITE_DISABLE_PAYWALL}</td>
-      </tr>
-      <tr>
-        <td>VITE_SANITY_STUDIO_PROJECT_ID</td>
-        <td>{VITE_SANITY_STUDIO_PROJECT_ID}</td>
-      </tr>
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>VITE_AUTH0_DOMAIN</td>
+          <td>{VITE_AUTH0_DOMAIN}</td>
+        </tr>
+        <tr>
+          <td>VITE_CLIENT_DOMAIN</td>
+          <td>{VITE_CLIENT_DOMAIN}</td>
+        </tr>
+        <tr>
+          <td>VITE_DISABLE_PAYWALL</td>
+          <td>{VITE_DISABLE_PAYWALL}</td>
+        </tr>
+        <tr>
+          <td>VITE_SANITY_STUDIO_PROJECT_ID</td>
+          <td>{VITE_SANITY_STUDIO_PROJECT_ID}</td>
+        </tr>
+      </tbody>
     </table>
   )
 }
