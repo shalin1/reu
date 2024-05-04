@@ -6,12 +6,10 @@
   "scripts": {
     "build": "tsc && VITE_CLIENT_DOMAIN=$VITE_CLIENT_DOMAIN NODE_VERSION=$NODE_VERSION STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY VITE_AUTH0_DOMAIN=$VITE_AUTH0_DOMAIN VITE_AUTH0_CLIENT_ID=$VITE_AUTH0_CLIENT_ID VITE_DISABLE_PAYWALL=$VITE_DISABLE_PAYWALL VITE_SANITY_STUDIO_PROJECT_ID=$VITE_SANITY_STUDIO_PROJECT_ID VITE_SANITY_STUDIO_TOKEN=$VITE_SANITY_STUDIO_TOKEN vite build",
     "client": "vite",
-    "dev": "NODE_ENV=development concurrently --kill-others 'yarn run client' 'yarn run server'",
+    "dev": "netlify dev",
     "lint": "eslint . --ext .ts,.tsx",
-    "netlify": "netlify dev",
     "preview": "vite preview",
     "sanity-import": "cd sanity;node sanityTranformer.js;sanity dataset import sanityDocuments.ndjson production --missing;cd ..",
-    "server": "node netlify/functions/api.mjs",
     "test": "jest"
   },
   "dependencies": {
