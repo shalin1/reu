@@ -5,4 +5,7 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   assetsInclude: ['**/*.csv'],
   plugins: [react()],
+  server: {
+    port: 5173,
+  },
 })

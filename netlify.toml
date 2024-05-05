@@ -1,0 +1,32 @@
+[build]
+command = "npm run build"
+environment = { NODE_VERSION = "18" }
+publish = "dist"
+functions = "netlify/functions"
+
+[context.deploy-preview]
+command = "VITE_CLIENT_DOMAIN=$DEPLOY_PRIME_URL npm run build"
+
+## (optional) Settings for Netlify Dev
+## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection
+[dev]
+command = "yarn client" # Command to start your dev server
+publish = "dist"        # Folder with the static content for _redirect file
+
+[functions]
+external_node_modules = ["express"]
+node_bundler = "esbuild"
+
+## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/
+
+[[redirects]]
+force = true
+from = "/api/*"
+status = 200
+to = "/.netlify/functions/api/:splat"
+
+[[redirects]]
+force = false
+from = "/*"
+status = 200
+to = "/index.html"
