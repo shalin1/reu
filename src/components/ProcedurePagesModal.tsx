@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 
 // Import images
-import europe from '/images/europe.jpg'
-import unitedStates from '/images/united states.jpg'
-import africa from '/images/africa.jpg'
-import middleEast from '/images/middle east.jpg'
-import world from '/images/world.jpg'
-import asia from '/images/asia.jpg'
-import oceania from '/images/oceania.jpg'
-import canada from '/images/canada.jpg'
-import southAmerica from '/images/south america.jpg'
+import europe from '/src/images/europe.jpg'
+import unitedStates from '/src/images/united states.jpg'
+import africa from '/src/images/africa.jpg'
+import middleEast from '/src/images/middle east.jpg'
+import world from '/src/images/world.jpg'
+import asia from '/src/images/asia.jpg'
+import oceania from '/src/images/oceania.jpg'
+import canada from '/src/images/canada.jpg'
+import southAmerica from '/src/images/south america.jpg'
 
 const images = [europe, unitedStates, africa, middleEast, world, asia, oceania, canada, southAmerica]
 
