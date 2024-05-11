@@ -9,10 +9,14 @@ const Splash = () => {
 
   if (isLoading) return <div>Loading...</div>
 
+  const path = `/src/images/egg.png`
+  const modules = import.meta.glob('/src/images/*', { eager: true })
+  const mod = modules[path] as { default: string }
+  const eggImageSrc = mod?.default
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-3">
       <Link to="/">
-        <img className="mx-auto" alt="egg logo" src="/src/images/egg.png" />
+        <img className="mx-auto" alt="egg logo" src={eggImageSrc} />
       </Link>
       <h1>Welcome to the ReUnion Facilitation Tools</h1>
       {isAuthenticated ? (
