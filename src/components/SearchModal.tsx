@@ -75,11 +75,11 @@ const SearchModal: React.FC<Props & React.RefAttributes<HTMLInputElement>> = for
                 ref={ref}
                 value={internalQuery}
                 onChange={onChange}
-                placeholder="Search for file names"
+                placeholder="Search for file names (⌘ + F)"
               />
               <button
                 type="submit"
-                className="absolute right-2.5 bottom-2.5 rounded-lg px-4 py-2 text-lg text-sm font-medium text-white  focus:outline-none focus:ring-4 focus:ring-blue-300"
+                className="absolute right-3 bottom-1 top-0 rounded-lg px-4 py-2 text-lg text-sm font-medium text-white  focus:outline-none focus:ring-4 focus:ring-blue-300"
               >
                 Search
               </button>

@@ -14,7 +14,7 @@ const Header: React.FC<Props> = ({ file, numPages, nextPage, previousPage, pageN
   const isLastPage = pageNumber + 1 >= numPages
   return (
     <div className="border-grey-700 flex justify-between border-2 border-solid p-1 px-2">
-      <h1 className="text-xl" onClick={showSearch}>
+      <h1 className="text-xl hover:cursor-pointer" onClick={showSearch}>
         {title}&nbsp;
       </h1>
       <div className="flex">

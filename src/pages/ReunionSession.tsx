@@ -7,12 +7,11 @@ import SearchModal from '../components/SearchModal'
 import useSearch from '../hooks/useSearch'
 import useKeyboardNavigation from '../hooks/useKeyboardNavigation'
 import useScrollToTop from '../hooks/useScrollToTop'
-import ProcedurePagesModal from '../components/ProcedurePagesModal'
 import useSanity from '../hooks/useSanity'
-import LogoutButton from '../components/LogoutButton'
 import useAuth0UserWithSanity from '../hooks/useAuth0UserWithSanity'
 import { getHasActiveStripeSubscription } from '../api'
 import './ReunionSession.css'
+import GlobalHeader from '../components/GlobalHeader'
 
 const ReunionSession = () => {
   const [showModal, setShowModal] = useState(false)
@@ -81,9 +80,13 @@ const ReunionSession = () => {
 
   return (
     <>
-      <div className="text-right">
-        <LogoutButton />
-      </div>
+      <GlobalHeader
+        sanityData={sanityData}
+        loading={loading}
+        setShowModal={setShowModal}
+        setShowSearchModal={setShowSearchModal}
+        showModal={showModal}
+      />
       <SearchModal
         ref={searchInputRef}
         show={showSearchModal}
@@ -101,7 +104,6 @@ const ReunionSession = () => {
         previousPage={previousPage}
         numPages={files.length}
       />
-      <ProcedurePagesModal showModal={showModal} setShowModal={setShowModal} hidden={loading || !sanityData} />
     </>
   )
 }

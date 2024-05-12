@@ -52,14 +52,9 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
   return (
     <>
       {!hidden && (
-        <div>
-          <button
-            className="rounded bg-violet-400 p-3 text-white hover:bg-violet-500 focus:outline-none"
-            onClick={() => setShowModal(true)}
-          >
-            Show Procedure Pages
-          </button>
-        </div>
+        <button className="btn-primary" onClick={() => setShowModal(true)}>
+          Show Procedure Pages
+        </button>
       )}
       {showModal ? (
         <>

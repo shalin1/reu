@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 interface Props {
   name: string
 }
 
 const HandMode: React.FC<Props> = ({ name }) => {
+  const [loading, setLoading] = useState(true)
+
   const sanitizeName = (name: string) => {
     const afterColon = name.split(':')[1] || name
     const sanitized = afterColon
