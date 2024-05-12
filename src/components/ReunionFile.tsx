@@ -1,7 +1,6 @@
 import React from 'react'
 import FileLinks from './FileLinks'
 import Header from './Header'
-import useFiles from '../hooks/useFiles'
 import FileDescription from './FileDescription'
 
 interface Props {
@@ -12,7 +11,6 @@ interface Props {
     'Set total': number
     'Set#': number
   }
-  loading: boolean
   numPages: number
   pageNumber: number
   nextPage: () => void
@@ -32,10 +30,6 @@ const ReunionFile: React.FC<Props> = ({
   showSearch,
   search,
 }) => {
-  const { loading } = useFiles()
-
-  if (loading || !sanityData) return <h1>Loading...</h1>
-
   if (!file) {
     return (
       <div className="align-center flex flex-col justify-center">

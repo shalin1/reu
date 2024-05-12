@@ -23,7 +23,7 @@ const Splash = () => {
       {isAuthenticated ? (
         <>
           <Link to="/session" className="btn-primary">
-            Continue
+            Start session
           </Link>
           <LogoutButton />
         </>

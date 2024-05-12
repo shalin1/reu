@@ -12,6 +12,7 @@ import useAuth0UserWithSanity from '../hooks/useAuth0UserWithSanity'
 import { getHasActiveStripeSubscription } from '../api'
 import './ReunionSession.css'
 import GlobalHeader from '../components/GlobalHeader'
+import LogoutButton from '../components/LogoutButton'
 
 const ReunionSession = () => {
   const [showModal, setShowModal] = useState(false)
@@ -72,14 +73,14 @@ const ReunionSession = () => {
     }
   }, [shouldNavigate])
 
-  if (auth0IsLoading || (sanityUser?.stripeCustomerId && isPending)) {
-    return <div>Loading...</div>
+  if (auth0IsLoading || (sanityUser?.stripeCustomerId && isPending) || loading || !sanityData) {
+    return <h1>Loading...</h1>
   }
 
   if (error) return <div>An error has occurred: {error.message}</div>
 
   return (
-    <>
+    <div className="w-100">
       <GlobalHeader
         sanityData={sanityData}
         loading={loading}
@@ -97,14 +98,14 @@ const ReunionSession = () => {
         sanityData={sanityData}
         showSearch={() => setShowSearchModal(true)}
         file={file}
-        loading={loading}
         pageNumber={pageNumber}
         search={search}
         nextPage={nextPage}
         previousPage={previousPage}
         numPages={files.length}
       />
-    </>
+      <div className="mb-2Gj float-right">{!loading && auth0IsLoading && <LogoutButton />}</div>
+    </div>
   )
 }
 

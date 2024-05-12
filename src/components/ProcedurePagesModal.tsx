@@ -53,7 +53,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
     <>
       {!hidden && (
         <button className="btn-primary" onClick={() => setShowModal(true)}>
-          Show Procedure Pages
+          Procedure Pages
         </button>
       )}
       {showModal ? (
