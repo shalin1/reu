@@ -13,6 +13,7 @@ const Splash = () => {
   const modules = import.meta.glob('/src/images/*', { eager: true })
   const mod = modules[path] as { default: string }
   const eggImageSrc = mod?.default
+
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-3">
       <Link to="/">
