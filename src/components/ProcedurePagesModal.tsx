@@ -21,8 +21,8 @@ interface Props {
 
 const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal }) => {
   const [currentImage, setCurrentImage] = useState(0)
-
-  const images = mapImages
+  const [page, setPage] = useState<'index' | 'maps'>('index')
+  const [images, setImages] = useState(mapImages)
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % images.length)
@@ -32,10 +32,15 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
     setCurrentImage((prev) => (prev - 1 + images.length) % images.length)
   }
 
+  const closeModal = () => {
+    setShowModal(false)
+    setCurrentImage(0)
+    setPage('index')
+  }
   React.useEffect(() => {
     const listener = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setShowModal(false)
+        closeModal()
       } else if (showModal) {
         if (e.key === 'ArrowRight') {
           nextImage()
@@ -51,7 +56,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
     }
   }, [showModal])
 
-  const ModalButton = () => (
+  const ModalTrigger = () => (
     <button className="btn-primary" onClick={() => setShowModal(true)}>
       Procedure Pages
     </button>
@@ -64,30 +69,45 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
       <h3 className="text-2xl font-semibold">Procedure Pages</h3>
       <button
         className="text-3xl leading-none text-black opacity-50 outline-none focus:outline-none"
-        onClick={() => setShowModal(false)}
+        onClick={closeModal}
       >
         <span className="text-black opacity-50">×</span>
       </button>
     </div>
   )
 
-  const ModalBody = () => (
+  const IndexPage = () => (
     <div className="flex items-center justify-between p-2">
-      <button
-        onClick={prevImage}
-        className="h-[100px] w-[70px] rounded-full bg-violet-400 p-3 text-xl text-white hover:bg-blue-700 focus:outline-none"
-      >
-        &#10094;
-      </button>
-      <ModalContent />
-      <button
-        onClick={nextImage}
-        className="h-[100px] w-[70px] rounded-full bg-violet-400 p-3 text-xl text-white hover:bg-blue-700 focus:outline-none"
-      >
-        &#10095;
-      </button>
+      <ul>
+        <li>
+          <button onClick={() => setPage('maps')} className="btn-primary">
+            Maps
+          </button>
+        </li>
+      </ul>
     </div>
   )
+  const ModalBody = () => {
+    if (page === 'index') return <IndexPage />
+
+    return (
+      <div className="flex items-center justify-between p-2">
+        <button
+          onClick={prevImage}
+          className="h-[100px] w-[70px] rounded-full bg-violet-400 p-3 text-xl text-white hover:bg-blue-700 focus:outline-none"
+        >
+          &#10094;
+        </button>
+        <ModalContent />
+        <button
+          onClick={nextImage}
+          className="h-[100px] w-[70px] rounded-full bg-violet-400 p-3 text-xl text-white hover:bg-blue-700 focus:outline-none"
+        >
+          &#10095;
+        </button>
+      </div>
+    )
+  }
 
   const ModalContainer = () => (
     <>
@@ -108,7 +128,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
 
   return (
     <>
-      {!hidden && <ModalButton />}
+      {!hidden && <ModalTrigger />}
       {showModal ? <ModalContainer /> : null}
     </>
   )
