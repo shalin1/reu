@@ -10,6 +10,7 @@ import asia from '/src/images/asia.jpg'
 import oceania from '/src/images/oceania.jpg'
 import canada from '/src/images/canada.jpg'
 import southAmerica from '/src/images/south america.jpg'
+import yearChart from '/src/images/year chart.png'
 
 const mapImages = [world, unitedStates, southAmerica, canada, europe, middleEast, asia, africa, oceania]
 
@@ -21,7 +22,7 @@ interface Props {
 
 const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal }) => {
   const [currentImage, setCurrentImage] = useState(0)
-  const [page, setPage] = useState<'index' | 'maps'>('index')
+  const [page, setPage] = useState<'index' | 'maps' | 'years'>('index')
   const [images, setImages] = useState(mapImages)
 
   const nextImage = () => {
@@ -65,8 +66,10 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
   const ModalBackdrop = () => <div className="fixed inset-0 z-40 bg-black opacity-50" />
 
   const ModalHeader = () => (
-    <div className="flex justify-between border-b p-5">
-      <h3 className="text-2xl font-semibold">Procedure Pages</h3>
+    <div className="flex justify-between border-b py-2 px-4">
+      <button onClick={() => setPage('index')}>
+        <h3 className="text-2xl font-semibold">Procedure Pages</h3>
+      </button>
       <button
         className="text-3xl leading-none text-black opacity-50 outline-none focus:outline-none"
         onClick={closeModal}
@@ -80,33 +83,40 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
     <div className="flex items-center justify-between p-2">
       <ul>
         <li>
-          <button onClick={() => setPage('maps')} className="btn-primary">
-            Maps
-          </button>
+          <button onClick={() => setPage('maps')}>Maps</button>
+        </li>
+        <li>
+          <button onClick={() => setPage('years')}>Years</button>
         </li>
       </ul>
     </div>
   )
+
+  const MapsPage = () => (
+    <div className="flex items-center justify-between p-2">
+      <button
+        onClick={prevImage}
+        className="h-[100px] w-[70px] rounded-full bg-violet-400 p-3 text-xl text-white hover:bg-blue-700 focus:outline-none"
+      >
+        &#10094;
+      </button>
+      <ModalContent />
+      <button
+        onClick={nextImage}
+        className="h-[100px] w-[70px] rounded-full bg-violet-400 p-3 text-xl text-white hover:bg-blue-700 focus:outline-none"
+      >
+        &#10095;
+      </button>
+    </div>
+  )
+
+  const YearPage = () => <img src={yearChart} alt={''} />
+
   const ModalBody = () => {
     if (page === 'index') return <IndexPage />
-
-    return (
-      <div className="flex items-center justify-between p-2">
-        <button
-          onClick={prevImage}
-          className="h-[100px] w-[70px] rounded-full bg-violet-400 p-3 text-xl text-white hover:bg-blue-700 focus:outline-none"
-        >
-          &#10094;
-        </button>
-        <ModalContent />
-        <button
-          onClick={nextImage}
-          className="h-[100px] w-[70px] rounded-full bg-violet-400 p-3 text-xl text-white hover:bg-blue-700 focus:outline-none"
-        >
-          &#10095;
-        </button>
-      </div>
-    )
+    if (page === 'years') return <YearPage />
+    if (page === 'maps') return <MapsPage />
+    return <></>
   }
 
   const ModalContainer = () => (
