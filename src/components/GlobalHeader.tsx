@@ -10,7 +10,8 @@ interface Props {
   setShowSearchModal: (arg: boolean) => void
 }
 const GlobalHeader: React.FC<Props> = ({ showModal, setShowModal, loading, sanityData, setShowSearchModal }) => {
-  if (loading) return <></>
+  if (loading || !sanityData) return <></>
+
   return (
     <div className="align-center flex justify-center gap-2 py-2 text-right sm:justify-between">
       <MainMenuButton />

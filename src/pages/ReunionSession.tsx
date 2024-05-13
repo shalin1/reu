@@ -72,8 +72,9 @@ const ReunionSession = () => {
       navigate('/order/checkout')
     }
   }, [shouldNavigate])
+  const consolidatedLoading = auth0IsLoading || (sanityUser?.stripeCustomerId && isPending) || loading || !sanityData
 
-  if (auth0IsLoading || (sanityUser?.stripeCustomerId && isPending) || loading || !sanityData) {
+  if (consolidatedLoading) {
     return <h1>Loading...</h1>
   }
 
@@ -83,7 +84,7 @@ const ReunionSession = () => {
     <div className="w-100">
       <GlobalHeader
         sanityData={sanityData}
-        loading={loading}
+        loading={consolidatedLoading}
         setShowModal={setShowModal}
         setShowSearchModal={setShowSearchModal}
         showModal={showModal}
