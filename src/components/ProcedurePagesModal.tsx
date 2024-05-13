@@ -11,7 +11,7 @@ import oceania from '/src/images/oceania.jpg'
 import canada from '/src/images/canada.jpg'
 import southAmerica from '/src/images/south america.jpg'
 
-const images = [europe, unitedStates, africa, middleEast, world, asia, oceania, canada, southAmerica]
+const images = [world, unitedStates, southAmerica, canada, europe, middleEast, asia, africa, oceania]
 
 interface Props {
   hidden: boolean
