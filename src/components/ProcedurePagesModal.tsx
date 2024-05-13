@@ -38,6 +38,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
     setCurrentImage(0)
     setPage('index')
   }
+
   React.useEffect(() => {
     const listener = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -102,7 +103,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
   )
 
   const MapsPage = () => (
-    <div className="flex items-center justify-between p-2">
+    <div className="flex h-full w-full items-center justify-center p-2">
       <button
         onClick={prevImage}
         className="h-[100px] w-[70px] rounded-full bg-violet-400 p-3 text-xl text-white hover:bg-blue-700 focus:outline-none"
@@ -119,18 +120,22 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
     </div>
   )
 
-  const YearPage = () => <img src={yearChart} alt={''} />
+  const YearPage = () => <img src={yearChart} alt="year chart" className="max-h-full max-w-full object-contain" />
 
   const ModalBody = () => (
-    <>{page === 'index' ? <IndexPage /> : page === 'years' ? <YearPage /> : page === 'maps' ? <MapsPage /> : null}</>
+    <div className="relative flex h-[80vh] w-full items-center justify-center">
+      {page === 'index' ? <IndexPage /> : page === 'years' ? <YearPage /> : page === 'maps' ? <MapsPage /> : null}
+    </div>
   )
 
   const ModalContainer = () => (
     <>
-      <div className="fixed inset-4 z-50 flex outline-none focus:outline-none">
-        <div className="w-full rounded-lg bg-white shadow-lg">
+      <div className="fixed inset-2 z-50 flex items-center justify-center outline-none focus:outline-none">
+        <div className="relative flex w-full flex-col rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none">
           <ModalHeader />
-          <ModalBody />
+          <div className="relative flex-auto p-6">
+            <ModalBody />
+          </div>
         </div>
       </div>
       <ModalBackdrop />
@@ -139,7 +144,11 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
 
   const ModalContent = () => {
     const src = images[currentImage]
-    return <img src={src} alt="img" className={'border-2'} />
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <img src={src} alt="img" className="max-h-full max-w-full object-contain" />
+      </div>
+    )
   }
 
   return (
