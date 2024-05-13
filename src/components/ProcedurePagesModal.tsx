@@ -122,15 +122,13 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
   const YearPage = () => <img src={yearChart} alt={''} />
 
   const ModalBody = () => (
-    <div className="h-[70vh]">
-      {page === 'index' ? <IndexPage /> : page === 'years' ? <YearPage /> : page === 'maps' ? <MapsPage /> : null}
-    </div>
+    <>{page === 'index' ? <IndexPage /> : page === 'years' ? <YearPage /> : page === 'maps' ? <MapsPage /> : null}</>
   )
 
   const ModalContainer = () => (
     <>
-      <div className="fixed inset-0 z-50 flex p-4 outline-none focus:outline-none">
-        <div className="flex h-full w-full flex-col overflow-hidden rounded-lg bg-white shadow-lg">
+      <div className="fixed inset-4 z-50 flex outline-none focus:outline-none">
+        <div className="w-full rounded-lg bg-white shadow-lg">
           <ModalHeader />
           <ModalBody />
         </div>
@@ -141,7 +139,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
 
   const ModalContent = () => {
     const src = images[currentImage]
-    return <img src={src} alt="img" />
+    return <img src={src} alt="img" className={'border-2'} />
   }
 
   return (
