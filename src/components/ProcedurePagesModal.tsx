@@ -67,7 +67,12 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
 
   const ModalHeader = () => (
     <div className="flex justify-between border-b py-2 px-4">
-      <button onClick={() => setPage('index')}>
+      <button
+        onClick={() => {
+          setPage('index')
+          setCurrentImage(0)
+        }}
+      >
         <h3 className="text-2xl font-semibold">Procedure Pages</h3>
       </button>
       <button
@@ -83,10 +88,14 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
     <div className="flex items-center justify-between p-2">
       <ul>
         <li>
-          <button onClick={() => setPage('maps')}>Maps</button>
+          <button onClick={() => setPage('maps')}>
+            <h1>Maps</h1>
+          </button>
         </li>
         <li>
-          <button onClick={() => setPage('years')}>Years</button>
+          <button onClick={() => setPage('years')}>
+            <h1>Years</h1>
+          </button>
         </li>
       </ul>
     </div>
@@ -112,12 +121,11 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
 
   const YearPage = () => <img src={yearChart} alt={''} />
 
-  const ModalBody = () => {
-    if (page === 'index') return <IndexPage />
-    if (page === 'years') return <YearPage />
-    if (page === 'maps') return <MapsPage />
-    return <></>
-  }
+  const ModalBody = () => (
+    <div className="h-[70vh]">
+      {page === 'index' ? <IndexPage /> : page === 'years' ? <YearPage /> : page === 'maps' ? <MapsPage /> : null}
+    </div>
+  )
 
   const ModalContainer = () => (
     <>
@@ -133,7 +141,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
 
   const ModalContent = () => {
     const src = images[currentImage]
-    return <img src={src} alt="img" className="max-h- h-fit w-fit" />
+    return <img src={src} alt="img" />
   }
 
   return (
