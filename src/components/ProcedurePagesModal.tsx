@@ -135,48 +135,52 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
   )
 
   const IndexPage = () => (
-    <div className="flex items-center justify-between p-2">
-      <ul>
+    <div className="flex flex-col items-center justify-center space-y-4 p-4">
+      <ul className="space-y-4">
         <li>
           <button
+            className="w-full rounded-lg bg-purple-400 px-6 py-3 text-lg font-bold text-white shadow-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
             onClick={() => {
               setPage('maps')
               setImages(mapImages)
               setCurrentImage(0)
             }}
           >
-            <h1>Maps</h1>
+            Maps
           </button>
         </li>
         <li>
           <button
+            className="w-full rounded-lg bg-purple-400 px-6 py-3 text-lg font-bold text-white shadow-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-green-400"
             onClick={() => {
               setPage('years')
             }}
           >
-            <h1>Years</h1>
+            Years
           </button>
         </li>
         <li>
           <button
+            className="w-full rounded-lg bg-purple-400 px-6 py-3 text-lg font-bold text-white shadow-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-red-400"
             onClick={() => {
               setPage('ears')
               setImages(earImages)
               setCurrentImage(0)
             }}
           >
-            <h1>Ear Chart</h1>
+            Ear Chart
           </button>
         </li>
         <li>
           <button
+            className="w-full rounded-lg bg-purple-400 px-6 py-3 text-lg font-bold text-white shadow-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
             onClick={() => {
               setPage('meridians')
               setImages(meridianImages)
               setCurrentImage(0)
             }}
           >
-            <h1>Meridians</h1>
+            Meridians
           </button>
         </li>
       </ul>
@@ -187,14 +191,14 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
     <div className="flex h-full w-full items-center justify-center p-2">
       <button
         onClick={prevImage}
-        className="h-[100px] w-[70px] rounded-full bg-violet-400 p-3 text-xl text-white hover:bg-blue-700 focus:outline-none"
+        className="h-[100px] w-[70px] rounded-full bg-purple-400 p-3 text-xl text-white hover:bg-purple-500 focus:outline-none"
       >
         &#10094;
       </button>
       <ModalContent />
       <button
         onClick={nextImage}
-        className="h-[100px] w-[70px] rounded-full bg-violet-400 p-3 text-xl text-white hover:bg-blue-700 focus:outline-none"
+        className="h-[100px] w-[70px] rounded-full bg-purple-400 p-3 text-xl text-white hover:bg-purple-500 focus:outline-none"
       >
         &#10095;
       </button>
