@@ -24,6 +24,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
   const [currentImage, setCurrentImage] = useState(0)
   const [page, setPage] = useState<'index' | 'maps' | 'years'>('index')
   const [images, setImages] = useState(mapImages)
+  const [isZoomed, setIsZoomed] = useState(false) // New state for zoom
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % images.length)
@@ -37,6 +38,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
     setShowModal(false)
     setCurrentImage(0)
     setPage('index')
+    setIsZoomed(false) // Reset zoom state on close
   }
 
   React.useEffect(() => {
@@ -144,9 +146,15 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
 
   const ModalContent = () => {
     const src = images[currentImage]
+    const zoomClass = isZoomed ? 'scale-150' : 'scale-100' // CSS class for zoom effect
     return (
       <div className="flex h-full w-full items-center justify-center">
-        <img src={src} alt="img" className="max-h-full max-w-full object-contain" />
+        <img
+          src={src}
+          alt="img"
+          className={`max-h-full max-w-full object-contain transition-transform duration-300 ${zoomClass}`}
+          onClick={() => setIsZoomed(!isZoomed)} // Toggle zoom on click
+        />
       </div>
     )
   }
