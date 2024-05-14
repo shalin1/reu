@@ -13,6 +13,21 @@ import southAmerica from '/src/images/south america.jpg'
 import yearChart from '/src/images/year chart.png'
 import ear1 from '/src/images/ear 1.png'
 import ear2 from '/src/images/ear 2.png'
+import meridianTl from '/src/images/meridian tl.png'
+import bladder from '/src/images/bladder.png'
+import circulation from '/src/images/circulation-sex.png'
+import conception from '/src/images/conception vessel.png'
+import gallbladder from '/src/images/gallbladder.png'
+import gv from '/src/images/governing vessel.png'
+import heart from '/src/images/heart chart.png'
+import kidney from '/src/images/kidney.png'
+import li from '/src/images/large intestine.png'
+import liver from '/src/images/liver.png'
+import lung from '/src/images/lung.png'
+import si from '/src/images/small intestine.png'
+import spleen from '/src/images/spleen.png'
+import stomach from '/src/images/stomach.png'
+import tw from '/src/images/triple warmer.png'
 
 interface Props {
   hidden: boolean
@@ -22,10 +37,27 @@ interface Props {
 
 const mapImages = [world, unitedStates, southAmerica, canada, europe, middleEast, asia, africa, oceania]
 const earImages = [ear1, ear2]
+const meridianImages = [
+  meridianTl,
+  bladder,
+  circulation,
+  conception,
+  gallbladder,
+  gv,
+  heart,
+  kidney,
+  li,
+  liver,
+  lung,
+  si,
+  spleen,
+  stomach,
+  tw,
+]
 
 const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal }) => {
   const [currentImage, setCurrentImage] = useState(0)
-  const [page, setPage] = useState<'index' | 'maps' | 'years' | 'ears'>('index')
+  const [page, setPage] = useState<'index' | 'maps' | 'years' | 'ears' | 'meridians'>('index')
   const [images, setImages] = useState(mapImages)
   const [isZoomed, setIsZoomed] = useState(false) // New state for zoom
 
@@ -76,7 +108,6 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
       <button
         onClick={() => {
           setPage('index')
-          setCurrentImage(0)
         }}
       >
         <h3 className="text-2xl font-semibold">Procedure Pages</h3>
@@ -122,6 +153,16 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
             <h1>Ear Chart</h1>
           </button>
         </li>
+        <li>
+          <button
+            onClick={() => {
+              setPage('meridians')
+              setImages(meridianImages)
+            }}
+          >
+            <h1>Meridians</h1>
+          </button>
+        </li>
       </ul>
     </div>
   )
@@ -155,6 +196,8 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
       ) : page === 'maps' ? (
         <MyCoolCarousel />
       ) : page === 'ears' ? (
+        <MyCoolCarousel />
+      ) : page === 'meridians' ? (
         <MyCoolCarousel />
       ) : null}
     </div>
