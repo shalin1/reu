@@ -11,8 +11,8 @@ import oceania from '/src/images/oceania.jpg'
 import canada from '/src/images/canada.jpg'
 import southAmerica from '/src/images/south america.jpg'
 import yearChart from '/src/images/year chart.png'
-
-const mapImages = [world, unitedStates, southAmerica, canada, europe, middleEast, asia, africa, oceania]
+import ear1 from '/src/images/ear 1.png'
+import ear2 from '/src/images/ear 2.png'
 
 interface Props {
   hidden: boolean
@@ -20,9 +20,12 @@ interface Props {
   setShowModal: (show: boolean) => void
 }
 
+const mapImages = [world, unitedStates, southAmerica, canada, europe, middleEast, asia, africa, oceania]
+const earImages = [ear1, ear2]
+
 const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal }) => {
   const [currentImage, setCurrentImage] = useState(0)
-  const [page, setPage] = useState<'index' | 'maps' | 'years'>('index')
+  const [page, setPage] = useState<'index' | 'maps' | 'years' | 'ears'>('index')
   const [images, setImages] = useState(mapImages)
   const [isZoomed, setIsZoomed] = useState(false) // New state for zoom
 
@@ -91,20 +94,39 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
     <div className="flex items-center justify-between p-2">
       <ul>
         <li>
-          <button onClick={() => setPage('maps')}>
+          <button
+            onClick={() => {
+              setPage('maps')
+              setImages(mapImages)
+            }}
+          >
             <h1>Maps</h1>
           </button>
         </li>
         <li>
-          <button onClick={() => setPage('years')}>
+          <button
+            onClick={() => {
+              setPage('years')
+            }}
+          >
             <h1>Years</h1>
+          </button>
+        </li>
+        <li>
+          <button
+            onClick={() => {
+              setPage('ears')
+              setImages(earImages)
+            }}
+          >
+            <h1>Ear Chart</h1>
           </button>
         </li>
       </ul>
     </div>
   )
 
-  const MapsPage = () => (
+  const MyCoolCarousel = () => (
     <div className="flex h-full w-full items-center justify-center p-2">
       <button
         onClick={prevImage}
@@ -126,7 +148,15 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
 
   const ModalBody = () => (
     <div className="relative flex h-[80vh] w-full items-center justify-center">
-      {page === 'index' ? <IndexPage /> : page === 'years' ? <YearPage /> : page === 'maps' ? <MapsPage /> : null}
+      {page === 'index' ? (
+        <IndexPage />
+      ) : page === 'years' ? (
+        <YearPage />
+      ) : page === 'maps' ? (
+        <MyCoolCarousel />
+      ) : page === 'ears' ? (
+        <MyCoolCarousel />
+      ) : null}
     </div>
   )
 
