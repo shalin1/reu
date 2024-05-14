@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // Import images
 import europe from '/src/images/europe.jpg'
@@ -58,15 +58,23 @@ const meridianImages = [
 const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal }) => {
   const [currentImage, setCurrentImage] = useState(0)
   const [page, setPage] = useState<'index' | 'maps' | 'years' | 'ears' | 'meridians'>('index')
-  const [images, setImages] = useState(mapImages)
+  const [images, setImages] = useState<string[]>([])
   const [isZoomed, setIsZoomed] = useState(false) // New state for zoom
 
   const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % images.length)
+    setImages((currentImages) => {
+      console.log(currentImages)
+      setCurrentImage((prev) => (prev + 1) % currentImages.length)
+      return currentImages
+    })
   }
 
   const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + images.length) % images.length)
+    setImages((currentImages) => {
+      console.log(currentImages)
+      setCurrentImage((prev) => (prev - 1 + currentImages.length) % currentImages.length)
+      return currentImages
+    })
   }
 
   const closeModal = () => {
@@ -74,9 +82,10 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
     setCurrentImage(0)
     setPage('index')
     setIsZoomed(false) // Reset zoom state on close
+    setImages([])
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     const listener = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         closeModal()
@@ -94,6 +103,10 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
       window.removeEventListener('keydown', listener)
     }
   }, [showModal])
+
+  useEffect(() => {
+    setCurrentImage(0)
+  }, [images])
 
   const ModalTrigger = () => (
     <button className="btn-primary" onClick={() => setShowModal(true)}>
@@ -129,6 +142,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
             onClick={() => {
               setPage('maps')
               setImages(mapImages)
+              setCurrentImage(0)
             }}
           >
             <h1>Maps</h1>
@@ -148,6 +162,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
             onClick={() => {
               setPage('ears')
               setImages(earImages)
+              setCurrentImage(0)
             }}
           >
             <h1>Ear Chart</h1>
@@ -158,6 +173,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
             onClick={() => {
               setPage('meridians')
               setImages(meridianImages)
+              setCurrentImage(0)
             }}
           >
             <h1>Meridians</h1>
@@ -167,7 +183,7 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
     </div>
   )
 
-  const MyCoolCarousel = () => (
+  const Carousel = () => (
     <div className="flex h-full w-full items-center justify-center p-2">
       <button
         onClick={prevImage}
@@ -194,11 +210,11 @@ const ProcedurePagesModal: React.FC<Props> = ({ hidden, showModal, setShowModal 
       ) : page === 'years' ? (
         <YearPage />
       ) : page === 'maps' ? (
-        <MyCoolCarousel />
+        <Carousel />
       ) : page === 'ears' ? (
-        <MyCoolCarousel />
+        <Carousel />
       ) : page === 'meridians' ? (
-        <MyCoolCarousel />
+        <Carousel />
       ) : null}
     </div>
   )
