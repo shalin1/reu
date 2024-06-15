@@ -7,10 +7,10 @@ type SubscriptionOption = {
   priceId: string
   label: string
 }
-const subscriptionOptions = [{ name: 'yearly', priceId: 'price_0OcWYkO0ta6i0fcmYp0ifF0o', label: '$150/year' }]
+const subscriptionOptions = [{ name: 'yearly', priceId: 'price_0OcWYkO0ta6i0fcmYp0ifF0o', label: '$100/year' }]
 
 const Checkout = () => {
-  const [selectedPriceId, setSelectedPriceId] = useState('')
+  const [selectedPriceId, setSelectedPriceId] = useState('price_0OcWYkO0ta6i0fcmYp0ifF0o')
   const [stripeCustomerId, setStripeCustomerId] = useState('')
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPriceId(event.target.value)
