@@ -10,7 +10,7 @@ type SubscriptionOption = {
 const subscriptionOptions = [{ name: 'yearly', priceId: 'price_1PRlXHJ2NmcQazwFOfSTsZ8F', label: '$125/year' }]
 
 const Checkout = () => {
-  const [selectedPriceId, setSelectedPriceId] = useState('price_0OcWYkO0ta6i0fcmYp0ifF0o')
+  const [selectedPriceId, setSelectedPriceId] = useState(subscriptionOptions[0].priceId)
   const [stripeCustomerId, setStripeCustomerId] = useState('')
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPriceId(event.target.value)
@@ -31,9 +31,8 @@ const Checkout = () => {
   return (
     <div>
       <p>
-        You must have an active subscription in order to use the Reunion web tool. Please choose one of the options
-        below and click the Checkout button to continue to billing. You will be returned to this site after finalizing
-        your order.
+        You must have an active subscription in order to use the Reunion web tool. Please click the Checkout button to
+        continue to billing. You will be returned to this site after finalizing your order.
       </p>
       <form action="/api/create-checkout-session" method="POST">
         <div className="my-3 flex justify-center gap-5">
