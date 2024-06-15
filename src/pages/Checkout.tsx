@@ -7,7 +7,7 @@ type SubscriptionOption = {
   priceId: string
   label: string
 }
-const subscriptionOptions = [{ name: 'yearly', priceId: 'price_0OcWYkO0ta6i0fcmYp0ifF0o', label: '$100/year' }]
+const subscriptionOptions = [{ name: 'yearly', priceId: 'price_1PRlXHJ2NmcQazwFOfSTsZ8F', label: '$125/year' }]
 
 const Checkout = () => {
   const [selectedPriceId, setSelectedPriceId] = useState('price_0OcWYkO0ta6i0fcmYp0ifF0o')
