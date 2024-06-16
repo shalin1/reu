@@ -56,7 +56,7 @@ router.post('/create-contributor-checkout-session', async (req, res) => {
           missing_payment_method: 'cancel',
         },
       },
-      trial_period_days: 99999,
+      trial_period_days: 730,
     },
     payment_method_collection: 'if_required',
     success_url: `${clientDomain}/order/success?session_id={CHECKOUT_SESSION_ID}`,
