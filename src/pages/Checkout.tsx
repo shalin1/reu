@@ -39,7 +39,6 @@ const Checkout = () => {
           {subscriptionOptions.map((option) => (
             <div key={option.name} className={optionDivClass(option)}>
               <input
-                required
                 type="radio"
                 id={option.name}
                 name="priceId"
