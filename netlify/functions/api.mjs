@@ -40,6 +40,39 @@ router.get('/publishable-key', (req, res) => {
   res.json({ publishable_key: process.env.STRIPE_PUBLISHABLE_KEY })
 })
 
+router.post('/create-contributor-checkout-session', async (req, res) => {
+  const requestBody = jsonifyBody(req.body)
+  const options = {
+    mode: 'subscription',
+    line_items: [
+      {
+        price: requestBody.priceId,
+        quantity: 1,
+      },
+    ],
+    subscription_data: {
+      trial_settings: {
+        end_behavior: {
+          missing_payment_method: 'cancel',
+        },
+      },
+      trial_period_days: 99999,
+    },
+    payment_method_collection: 'if_required',
+    success_url: `${clientDomain}/order/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${clientDomain}?canceled=true`,
+  }
+  // `{CHECKOUT_SESSION_ID}` is a string literal that is replaced by the actual
+  // session ID by Stripe on success
+
+  if (requestBody.stripeCustomerId) {
+    options.customer = requestBody.stripeCustomerId
+  }
+
+  const session = await stripe.checkout.sessions.create(options)
+  res.redirect(303, session.url)
+})
+
 router.post('/create-checkout-session', async (req, res) => {
   const requestBody = jsonifyBody(req.body)
   const options = {

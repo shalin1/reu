@@ -7,9 +7,11 @@ type SubscriptionOption = {
   priceId: string
   label: string
 }
-const subscriptionOptions = [{ name: 'yearly', priceId: 'price_1PRlXHJ2NmcQazwFOfSTsZ8F', label: '$125/year' }]
+const subscriptionOptions = [
+  { name: 'yearly', priceId: 'price_1PSLT5J2NmcQazwF41p9fYK9', label: "You won't be charged" },
+]
 
-const Checkout = () => {
+const VipCheckout = () => {
   const [selectedPriceId, setSelectedPriceId] = useState(subscriptionOptions[0].priceId)
   const [stripeCustomerId, setStripeCustomerId] = useState('')
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,10 +33,10 @@ const Checkout = () => {
   return (
     <div>
       <p>
-        You must have an active subscription in order to use the Reunion web tool. Please click the Checkout button to
-        continue to billing. You will be returned to this site after finalizing your order.
+        You are very cool and we appreciate you. Please click the Checkout button to set up your access. You will be
+        returned to this site after finalizing your order.
       </p>
-      <form action="/api/create-checkout-session" method="POST">
+      <form action="/api/create-contributor-checkout-session" method="POST">
         <div className="my-3 flex justify-center gap-5">
           {subscriptionOptions.map((option) => (
             <div key={option.name} className={optionDivClass(option)}>
@@ -61,4 +63,4 @@ const Checkout = () => {
   )
 }
 
-export default Checkout
+export default VipCheckout
