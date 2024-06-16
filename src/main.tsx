@@ -12,6 +12,7 @@ import Splash from './pages/Splash'
 import Success from './pages/Success'
 import Vars from './pages/Vars'
 import './index.css'
+import Vip from './pages/Vip'
 
 const queryClient = new QueryClient()
 
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
       <Route path="/vars" element={<Vars />} />
       <Route path="/session" element={<AuthenticationGuard component={ReunionSession} />} />
       <Route path="/order/checkout" element={<AuthenticationGuard component={Checkout} />} />
+      <Route path="/vip" element={<AuthenticationGuard component={Vip} />} />
       <Route element={<StripeSessionParamWrapper />}>
         <Route path="/order/success" element={<AuthenticationGuard component={Success} />} />
       </Route>
