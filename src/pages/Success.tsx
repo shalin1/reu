@@ -21,10 +21,8 @@ const Success = () => {
 
   useEffect(() => {
     if (
-      sanityUser &&
-      stripeData &&
-      sanityUser.stripeCustomerId !== stripeData.customerId &&
-      sanityUser.name !== stripeData.customerName
+      (sanityUser && stripeData && sanityUser.stripeCustomerId !== stripeData.customerId) ||
+      (sanityUser && stripeData && sanityUser.name !== stripeData.customerName)
     ) {
       sanityClient
         .patch(sanityUser._id)
@@ -44,7 +42,9 @@ const Success = () => {
         Your current subscription started {epochToDateString(stripeData.subscriptionStart)} and renews{' '}
         {epochToDateString(stripeData.subscriptionEnd)}
       </p>
-      <Link to="/session" className="btn-primary">Click to continue</Link>
+      <Link to="/session" className="btn-primary">
+        Click to continue
+      </Link>
     </div>
   )
 }
