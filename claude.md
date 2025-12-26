@@ -4,6 +4,19 @@
 
 This is a React + TypeScript SPA for browsing and searching "Reunion" files, with a Stripe-based subscription paywall. The architecture makes several unconventional choices that are worth documenting.
 
+## 🎉 Recent Fix: Webhook-Based Subscription Flow
+
+**Problem:** Users completing Stripe checkout sometimes didn't return to the app, leaving them stuck unable to access despite having paid. This required disabling the paywall via `VITE_DISABLE_PAYWALL` for over a year.
+
+**Solution:** Implemented Stripe webhooks as the authoritative source for subscription status. See `WEBHOOK_SETUP.md` and `SUBSCRIPTION_FIX_SUMMARY.md` for complete details.
+
+**Key improvements:**
+- Webhook endpoint handles subscription events from Stripe automatically
+- 5-minute grace period for new users to prevent false paywall redirects
+- Enhanced error handling on Success page with retry logic
+- Recovery endpoint for manual account linking if needed
+- Metadata tracking (email, sanityUserId) for reliable user matching
+
 ## Key Technical Decisions
 
 ### 1. Hybrid Serverless Architecture

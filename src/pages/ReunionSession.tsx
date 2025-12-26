@@ -58,13 +58,35 @@ const ReunionSession = () => {
     queryKey: ['stripeSubscriptions'],
     queryFn: () => getHasActiveStripeSubscription(sanityUser?.stripeCustomerId),
     enabled: Boolean(sanityUser?.stripeCustomerId),
+    retry: 2,
+    retryDelay: 2000,
   })
 
   useEffect(() => {
     if (auth0IsLoading) return
     if (!sanityUser) return
-    if (!sanityUser.stripeCustomerId) return setShouldNavigate(true)
-    if (isFetched && !hasActiveSubscription) return setShouldNavigate(true)
+
+    // Check 1: If user has never paid, redirect immediately (even if account is new)
+    if (!sanityUser.stripeCustomerId) {
+      return setShouldNavigate(true)
+    }
+
+    // Check 2: User has stripeCustomerId - check if they're in grace period
+    // Grace period prevents redirect loops for users who just completed checkout
+    const userCreatedAt = new Date(sanityUser._createdAt).getTime()
+    const now = Date.now()
+    const gracePeriodMs = 5 * 60 * 1000 // 5 minutes
+    const inGracePeriod = now - userCreatedAt < gracePeriodMs
+
+    if (inGracePeriod) {
+      console.log('User in grace period, waiting for webhook sync...')
+      return
+    }
+
+    // Check 3: Outside grace period - verify subscription is still active
+    if (isFetched && !hasActiveSubscription) {
+      return setShouldNavigate(true)
+    }
   }, [auth0IsLoading, sanityUser, isFetched, hasActiveSubscription])
 
   useEffect(() => {
