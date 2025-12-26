@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "commonjs",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "build": "tsc && VITE_CLIENT_DOMAIN=$VITE_CLIENT_DOMAIN NODE_VERSION=$NODE_VERSION STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY VITE_AUTH0_DOMAIN=$VITE_AUTH0_DOMAIN VITE_AUTH0_CLIENT_ID=$VITE_AUTH0_CLIENT_ID VITE_DISABLE_PAYWALL=$VITE_DISABLE_PAYWALL VITE_SANITY_STUDIO_PROJECT_ID=$VITE_SANITY_STUDIO_PROJECT_ID VITE_SANITY_STUDIO_TOKEN=$VITE_SANITY_STUDIO_TOKEN vite build",
     "client": "vite",
@@ -13,7 +16,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@anthropic-ai/claude-code": "^2.0.5",
     "@auth0/auth0-react": "^2.2.4",
     "@netlify/functions": "^2.6.0",
     "@portabletext/react": "^3.0.2",
