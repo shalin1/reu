@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "commonjs",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "build": "tsc && VITE_CLIENT_DOMAIN=$VITE_CLIENT_DOMAIN NODE_VERSION=$NODE_VERSION STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY VITE_AUTH0_DOMAIN=$VITE_AUTH0_DOMAIN VITE_AUTH0_CLIENT_ID=$VITE_AUTH0_CLIENT_ID VITE_DISABLE_PAYWALL=$VITE_DISABLE_PAYWALL VITE_SANITY_STUDIO_PROJECT_ID=$VITE_SANITY_STUDIO_PROJECT_ID VITE_SANITY_STUDIO_TOKEN=$VITE_SANITY_STUDIO_TOKEN vite build",
     "client": "vite",
@@ -52,6 +55,7 @@
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-unused-imports": "^2.0.0",
     "jest": "^29.5.0",
+    "playwright": "^1.55.1",
     "postcss": "^8.4.20",
     "prettier": "^2.8.3",
     "prettier-plugin-tailwindcss": "^0.2.2",

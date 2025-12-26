@@ -52,6 +52,8 @@ const Checkout = () => {
           ))}
         </div>
         <input type="hidden" id="stripe-customer-id" name="stripeCustomerId" value={stripeCustomerId} />
+        <input type="hidden" name="sanityUserId" value={sanityUser?._id || ''} />
+        <input type="hidden" name="userEmail" value={sanityUser?.email || ''} />
         <button type="submit" className="btn-primary">
           Checkout
         </button>

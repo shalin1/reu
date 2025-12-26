@@ -68,6 +68,19 @@ router.post('/vip', async (req, res) => {
 
   if (requestBody.stripeCustomerId) {
     options.customer = requestBody.stripeCustomerId
+  } else if (requestBody.userEmail) {
+    // If no existing customer, provide email for Stripe to create one
+    options.customer_email = requestBody.userEmail
+  }
+
+  // Add metadata to link back to Sanity user
+  if (requestBody.sanityUserId) {
+    options.metadata = {
+      sanityUserId: requestBody.sanityUserId
+    }
+    if (requestBody.userEmail) {
+      options.metadata.userEmail = requestBody.userEmail
+    }
   }
 
   const session = await stripe.checkout.sessions.create(options)
@@ -91,6 +104,19 @@ router.post('/create-checkout-session', async (req, res) => {
 
   if (requestBody.stripeCustomerId) {
     options.customer = requestBody.stripeCustomerId
+  } else if (requestBody.userEmail) {
+    // If no existing customer, provide email for Stripe to create one
+    options.customer_email = requestBody.userEmail
+  }
+
+  // Add metadata to link back to Sanity user
+  if (requestBody.sanityUserId) {
+    options.metadata = {
+      sanityUserId: requestBody.sanityUserId
+    }
+    if (requestBody.userEmail) {
+      options.metadata.userEmail = requestBody.userEmail
+    }
   }
 
   const session = await stripe.checkout.sessions.create(options)
@@ -116,6 +142,46 @@ router.get('/stripe-subscription-details/:customerId', async (req, res) => {
   res.send({
     subscriptions: subscriptionList.data,
   })
+})
+
+router.post('/link-subscription', async (req, res) => {
+  try {
+    const { email, sanityUserId } = req.body
+
+    if (!email || !sanityUserId) {
+      return res.status(400).json({ error: 'Email and sanityUserId required' })
+    }
+
+    // Search for Stripe customer by email
+    const customers = await stripe.customers.list({ email, limit: 1 })
+
+    if (customers.data.length === 0) {
+      return res.status(404).json({ error: 'No Stripe customer found with this email' })
+    }
+
+    const customer = customers.data[0]
+
+    // Check if customer has active subscriptions
+    const subscriptions = await stripe.subscriptions.list({
+      customer: customer.id,
+      status: 'active',
+      limit: 1
+    })
+
+    if (subscriptions.data.length === 0) {
+      return res.status(404).json({ error: 'No active subscription found for this email' })
+    }
+
+    // Return the customer data for frontend to update Sanity
+    res.json({
+      customerId: customer.id,
+      customerName: customer.name,
+      subscription: subscriptions.data[0],
+    })
+  } catch (error) {
+    console.error('Link subscription error:', error)
+    res.status(500).json({ error: error.message })
+  }
 })
 
 app.use('/api/', router)
